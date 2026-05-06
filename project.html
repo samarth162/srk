@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Launchpad (Projects) | Samarth Rajendra Kulkarni</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ─────────────────────────────────────────────
+   ROOT & BASE STYLES
+───────────────────────────────────────────── */
+:root {
+  --bg:          #02020b;
+  --surface:     #08081a;
+  --card:        rgba(255,255,255,0.032);
+  --card-hover:  rgba(255,255,255,0.058);
+  --border:      rgba(255,255,255,0.07);
+  --border-a:    rgba(0,255,224,0.22);
+  --accent:      #00ffe0;
+  --text:        #b8b8d8;
+  --text-bright: #eeeeff;
+  --text-dim:    #55557a;
+  --fh:          'Syne', sans-serif;
+  --fb:          'Cormorant Garamond', serif;
+  --fm:          'JetBrains Mono', monospace;
+  --ease:        cubic-bezier(0.4,0,0.2,1);
+}
+*,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background:var(--bg); color:var(--text);
+  font-family:var(--fb); font-size:18px; line-height:1.7;
+  overflow-x:hidden;
+}
+a { color:inherit; text-decoration:none; }
+::-webkit-scrollbar { width:3px; }
+::-webkit-scrollbar-track { background:var(--bg); }
+::-webkit-scrollbar-thumb { background:var(--accent); border-radius:2px; }
+
+/* ─────────────────────────────────────────────
+   NAVIGATION
+───────────────────────────────────────────── */
+nav {
+  padding:24px 44px; display:flex;
+  justify-content:space-between; align-items:center;
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family:var(--fm); font-size:13px; color:var(--accent);
+  letter-spacing:4px; font-weight:500; text-transform: uppercase;
+}
+.back-btn {
+  font-family:var(--fm); font-size:11px; letter-spacing:2px;
+  color:var(--text); text-transform:uppercase;
+  display:flex; align-items:center; gap:8px; transition:color .3s;
+}
+.back-btn:hover { color:var(--accent); }
+.back-btn::before { content:'←'; }
+
+/* ─────────────────────────────────────────────
+   MAIN HEADER
+───────────────────────────────────────────── */
+.header { padding: 80px 44px 60px; text-align: center; }
+.title { font-family:var(--fh); font-size:clamp(40px,6vw,80px); font-weight:800; color:var(--text-bright); letter-spacing:-2px; margin-bottom: 12px;}
+.subtitle { font-family:var(--fb); font-style:italic; font-size:20px; color:var(--text-dim); font-weight:300; }
+
+/* ─────────────────────────────────────────────
+   PROJECT GRID
+───────────────────────────────────────────── */
+.proj-container {
+  max-width: 1180px; margin: 0 auto; padding: 0 44px 100px;
+}
+.proj-grid {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:2px; background:var(--border);
+}
+.proj-card {
+  background:var(--surface); cursor:pointer;
+  position:relative; overflow:hidden; transition:.35s var(--ease);
+  display:flex; flex-direction:column;
+}
+.proj-card.feat { grid-column:span 2; }
+.proj-img {
+  width:100%; overflow:hidden; background:var(--bg);
+  position:relative;
+}
+.proj-card:not(.feat) .proj-img { height:200px; }
+.proj-card.feat .proj-img { height:260px; }
+.proj-img img { width:100%; height:100%; object-fit:cover; filter:grayscale(35%) brightness(.8); transition:transform .6s ease, filter .5s; }
+.proj-card:hover .proj-img img { transform:scale(1.06); filter:grayscale(0%) brightness(1); }
+.proj-body { padding:26px 28px 40px; flex:1; }
+.proj-num { font-family:var(--fm); font-size:9px; color:var(--accent); letter-spacing:3px; margin-bottom:8px; }
+.proj-name { font-family:var(--fh); font-size:18px; font-weight:700; color:var(--text-bright); line-height:1.3; margin-bottom:8px; }
+.proj-brief { font-size:14px; color:var(--text-dim); line-height:1.65; font-weight:300; }
+.proj-hover {
+  position:absolute; bottom:0; left:0; right:0;
+  background:linear-gradient(0deg,rgba(0,0,0,.8) 0%,transparent 100%);
+  padding:16px 24px; display:flex; justify-content:flex-end;
+  opacity:0; transition:opacity .3s; pointer-events:none;
+}
+.proj-card:hover .proj-hover { opacity:1; }
+.proj-cta {
+  font-family:var(--fm); font-size:9px; letter-spacing:2px;
+  color:var(--accent); text-transform:uppercase;
+  padding:7px 16px; border:1px solid var(--accent);
+  background:rgba(0,255,224,.1);
+}
+
+/* ─────────────────────────────────────────────
+   DETAIL PANEL (slide-in page)
+───────────────────────────────────────────── */
+#detail {
+  position:fixed; inset:0; z-index:800;
+  opacity:0; visibility:hidden;
+  transition:opacity .45s, visibility .45s;
+}
+#detail.open { opacity:1; visibility:visible; }
+#det-back {
+  position:absolute; inset:0;
+  background:rgba(2,2,11,.88); backdrop-filter:blur(10px);
+}
+#det-panel {
+  position:absolute; right:0; top:0; bottom:0;
+  width:min(680px,100vw);
+  background:var(--surface);
+  border-left:1px solid var(--border-a);
+  overflow-y:auto; padding:60px 52px;
+  transform:translateX(100%);
+  transition:transform .55s cubic-bezier(0.16,1,0.3,1);
+}
+#detail.open #det-panel { transform:translateX(0); }
+#det-close {
+  position:absolute; top:24px; right:24px;
+  background:none; border:1px solid var(--border); color:var(--text-dim);
+  width:40px; height:40px; display:flex; align-items:center; justify-content:center;
+  cursor:pointer; font-family:var(--fm); font-size:20px; line-height:1;
+  transition:.3s var(--ease);
+}
+#det-close:hover { border-color:var(--accent); color:var(--accent); }
+.det-tag { font-family:var(--fm); font-size:10px; letter-spacing:4px; color:var(--accent); text-transform:uppercase; margin-bottom:14px; }
+.det-title { font-family:var(--fh); font-size:clamp(26px,4vw,44px); font-weight:800; color:var(--text-bright); line-height:1.1; letter-spacing:-1px; margin-bottom:8px; }
+.det-sub { font-family:var(--fb); font-style:italic; font-size:19px; color:var(--text-dim); margin-bottom:6px; font-weight:300; }
+.det-period {
+  font-family:var(--fm); font-size:10px; color:var(--text-dim);
+  letter-spacing:2px; margin-bottom:36px;
+  display:flex; align-items:center; gap:12px;
+}
+.det-period::before { content:''; display:block; width:18px; height:1px; background:var(--accent); }
+.det-img {
+  width:100%; aspect-ratio:16/9; background:var(--bg);
+  border:1px solid var(--border); overflow:hidden; margin-bottom:36px;
+  position:relative;
+}
+.det-img img { width:100%; height:100%; object-fit:cover; filter:grayscale(15%) contrast(1.1); }
+.det-body { font-size:16px; line-height:1.85; color:var(--text); font-weight:300; }
+.det-body p + p { margin-top:16px; }
+.det-body strong { color:var(--text-bright); font-style:italic; }
+.det-body em { color:var(--accent); font-style:normal; font-family:var(--fm); font-size:13px; letter-spacing:1px; }
+.det-skills { margin-top:32px; padding-top:32px; border-top:1px solid var(--border); }
+.det-skills-hd { font-family:var(--fm); font-size:9px; letter-spacing:5px; color:var(--text-dim); text-transform:uppercase; margin-bottom:14px; }
+.det-tags { display:flex; flex-wrap:wrap; gap:7px; }
+.det-t { font-family:var(--fm); font-size:9px; padding:4px 12px; background:var(--card); border:1px solid var(--border); color:var(--text-dim); letter-spacing:1px; }
+
+@media(max-width:1024px) {
+  .proj-grid { grid-template-columns:1fr 1fr; }
+  .proj-card.feat { grid-column:span 2; }
+}
+@media(max-width:768px) {
+  nav { padding: 20px 24px; }
+  .header { padding: 60px 24px 20px; }
+  .proj-container { padding: 0 24px 60px; }
+  .proj-grid { grid-template-columns:1fr; background:none; gap:2px; }
+  .proj-card.feat { grid-column:span 1; }
+  #det-panel { padding:40px 28px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="back-btn">Return to Mission Control</a>
+  <div class="nav-logo">Samarth Rajendra Kulkarni</div>
+</nav>
+
+<div class="header">
+  <div class="title">THE LAUNCHPAD</div>
+  <div class="subtitle">Full log of engineering experiments, simulations, and builds.</div>
+</div>
+
+<div class="proj-container">
+  <div class="proj-grid" id="proj-grid">
+    </div>
+</div>
+
+<div id="detail">
+  <div id="det-back"></div>
+  <div id="det-panel">
+    <button id="det-close" aria-label="Close">×</button>
+    <div id="det-content"></div>
+  </div>
+</div>
+
+<script>
+/* ─── DATA ───────────────────────────── */
+const projects = [
+  {
+    id:'thruster', num:'P.01', feat:true,
+    name:'Numerical Simulation of Spray Combustion in MMH/N₂O₄ Bipropellant Thruster',
+    brief:'Final year project — CFD modelling of combustion characteristics in a bipropellant rocket thruster using reduced chemical mechanisms.',
+    image:'images/proj-thruster.jpeg',
+    period:'AUG 2025', tags:['CFD','Combustion','ANSYS Fluent','Rocket Propulsion','MMH/N2O4','Reduced Chemistry'],
+    content:`<p>My undergraduate capstone — a comprehensive <strong>numerical simulation of spray combustion and heat transfer of MMH/N₂O₄</strong> (Monomethylhydrazine / Dinitrogen Tetroxide) in a bipropellant rocket thruster, using reduced chemical mechanism.</p>
+    <p>The simulation focused on atomization behaviour, ignition characteristics, combustion stability, and thermal performance — with the goal of improving thruster efficiency and propulsion system reliability for aerospace applications.</p>
+    <p>Tools: <strong>ANSYS Fluent</strong> for CFD simulation. The project won <em>First Prize</em> at Innovation Gallery 2026 (E-Cell, Amity University Maharashtra) among 40+ competing teams.</p>
+    <p>This work represents the deepest technical challenge I've undertaken independently, combining fluid dynamics, chemical kinetics, and aerospace engineering in a single model.</p>`
+  },
+  {
+    id:'mandrel', num:'P.02', feat:false,
+    name:'Integrated Mandrel Transport System — S200 Strap-on Boosters (ISRO)',
+    brief:'Structural design and analysis of the mandrel handling system for S200 solid motor segments at SDSC-SHAR.',
+    image:'images/proj-mandrel.png',
+    period:'JUN–JUL 2025', tags:['Structural Design','Load Analysis','LVM3','ISRO','Launch Vehicle Systems'],
+    content:`<p>Designed and analysed an <strong>integrated mandrel transport system</strong> for the middle and nozzle end segments of S200 strap-on boosters — the solid rocket boosters of India's LVM-III launch vehicle.</p>
+    <p>The work at <strong>Satish Dhawan Space Centre (ISRO)</strong> involved structural design, load analysis, and system optimization to ensure safe and efficient handling during solid motor propellant casting operations.</p>
+    <p>This project gave me hands-on exposure to aerospace manufacturing practices and the structural thinking required when systems must be both safe and operable under demanding factory conditions.</p>`
+  },
+  {
+    id:'hypersonic', num:'P.03', feat:false,
+    name:'CFD Analysis of Hypersonic Flow & Thermal Effects on Re-entry Vehicles',
+    brief:'Academic study of aerodynamic performance, shock wave behaviour, and thermal loads at high Mach numbers using ANSYS Fluent.',
+    image:'images/proj-hypersonic.jpeg',
+    period:'JAN–MAY 2025', tags:['CFD','Hypersonics','Re-entry','ANSYS Fluent','Aerodynamics','TPS'],
+    content:`<p>Conducted a systematic <strong>CFD analysis of hypersonic flow</strong> and thermal effects on re-entry vehicle configurations, focusing on aerodynamic performance, shock wave patterns, pressure distribution, and thermal protection system (TPS) design implications.</p>
+    <p>Multiple re-entry vehicle geometries were designed and analysed using <strong>ANSYS Fluent</strong> at Mach numbers representative of atmospheric re-entry — producing data on heat flux, stagnation pressure, and boundary layer behaviour.</p>
+    <p>The study provided insights into geometry-driven trade-offs between drag, stability, and thermal loads — critical considerations for next-generation re-entry capsules and hypersonic glide vehicles.</p>`
+  },
+  {
+    id:'composite', num:'P.04', feat:false,
+    name:'GFRP + Rohacell Foam Core Composite Sandwich Structures (DRDO)',
+    brief:'Manufacturing and structural characterisation of aerospace-grade composite sandwich panels at DRDO Composite Research Centre.',
+    image:'images/proj-composite.jpg',
+    period:'JUN–SEP 2024', tags:['Composite Materials','GFRP','Sandwich Structures','Manufacturing','DRDO','Additive Manufacturing'],
+    content:`<p>Designed, manufactured, and analysed advanced <strong>GFRP (Glass Fibre Reinforced Polymer) face sheets with Rohacell foam core sandwich panels</strong> for aerospace applications during my DRDO internship.</p>
+    <p>The project emphasised structural performance metrics, lightweight design advantages, and manufacturing process optimisation — including research into additive manufacturing techniques for composite component fabrication.</p>
+    <p>Results were used to understand the structural suitability of these panels for aerospace component applications where weight, stiffness, and damage tolerance must be simultaneously optimised.</p>`
+  },
+  {
+    id:'drone', num:'P.05', feat:false,
+    name:'FPV Freestyle Drone & Fixed-Wing RC Aircraft',
+    brief:'End-to-end design, build, and flight testing of custom FPV drones and RC planes — from component selection to PID tuning.',
+    image:'images/proj-drone.jpeg',
+    period:'DEC 2022–MAR 2024', tags:['FPV','Drone','RC Plane','Flight Dynamics','Electronics','PID Tuning'],
+    content:`<p>Built multiple <strong>custom FPV (First-Person View) drones and RC fixed-wing aircraft</strong> from scratch — covering component selection, frame fabrication, ESC/motor integration, flight controller configuration, and PID tuning.</p>
+    <p>Applications explored included aerial photography, surveillance, and search-and-rescue scenarios. The RC plane builds deepened my understanding of <strong>aerodynamic trade-offs</strong> in wing design, control surface sizing, and propulsion matching at low Reynolds numbers.</p>
+    <p>These projects were undertaken within <strong>Team AeroSustain</strong> and contributed directly to competition entries at national-level events.</p>`
+  },
+  {
+    id:'iot', num:'P.06', feat:false,
+    name:'IoT-Based Smart Dustbin System for Municipal Corporations',
+    brief:'Arduino-powered waste management system with ultrasonic sensing, segregation, and mobile app notification integration.',
+    image:'images/proj-iot.webp',
+    period:'JUL–DEC 2019', tags:['IoT','Arduino','Ultrasonic Sensing','Waste Management','Embedded Systems'],
+    content:`<p>Designed an <strong>IoT-based smart dustbin system</strong> using an Arduino Uno microcontroller. The system automatically opens the dustbin lid upon detecting an approaching user via ultrasonic sensor (ensuring hands-free operation) and closes automatically after use.</p>
+    <p>The system incorporated <strong>waste segregation logic</strong> and was integrated with a mobile app notification system to alert garbage collection teams when the bin reaches capacity — enabling just-in-time collection and reducing overflow incidents.</p>
+    <p>This early project — built at the Atal Tinkering Lab in Solapur — was one of my first encounters with the idea that engineering can make everyday civic infrastructure smarter and more humane. It won recognition at the district level and contributed to the ATL Student Innovator Award.</p>`
+  }
+];
+
+/* ─── RENDER PROJECTS ────────────────── */
+const pgrid = document.getElementById('proj-grid');
+projects.forEach((p,i)=>{
+  const div = document.createElement('div');
+  div.className='proj-card'+(p.feat?' feat':'');
+  div.innerHTML=`
+    <div class="proj-img">
+      <img src="${p.image}" alt="${p.name}">
+    </div>
+    <div class="proj-body">
+      <div class="proj-num">${p.num}</div>
+      <div class="proj-name">${p.name}</div>
+      <div class="proj-brief">${p.brief}</div>
+    </div>
+    <div class="proj-hover"><span class="proj-cta">Open Dossier</span></div>`;
+  div.addEventListener('click',()=>openDetail(p));
+  pgrid.appendChild(div);
+});
+
+/* ─── DETAIL PANEL ───────────────────── */
+const detEl = document.getElementById('detail');
+const detContent = document.getElementById('det-content');
+const detBack = document.getElementById('det-back');
+const detClose = document.getElementById('det-close');
+
+function openDetail(item){
+  detContent.innerHTML=`
+    <div class="det-tag">PROJECT</div>
+    <div class="det-title">${item.name}</div>
+    <div class="det-period">${item.period}</div>
+    <div class="det-img">
+      <img src="${item.image}" alt="${item.name}">
+    </div>
+    <div class="det-body">${item.content}</div>
+    <div class="det-skills">
+      <div class="det-skills-hd">Technologies & Focus</div>
+      <div class="det-tags">${item.tags.map(t=>`<span class="det-t">${t}</span>`).join('')}</div>
+    </div>`;
+  detEl.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeDetail(){
+  detEl.classList.remove('open');
+  document.body.style.overflow='';
+}
+detClose.addEventListener('click',closeDetail);
+detBack.addEventListener('click',closeDetail);
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeDetail(); });
+
+</script>
+</body>
+</html>
