@@ -175,7 +175,7 @@ nav {
 .sb-links li { overflow:hidden; }
 .sb-links a {
   display:block; font-family:var(--fh);
-  font-size:clamp(18px,4vw,38px); /* Reduced font size for mobile fit */
+  font-size:clamp(18px,4vw,38px); /* Reduced menu font size */
   font-weight:800;
   color:var(--text-dim); padding:8px 0;
   letter-spacing:-1px;
@@ -240,7 +240,8 @@ section { padding:140px 44px; max-width:1180px; margin:0 auto; position:relative
 }
 .hero-name {
   font-family:var(--fh); font-weight:800;
-  font-size:clamp(42px,8.5vw,130px);
+  /* Reduced Title Font Size by ~15% */
+  font-size:clamp(35px,7.2vw,110px);
   color:var(--text-bright); line-height:.86; letter-spacing:-4px;
   max-width:900px; position:relative; z-index:2;
   opacity:0; animation:fadeup .8s 2.8s forwards;
@@ -393,7 +394,7 @@ section { padding:140px 44px; max-width:1180px; margin:0 auto; position:relative
   display:flex; align-items:center; gap:6px;
   opacity:0; transition:opacity .3s;
 }
-.tl-item.exp-card:hover .tl-more { opacity:1; } /* Only show 'View Dossier' on experience */
+.tl-item.exp-card:hover .tl-more { opacity:1; }
 
 /* ─────────────────────────────────────────────
    FLIGHT LOG — EXPERIENCE TIMELINE
@@ -482,7 +483,7 @@ section { padding:140px 44px; max-width:1180px; margin:0 auto; position:relative
 .blog-go::after { content:'→'; }
 .blog-card.cs {
   display:flex; flex-direction:column; align-items:center;
-  justify-content:center; text-align:center; cursor:default;
+  justify-content:center; text-align:center; cursor:pointer;
   border:1px dashed rgba(255,255,255,.05); background:transparent;
 }
 .blog-card.cs::after { display:none; }
@@ -594,38 +595,6 @@ footer {
 .det-t { font-family:var(--fm); font-size:9px; padding:4px 12px; background:var(--card); border:1px solid var(--border); color:var(--text-dim); letter-spacing:1px; }
 
 /* ─────────────────────────────────────────────
-   BLOG DETAIL (same panel, full width)
-───────────────────────────────────────────── */
-#blog-detail {
-  position:fixed; inset:0; z-index:800;
-  opacity:0; visibility:hidden;
-  transition:opacity .45s, visibility .45s;
-}
-#blog-detail.open { opacity:1; visibility:visible; }
-#bd-back { position:absolute; inset:0; background:rgba(2,2,11,.9); backdrop-filter:blur(10px); }
-#bd-panel {
-  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%) scale(.96);
-  width:min(760px,94vw); max-height:88vh; overflow-y:auto;
-  background:var(--surface); border:1px solid var(--border-a);
-  padding:60px; transition:transform .5s cubic-bezier(0.16,1,0.3,1), opacity .5s;
-  opacity:0;
-}
-#blog-detail.open #bd-panel { transform:translate(-50%,-50%) scale(1); opacity:1; }
-#bd-close {
-  position:absolute; top:20px; right:20px;
-  background:none; border:1px solid var(--border); color:var(--text-dim);
-  width:38px; height:38px; display:flex; align-items:center; justify-content:center;
-  cursor:pointer; font-family:var(--fm); font-size:18px;
-  transition:.3s var(--ease);
-}
-#bd-close:hover { border-color:var(--accent); color:var(--accent); }
-.bd-date { font-family:var(--fm); font-size:10px; letter-spacing:4px; color:var(--accent); margin-bottom:16px; }
-.bd-title { font-family:var(--fh); font-size:clamp(24px,4vw,46px); font-weight:800; color:var(--text-bright); line-height:1.1; letter-spacing:-1px; margin-bottom:32px; }
-.bd-body { font-size:17px; line-height:1.9; color:var(--text); font-weight:300; }
-.bd-body p + p { margin-top:18px; }
-.bd-body strong { color:var(--text-bright); }
-
-/* ─────────────────────────────────────────────
    SCROLL REVEAL
 ───────────────────────────────────────────── */
 .reveal { opacity:0; transform:translateY(40px); transition:opacity .75s ease, transform .75s ease; }
@@ -661,7 +630,6 @@ footer {
   .blog-grid { grid-template-columns:1fr; }
   .awards-strip { grid-template-columns:1fr 1fr; }
   #det-panel { padding:40px 28px; }
-  #bd-panel { padding:40px 28px; }
   .contact-big { font-size:clamp(36px,10vw,72px); }
   footer { padding:32px 24px; }
 }
@@ -701,8 +669,8 @@ footer {
     <li><a href="#about" class="sb-link">Mission Brief</a></li>
     <li><a href="#education" class="sb-link">Academic Core</a></li>
     <li><a href="#experience" class="sb-link">Flight Log</a></li>
-    <li><a href="#projects" class="sb-link">Launchpad</a></li>
-    <li><a href="#blog" class="sb-link">Transmissions</a></li>
+    <li><a href="project.html" class="sb-link">Launchpad</a></li>
+    <li><a href="blog.html" class="sb-link">Transmissions</a></li>
     <li><a href="archive.html" class="sb-link">Archive</a></li>
     <li><a href="#contact" class="sb-link">Open Comms</a></li>
   </ul>
@@ -733,7 +701,7 @@ footer {
     <span class="chip">Structural Analysis · FEA · CFD</span>
   </div>
   <div class="hero-cta">
-    <a href="#projects" class="btn-p">Explore Work</a>
+    <a href="project.html" class="btn-p">Explore Work</a>
     <a href="#contact" class="btn-s">Let's Connect</a>
     <a href="resume.pdf" target="_blank" class="btn-s">
       <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" style="margin-right:4px;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM6 20V4h5v7h7v9H6z"/></svg> View Resume
@@ -813,7 +781,7 @@ footer {
     <div class="sec-line"></div>
     <span class="sec-tag">Academic Core</span>
   </div>
-  <div class="sec-title reveal rd1">EDUCATION<br>BACKGROUND</div>
+  <div class="sec-title reveal rd1" style="font-size: clamp(36px, 5.6vw, 78px);">EDUCATION<br>BACKGROUND</div>
   <p class="sec-sub reveal rd2">The academic launchpads of my journey.</p>
 
   <div class="timeline reveal rd3">
@@ -920,28 +888,25 @@ footer {
   <p class="sec-sub reveal rd2">Thoughts broadcast from the edge of the atmosphere.</p>
 
   <div class="blog-grid reveal rd3">
-    <div class="blog-card" onclick="openBlog(0)">
+    <div class="blog-card" onclick="window.location.href='blog.html'">
       <div class="blog-date">MAY 2026 · JOURNEY</div>
       <div class="blog-title">My Road to AIR-50 in GATE Aerospace Engineering</div>
       <div class="blog-expt">How 18 months of focused preparation, a structured study plan, and an unwavering belief in first-principles thinking got me a top 50 rank in India's most competitive engineering exam.</div>
       <div class="blog-go">Read transmission</div>
     </div>
-    <div class="blog-card" onclick="openBlog(1)">
+    <div class="blog-card" onclick="window.location.href='blog.html'">
       <div class="blog-date">AUG 2025 · INTERNSHIP DIARY</div>
       <div class="blog-title">Inside ISRO's Mission: Life at Satish Dhawan Space Centre</div>
       <div class="blog-expt">What it's really like to work on the structural systems of India's most powerful launch vehicle — the stories, the learning, and the quiet magic of watching rockets come to life.</div>
       <div class="blog-go">Read transmission</div>
     </div>
-    <div class="blog-card" onclick="openBlog(2)">
-      <div class="blog-date">DEC 2024 · OPINION</div>
-      <div class="blog-title">Why Space Sustainability Is the Most Important Engineering Challenge of Our Generation</div>
-      <div class="blog-expt">Orbital debris, responsible launch practices, and the materials revolution needed to make humanity a truly multi-planetary species without trashing the neighbourhood first.</div>
-      <div class="blog-go">Read transmission</div>
-    </div>
-    <div class="blog-card cs">
-      <div class="cs-icon">📡</div>
-      <div class="cs-msg">More transmissions incoming · Stay tuned</div>
-    </div>
+    <a href="blog.html" style="text-decoration: none; color: inherit; display: block; height: 100%;">
+      <div class="blog-card cs" style="height: 100%; cursor: pointer;">
+        <div class="cs-icon">📡</div>
+        <div class="cs-msg" style="font-size: 14px;">Access Full Archive</div>
+        <div class="blog-go" style="margin-top: 12px; justify-content: center;">View All Transmissions</div>
+      </div>
+    </a>
   </div>
 </section>
 
@@ -993,14 +958,6 @@ footer {
   <div id="det-panel">
     <button id="det-close" aria-label="Close">×</button>
     <div id="det-content"></div>
-  </div>
-</div>
-
-<div id="blog-detail">
-  <div id="bd-back"></div>
-  <div id="bd-panel">
-    <button id="bd-close" aria-label="Close">×</button>
-    <div id="bd-content"></div>
   </div>
 </div>
 
@@ -1148,36 +1105,6 @@ const projects = [
   }
 ];
 
-const blogs = [
-  {
-    date:'MAY 2026',
-    title:'My Road to AIR-50 in GATE Aerospace Engineering',
-    content:`<p>People often ask me what it takes to crack GATE Aerospace Engineering — and more specifically, how I got to AIR-50 in 2026. The honest answer is: <strong>first principles, not memorisation</strong>.</p>
-    <p>I started preparing seriously about 18 months before the exam. The first thing I did was map every subject to its conceptual foundations — not to the question types that appear in previous papers, but to the core ideas those questions test. Structural mechanics. Fluid dynamics. Propulsion thermodynamics. Each domain has a handful of governing ideas; everything else is a variation.</p>
-    <p>My daily structure: two hours in the morning for new concepts (with derivations, not just reading), one hour in the afternoon for problem-solving, and a light evening review. Weekends were for mock tests and pattern analysis — understanding not just what I got wrong, but <em>why</em> the right answer is right from first principles.</p>
-    <p>The GATE AE paper rewards candidates who can <strong>move fluidly between domains</strong> — who can apply a structural mechanics concept in a propulsion context or spot the fluid dynamics underpinning an aircraft stability question. That cross-domain fluency only comes from genuine understanding, not rote preparation.</p>
-    <p>If I could give one piece of advice: fall in love with the subject. Rank follows naturally when you genuinely want to understand how things work.</p>`
-  },
-  {
-    date:'AUG 2025',
-    title:'Inside ISRO\'s Mission: Life at Satish Dhawan Space Centre',
-    content:`<p>The morning I first drove through the gates of <strong>Satish Dhawan Space Centre, Sriharikota</strong>, I felt something I hadn't felt before — a kind of weight in the air. Not the humid heat of coastal Andhra Pradesh, but something more like the accumulated mass of every rocket that had ever launched from this barrier island.</p>
-    <p>I was there to work on structural analysis of the <strong>S200 solid strap-on boosters</strong> of LVM3 — India's most powerful operational launch vehicle. The problem I was handed on day one was concrete, well-scoped, and genuinely consequential. That felt different from academic assignments.</p>
-    <p>The engineers there had a particular way of working. <strong>Deliberate. Unhurried. Precise.</strong> Mistakes in this domain don't announce themselves gently. So the culture doesn't allow shortcuts — not even in documentation. Especially in documentation.</p>
-    <p>The thing that struck me most wasn't the hardware (though the hardware is extraordinary). It was the <strong>institutional memory</strong>. Engineers who had worked on PSLV in the 1990s were still in the building, mentoring the team that would take India to the Moon and beyond. That depth of knowledge doesn't exist in many places in the world.</p>
-    <p>I came back from Sriharikota with a stronger engineering foundation and a clearer sense of purpose. If you ever get the chance to work at ISRO — take it. Whatever it costs you, take it.</p>`
-  },
-  {
-    date:'DEC 2024',
-    title:'Why Space Sustainability Is the Most Important Engineering Challenge of Our Generation',
-    content:`<p>We are living in the first era of genuine commercial spaceflight. Hundreds of satellites are launched every year. Mega-constellations are reshaping global connectivity. And orbital debris is quietly becoming <strong>the defining infrastructure risk of the 21st century</strong>.</p>
-    <p>Here's the uncomfortable truth: if we don't solve orbital sustainability, we may eventually reach a point where certain orbital regimes become unusable — not in theory, not in science fiction, but in practice. The Kessler syndrome isn't a remote scenario. It's a trajectory we're already on.</p>
-    <p>The engineering challenges are real and fascinating. <strong>Active debris removal</strong> requires matching orbital velocities with non-cooperative targets — objects that may be tumbling, degraded, and poorly characterised. Drag sails and de-orbit systems need to be lightweight, reliable, and fail-safe over multi-year missions. Satellite end-of-life protocols need to be standardised globally, which is as much a geopolitical problem as an engineering one.</p>
-    <p>My own research interest in <strong>reconfigurable space structures and advanced composite materials</strong> connects directly to this challenge. Lighter structures mean lower launch costs, which enables more sustainable constellation designs. Structures that can be reconfigured or repaired in orbit mean longer satellite lifetimes and less debris.</p>
-    <p>The generation of engineers entering the field now will either solve this problem or inherit its consequences. I know which option I'd prefer — and I'm building toward it.</p>`
-  }
-];
-
 /* ─── BOOT SEQUENCE ──────────────────── */
 window.addEventListener('load', () => {
   const boot = document.getElementById('boot');
@@ -1301,9 +1228,11 @@ experiences.forEach((exp,i)=>{
   obs.observe(div);
 });
 
-/* ─── RENDER PROJECTS ────────────────── */
+/* ─── RENDER PROJECTS (Top 5 + Link) ─── */
 const pgrid = document.getElementById('proj-grid');
-projects.forEach((p,i)=>{
+const topProjects = projects.slice(0, 5); // Show first 5 projects
+
+topProjects.forEach((p,i)=>{
   const div = document.createElement('div');
   div.className='proj-card reveal'+(p.feat?' feat':'');
   div.innerHTML=`
@@ -1320,6 +1249,20 @@ projects.forEach((p,i)=>{
   pgrid.appendChild(div);
   obs.observe(div);
 });
+
+// Add the 6th Card: "View All Projects"
+const viewAllCard = document.createElement('a');
+viewAllCard.href = 'project.html';
+viewAllCard.className = 'proj-card reveal';
+viewAllCard.style.cssText = 'text-decoration:none; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; border:1px dashed rgba(255,255,255,.05); background:transparent;';
+viewAllCard.innerHTML = `
+  <div style="font-size:36px; opacity:.2; margin-bottom:14px;">🛠️</div>
+  <div style="font-family:var(--fm); font-size:12px; letter-spacing:4px; color:var(--text-dim); text-transform:uppercase;">Access Full Launchpad</div>
+  <div class="proj-cta" style="margin-top:16px;">View All Projects</div>
+`;
+pgrid.appendChild(viewAllCard);
+obs.observe(viewAllCard);
+
 
 /* ─── DETAIL PANEL ───────────────────── */
 const detEl = document.getElementById('detail');
@@ -1351,29 +1294,7 @@ function closeDetail(){
 }
 detClose.addEventListener('click',closeDetail);
 detBack.addEventListener('click',closeDetail);
-document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ closeDetail(); closeBlog(); }});
-
-/* ─── BLOG DETAIL ────────────────────── */
-const bdEl = document.getElementById('blog-detail');
-const bdContent = document.getElementById('bd-content');
-const bdBack = document.getElementById('bd-back');
-const bdClose = document.getElementById('bd-close');
-
-function openBlog(i){
-  const b = blogs[i];
-  bdContent.innerHTML=`
-    <div class="bd-date">${b.date}</div>
-    <div class="bd-title">${b.title}</div>
-    <div class="bd-body">${b.content}</div>`;
-  bdEl.classList.add('open');
-  document.body.style.overflow='hidden';
-}
-function closeBlog(){
-  bdEl.classList.remove('open');
-  document.body.style.overflow='';
-}
-bdClose.addEventListener('click',closeBlog);
-bdBack.addEventListener('click',closeBlog);
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeDetail(); });
 
 /* ─── GLOBAL VISITOR COUNTER ─────────── */
 (function(){
