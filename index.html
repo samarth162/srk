@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Samarth R. Kulkarni – Aerospace Engineer, Space Structures Researcher & Innovator. AIR-50 GATE '26 AE | Former Intern ISRO & DRDO.">
-<meta property="og:title" content="Samarth R. Kulkarni | Aerospace Engineer">
+<meta name="description" content="Samarth Rajendra Kulkarni – Aerospace Engineer, Space Structures Researcher & Innovator. AIR-50 GATE '26 AE | Former Intern ISRO & DRDO.">
+<meta property="og:title" content="Samarth Rajendra Kulkarni | Aerospace Engineer">
 <meta property="og:description" content="Building the future of aerospace — one structure at a time.">
-<title>Samarth R. Kulkarni</title>
+<title>Samarth Rajendra Kulkarni</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
@@ -120,7 +120,7 @@ body.ch #cring {
 }
 
 /* ─────────────────────────────────────────────
-   NAVIGATION
+   NAVIGATION & FLOATING LOGO
 ───────────────────────────────────────────── */
 nav {
   position:fixed; top:0; left:0; right:0; z-index:500;
@@ -128,9 +128,20 @@ nav {
   justify-content:space-between; align-items:center;
   background:linear-gradient(180deg,rgba(2,2,11,.96) 0%,transparent 100%);
 }
-.nav-logo {
-  font-family:var(--fm); font-size:13px; color:var(--accent);
-  letter-spacing:4px; font-weight:500;
+.nav-logo-img {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--accent);
+  opacity: 0;
+  transform: scale(0.4) translate(-100px, -100px);
+  transition: all 0.6s var(--ease);
+  box-shadow: var(--glow);
+}
+.nav-logo-img.scrolled {
+  opacity: 1;
+  transform: scale(1) translate(0, 0);
 }
 .hamburger {
   display:flex; flex-direction:column; gap:5px;
@@ -138,13 +149,14 @@ nav {
   z-index:600;
 }
 .hamburger span {
-  display:block; width:26px; height:1.5px;
-  background:var(--text); transition:.4s var(--ease);
+  display:block; width:30px; height:2px;
+  background:var(--text-bright); transition:.4s var(--ease);
   transform-origin:center;
 }
-.hamburger.open span:nth-child(1) { transform:translateY(6.5px) rotate(45deg); background:var(--accent); }
+.hamburger:hover span { background:var(--accent); }
+.hamburger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); background:var(--accent); }
 .hamburger.open span:nth-child(2) { opacity:0; transform:scaleX(0); }
-.hamburger.open span:nth-child(3) { transform:translateY(-6.5px) rotate(-45deg); background:var(--accent); }
+.hamburger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); background:var(--accent); }
 
 /* ─────────────────────────────────────────────
    SIDEBAR / FULL OVERLAY MENU
@@ -195,9 +207,7 @@ nav {
 main { position:relative; z-index:1; }
 section { padding:140px 44px; max-width:1180px; margin:0 auto; position:relative; }
 
-.sec-label {
-  display:flex; align-items:center; gap:14px; margin-bottom:56px;
-}
+.sec-label { display:flex; align-items:center; gap:14px; margin-bottom:56px; }
 .sec-num { font-family:var(--fm); font-size:11px; color:var(--accent); letter-spacing:2px; }
 .sec-line { width:50px; height:1px; background:var(--border-a); }
 .sec-tag { font-family:var(--fm); font-size:10px; letter-spacing:5px; text-transform:uppercase; color:var(--text-dim); }
@@ -227,9 +237,9 @@ section { padding:140px 44px; max-width:1180px; margin:0 auto; position:relative
 }
 .hero-name {
   font-family:var(--fh); font-weight:800;
-  font-size:clamp(52px,11vw,152px);
-  color:var(--text-bright); line-height:.86; letter-spacing:-5px;
-  max-width:800px;
+  font-size:clamp(42px,8.5vw,130px);
+  color:var(--text-bright); line-height:.86; letter-spacing:-4px;
+  max-width:900px; position:relative; z-index:2;
   opacity:0; animation:fadeup .8s 2.8s forwards;
 }
 .hero-name .ac { color:var(--accent); }
@@ -241,7 +251,7 @@ section { padding:140px 44px; max-width:1180px; margin:0 auto; position:relative
 }
 .hero-chips {
   display:flex; flex-wrap:wrap; gap:10px; margin-bottom:52px;
-  opacity:0; animation:fadeup .8s 3.2s forwards;
+  opacity:0; animation:fadeup .8s 3.2s forwards; position: relative; z-index: 2;
 }
 .chip {
   font-family:var(--fm); font-size:10px; letter-spacing:1.5px;
@@ -251,7 +261,7 @@ section { padding:140px 44px; max-width:1180px; margin:0 auto; position:relative
 .chip.hl { border-color:var(--accent); color:var(--accent); background:var(--accent-dim); }
 .hero-cta {
   display:flex; gap:24px; align-items:center;
-  opacity:0; animation:fadeup .8s 3.4s forwards;
+  opacity:0; animation:fadeup .8s 3.4s forwards; position: relative; z-index: 2;
 }
 .btn-p {
   font-family:var(--fm); font-size:11px; letter-spacing:2.5px;
@@ -282,7 +292,7 @@ section { padding:140px 44px; max-width:1180px; margin:0 auto; position:relative
 /* Rings */
 .ring {
   position:absolute; border-radius:50%; pointer-events:none;
-  border:1px solid rgba(0,255,224,.055); right:-80px; top:50%;
+  border:1px solid rgba(0,255,224,.055); right:-80px; top:50%; z-index: 0;
 }
 .ring-1 { width:460px; height:460px; transform:translateY(-50%); }
 .ring-2 { width:680px; height:680px; transform:translateY(-50%); border-style:dashed; animation:rspin 50s linear infinite; }
@@ -292,23 +302,19 @@ section { padding:140px 44px; max-width:1180px; margin:0 auto; position:relative
 
 /* Hero photo */
 .hero-photo {
-  position:absolute; right:8%; top:50%;
+  position:absolute; right:8%; top:50%; z-index:1;
   transform:translateY(-50%);
   width:clamp(220px,22vw,320px); aspect-ratio:3/4;
   border:1px solid var(--border-a); overflow:hidden;
   clip-path:polygon(16px 0%,100% 0%,calc(100% - 16px) 100%,0% 100%);
   opacity:0; animation:fadein 1s 3.3s forwards;
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.hero-photo img { width:100%; height:100%; object-fit:cover; filter:grayscale(15%) contrast(1.1) brightness(.9); }
-.pholder {
-  width:100%; height:100%; background:var(--surface);
-  display:flex; flex-direction:column; align-items:center;
-  justify-content:center; gap:10px;
-  font-family:var(--fm); font-size:10px; color:var(--text-dim);
-  text-align:center; letter-spacing:2px; padding:20px;
+.hero-photo.scrolled {
+  opacity: 0;
+  transform: translateY(-150%) scale(0.5);
 }
-.pholder::before { content:'[ + ]'; font-size:22px; color:var(--accent); }
-.pholder small { opacity:.6; font-size:9px; }
+.hero-photo img { width:100%; height:100%; object-fit:cover; filter:grayscale(15%) contrast(1.1) brightness(.8); }
 
 /* ─────────────────────────────────────────────
    ABOUT — MISSION BRIEF
@@ -319,12 +325,10 @@ section { padding:140px 44px; max-width:1180px; margin:0 auto; position:relative
 .about-text p + p { margin-top:20px; }
 .about-text em { color:var(--text-bright); font-style:italic; }
 .about-text strong { color:var(--accent); font-style:normal; }
-.about-right {}
 .stats-wrap { display:grid; grid-template-columns:1fr 1fr; gap:2px; background:var(--border); margin-bottom:40px; }
 .stat-c { background:var(--surface); padding:28px 20px; text-align:center; }
 .stat-n { font-family:var(--fh); font-size:48px; font-weight:800; color:var(--accent); line-height:1; letter-spacing:-2px; }
 .stat-l { font-family:var(--fm); font-size:9px; letter-spacing:3px; color:var(--text-dim); text-transform:uppercase; margin-top:6px; display:block; }
-.skills-wrap { }
 .skills-hd { font-family:var(--fm); font-size:9px; letter-spacing:5px; color:var(--text-dim); text-transform:uppercase; margin-bottom:14px; }
 .skills-row { display:flex; flex-wrap:wrap; gap:7px; margin-bottom:20px; }
 .sk {
@@ -409,13 +413,6 @@ section { padding:140px 44px; max-width:1180px; margin:0 auto; position:relative
 .proj-card.feat .proj-img { height:260px; }
 .proj-img img { width:100%; height:100%; object-fit:cover; filter:grayscale(35%) brightness(.8); transition:transform .6s ease, filter .5s; }
 .proj-card:hover .proj-img img { transform:scale(1.06); filter:grayscale(0%) brightness(1); }
-.pimg-hold {
-  width:100%; height:100%; display:flex; flex-direction:column;
-  align-items:center; justify-content:center; background:var(--surface);
-  font-family:var(--fm); font-size:10px; color:var(--text-dim);
-  gap:10px; letter-spacing:2px; text-align:center; padding:16px;
-}
-.pimg-icon { font-size:32px; opacity:.35; }
 .proj-body { padding:26px 28px 40px; flex:1; }
 .proj-num { font-family:var(--fm); font-size:9px; color:var(--accent); letter-spacing:3px; margin-bottom:8px; }
 .proj-name { font-family:var(--fh); font-size:18px; font-weight:700; color:var(--text-bright); line-height:1.3; margin-bottom:8px; }
@@ -579,13 +576,6 @@ footer {
   position:relative;
 }
 .det-img img { width:100%; height:100%; object-fit:cover; filter:grayscale(15%) contrast(1.1); }
-.det-img-ph {
-  width:100%; height:100%; display:flex; flex-direction:column;
-  align-items:center; justify-content:center; gap:8px;
-  font-family:var(--fm); font-size:10px; color:var(--text-dim);
-  letter-spacing:2px; text-align:center; padding:20px;
-}
-.det-img-ph::before { content:'[ ADD IMAGE ]'; color:var(--border-a); font-size:12px; }
 .det-body { font-size:16px; line-height:1.85; color:var(--text); font-weight:300; }
 .det-body p + p { margin-top:16px; }
 .det-body strong { color:var(--text-bright); font-style:italic; }
@@ -672,9 +662,8 @@ footer {
 </head>
 <body>
 
-<!-- BOOT SEQUENCE ─────────────────────── -->
 <div id="boot">
-  <div class="bline" style="animation-delay:.1s"><span class="bl">SYSTEM</span><span class="bv">Initializing Samarth.R.Kulkarni v1.0</span></div>
+  <div class="bline" style="animation-delay:.1s"><span class="bl">SYSTEM</span><span class="bv">Initializing Samarth.Rajendra.Kulkarni v1.0</span></div>
   <div class="bline" style="animation-delay:.4s"><span class="bl">CORE</span><span class="bok">✓</span> Aerospace Engineering kernel loaded</div>
   <div class="bline" style="animation-delay:.7s"><span class="bl">MODULE</span><span class="bok">✓</span> ISRO · DRDO · ICTS experience mounted</div>
   <div class="bline" style="animation-delay:1s"><span class="bl">GATE'26</span><span class="bok">✓</span> AIR-50 credential verified</div>
@@ -683,32 +672,30 @@ footer {
   <div class="boot-bar"><div class="boot-fill"></div></div>
 </div>
 
-<!-- CUSTOM CURSOR ─────────────────────── -->
 <div id="cdot"></div>
 <div id="cring"></div>
 
-<!-- SCROLL PROGRESS ──────────────────── -->
 <div id="sprog"></div>
 
-<!-- BACKGROUNDS ──────────────────────── -->
 <canvas id="starfield"></canvas>
 <div class="grid-bg"></div>
 
-<!-- NAVIGATION ───────────────────────── -->
 <nav>
-  <a href="#hero" class="nav-logo">SRK</a>
+  <a href="#hero" class="nav-logo" id="navProfileLink">
+    <img src="images/profile-image.jpeg" alt="Samarth Rajendra Kulkarni" id="nav-profile-img" class="nav-logo-img">
+  </a>
   <button class="hamburger" id="ham" aria-label="Toggle menu">
     <span></span><span></span><span></span>
   </button>
 </nav>
 
-<!-- SIDEBAR MENU ─────────────────────── -->
 <div id="sidebar">
   <ul class="sb-links">
     <li><a href="#about" class="sb-link">Mission Brief</a></li>
     <li><a href="#experience" class="sb-link">Flight Log</a></li>
     <li><a href="#projects" class="sb-link">Launchpad</a></li>
     <li><a href="#blog" class="sb-link">Transmissions</a></li>
+    <li><a href="archive.html" class="sb-link">Archive</a></li>
     <li><a href="#contact" class="sb-link">Open Comms</a></li>
   </ul>
   <div class="sb-social">
@@ -719,23 +706,19 @@ footer {
   </div>
 </div>
 
-<!-- ══════════════════════════════════════
-     MAIN
-══════════════════════════════════════ -->
 <main>
 
-<!-- ① HERO ─────────────────────────── -->
 <section id="hero">
   <div class="ring ring-1"></div>
   <div class="ring ring-2"></div>
   <div class="ring ring-3"></div>
   <div class="ring ring-4"></div>
 
-  <div class="hero-eye">Aerospace Engineer · Innovator · Space Enthusiast</div>
-  <div class="hero-name">SAMARTH<br><span class="ac">R. KULKARNI</span></div>
+  <div class="hero-eye">Aerospace Engineer · Innovator · Business Adm.</div>
+  <div class="hero-name">SAMARTH<br><span class="ac">RAJENDRA KULKARNI</span></div>
   <p class="hero-tagline">Designing the structures that carry humanity's dreams beyond gravity — one simulation at a time.</p>
   <div class="hero-chips">
-    <span class="chip hl">AIR-50 GATE '26 AE</span>
+    <span class="chip">AIR-50 GATE '26 AE</span>
     <span class="chip">Former ISRO Intern</span>
     <span class="chip">Former DRDO Intern</span>
     <span class="chip">Composite Materials</span>
@@ -747,13 +730,11 @@ footer {
   </div>
   <div class="hero-scroll"><div class="s-line"></div><span class="s-lbl">Scroll to explore</span></div>
 
-  <!-- Profile photo: replace placeholder with <img src="images/samarth-profile.jpg" alt="Samarth R. Kulkarni"> -->
-  <div class="hero-photo">
-    <div class="pholder"><small>Replace with your photo<br>images/samarth-profile.jpg</small></div>
+  <div class="hero-photo" id="main-hero-photo">
+    <img src="images/profile-image.jpeg" alt="Samarth Rajendra Kulkarni">
   </div>
 </section>
 
-<!-- ② MISSION BRIEF (ABOUT) ─────────── -->
 <section id="about">
   <div class="sec-label reveal">
     <span class="sec-num">01</span>
@@ -816,7 +797,6 @@ footer {
   </div>
 </section>
 
-<!-- ③ FLIGHT LOG (EXPERIENCE) ────────── -->
 <section id="experience">
   <div class="sec-label reveal">
     <span class="sec-num">02</span>
@@ -827,11 +807,9 @@ footer {
   <p class="sec-sub reveal rd2">Every mission that shaped the engineer.</p>
 
   <div class="timeline reveal rd3" id="timeline-wrap">
-    <!-- Items injected by JS -->
-  </div>
+    </div>
 </section>
 
-<!-- ④ LAUNCHPAD (PROJECTS) ───────────── -->
 <section id="projects">
   <div class="sec-label reveal">
     <span class="sec-num">03</span>
@@ -842,10 +820,8 @@ footer {
   <p class="sec-sub reveal rd2">Engineering experiments that pushed boundaries.</p>
 
   <div class="proj-grid reveal rd3" id="proj-grid">
-    <!-- Items injected by JS -->
-  </div>
+    </div>
 
-  <!-- Awards -->
   <div class="sec-label reveal" style="margin-top:80px;margin-bottom:40px">
     <span class="sec-num">03.1</span>
     <div class="sec-line"></div>
@@ -875,7 +851,6 @@ footer {
   </div>
 </section>
 
-<!-- ⑤ SIGNAL TRANSMISSIONS (BLOG) ────── -->
 <section id="blog">
   <div class="sec-label reveal">
     <span class="sec-num">04</span>
@@ -911,7 +886,6 @@ footer {
   </div>
 </section>
 
-<!-- ⑥ OPEN COMMS (CONTACT) ───────────── -->
 <section id="contact">
   <div class="sec-label reveal" style="justify-content:center">
     <span class="sec-num">05</span>
@@ -946,10 +920,9 @@ footer {
 
 </main>
 
-<!-- FOOTER ───────────────────────────── -->
 <footer>
-  <div class="ft-logo">Samarth R. Kulkarni</div>
-  <div class="ft-copy">© 2026 Samarth R. Kulkarni · All rights reserved · Built with curiosity &amp; caffeine</div>
+  <div class="ft-logo">Samarth Rajendra Kulkarni</div>
+  <div class="ft-copy">© 2026 Samarth Rajendra Kulkarni · All rights reserved · Built with curiosity &amp; caffeine</div>
   <div class="ft-visitor">
     <span>Mission visitors:</span>
     <span class="vc" id="visitor-count">—</span>
@@ -958,7 +931,6 @@ footer {
   </div>
 </footer>
 
-<!-- DETAIL PANEL ─────────────────────── -->
 <div id="detail">
   <div id="det-back"></div>
   <div id="det-panel">
@@ -967,7 +939,6 @@ footer {
   </div>
 </div>
 
-<!-- BLOG DETAIL PANEL ────────────────── -->
 <div id="blog-detail">
   <div id="bd-back"></div>
   <div id="bd-panel">
@@ -976,9 +947,6 @@ footer {
   </div>
 </div>
 
-<!-- ══════════════════════════════════════
-     JAVASCRIPT
-══════════════════════════════════════ -->
 <script>
 /* ─── DATA ───────────────────────────── */
 const experiences = [
@@ -989,7 +957,7 @@ const experiences = [
     location:'Sriharikota, Andhra Pradesh',
     tags:['Structural Analysis','FEA','LVM3','S200 Boosters','Mandrel System','Solid Propulsion'],
     brief:'Structural analysis of S200 Solid Stage Boosters for LVM3 at India\'s premier launch facility.',
-    image:'images/isro-intern.jpg', imageHint:'ISRO SDSC-SHAR Internship',
+    image:'images/isro-image.jpeg',
     content:`<p>At <strong>ISRO's Satish Dhawan Space Centre (SDSC-SHAR)</strong>, I worked on structural analysis related to the S200 Solid Stage Boosters — the strap-on boosters of India's most powerful launch vehicle, the LVM3.</p>
     <p>The role provided deep exposure to <strong>materials and structural testing</strong> methodologies relevant to launch vehicle systems, including the simulation approaches used in actual mission preparation phases.</p>
     <p>A major deliverable was the <strong>design and analysis of an integrated mandrel transport system</strong> for the middle and nozzle end segments of S200 strap-on boosters. This involved structural design, load analysis, and system optimization to ensure safe and efficient handling during solid motor propellant casting operations.</p>
@@ -1002,7 +970,7 @@ const experiences = [
     location:'Mumbai, Maharashtra',
     tags:['Drones','RC Planes','Model Rocketry','Robotics','Team Leadership','Competition'],
     brief:'Led an aerospace innovation club competing nationally and internationally in drones, rocketry, and robotics.',
-    image:'images/aerosustain.jpg', imageHint:'Team AeroSustain',
+    image:'images/teamlead-image.jpeg',
     content:`<p><strong>Team AeroSustain</strong> is a student-run aerospace innovation club with a focus on building real flying machines — FPV drones, fixed-wing RC aircraft, model rockets, and autonomous robots.</p>
     <p>As Team Lead, I was responsible for guiding cross-functional sub-teams, coordinating project timelines, and representing the team at <strong>national and international competitions</strong>. The role demanded as much leadership and communication skill as it did engineering acumen.</p>
     <p>We competed in events organized by IITs and other premier institutions, regularly pushing the boundaries of what student teams can build on constrained budgets. The experience sharpened my ability to make rapid decisions under pressure, manage people, and translate ambitious ideas into flying prototypes.</p>`
@@ -1014,7 +982,7 @@ const experiences = [
     location:'Pune, Maharashtra',
     tags:['Composite Structures','GFRP','Rohacell Foam','Manufacturing','Additive Manufacturing','Aerospace Materials'],
     brief:'Research on advanced GFRP/Rohacell composite sandwich structures for aerospace at DRDO Pune.',
-    image:'images/drdo-intern.jpg', imageHint:'DRDO DRDO R&DE Pune Internship',
+    image:'images/drdo-image.jpeg',
     content:`<p>At <strong>DRDO's Research & Development Establishment (Engrs.)</strong> in Pune, I worked within the Composite Research Centre on the project <em>"Manufacturing of Composite Structures for Aerospace Applications."</em></p>
     <p>The project centred on <strong>GFRP face sheets with Rohacell foam core sandwich panels</strong> — analysing their structural performance, lightweight advantages, and aerospace suitability. I conducted research on composite manufacturing techniques, material selection, and additive manufacturing integration.</p>
     <p>Working directly under senior DRDO scientists and engineers, I was involved in the development and testing of composite structures aimed at enhancing both <strong>performance and durability</strong> in demanding aerospace environments.</p>
@@ -1027,7 +995,7 @@ const experiences = [
     location:'Bengaluru, Karnataka',
     tags:['Gravitational Waves','Astrophysics','Neutron Stars','Black Holes','Research','TIFR'],
     brief:'Selected for the 2024 Summer School on Gravitational Wave Astronomy at ICTS-TIFR Bengaluru.',
-    image:'images/icts.jpg', imageHint:'ICTS-TIFR Summer School',
+    image:'images/icts-image.jpeg',
     content:`<p>Selected from a competitive applicant pool for the <strong>2024 Summer School on Gravitational Wave Astronomy</strong> at the International Centre for Theoretical Sciences (ICTS-TIFR), Bengaluru.</p>
     <p>The programme covered frontier topics including the <strong>astrophysics of neutron stars and binaries</strong> (Dipankar Bhattacharya, Ashoka University), ultralight boson clouds around black holes (Nils Siemonsen, Princeton), rapidly spinning neutron stars and emission mechanisms (Keith Riles, University of Michigan), and search methods for continuous gravitational waves (Alicia M. Sintes, University of the Balearic Islands).</p>
     <p>This experience expanded my scientific worldview well beyond aerospace structures and into the deepest observational physics being done today — reinforcing my belief that the most interesting engineering frontiers sit at the boundary between disciplines.</p>`
@@ -1039,7 +1007,7 @@ const experiences = [
     location:'Mumbai, Maharashtra',
     tags:['Public Relations','Community Building','Events','Tech Outreach','Communication','Leadership'],
     brief:'Led PR strategy for GDSC-AUM, connecting 500+ students with technology and innovation opportunities.',
-    image:'images/gdsc.jpg', imageHint:'Google Developer Student Clubs AUM',
+    image:'images/gdsc-image.jpeg',
     content:`<p>As <strong>Head of Public Relations</strong> for the Google Developer Student Clubs chapter at Amity University Mumbai, I was responsible for amplifying the voice of our tech community to a wider audience.</p>
     <p>I employed strategic communication to foster connections with industry stakeholders, curated impactful events, and nurtured a culture of innovation on campus. The role gave me hands-on experience in <strong>community management, content strategy, and stakeholder engagement</strong> — skills that complement my technical profile well.</p>
     <p>The experience reinforced my belief that great technology needs great storytelling, and that connecting brilliant people with the right opportunities can spark ideas that change trajectories.</p>`
@@ -1051,7 +1019,7 @@ const experiences = [
     location:'Solapur, Maharashtra',
     tags:['STEM','Robotics','IoT','3D Printing','Coding','Outreach','Innovation'],
     brief:'Early roots: building IoT systems, robots, and CubeSat models at the Atal Tinkering Lab.',
-    image:'images/atl.jpg', imageHint:'Atal Tinkering Lab Solapur',
+    image:'images/atl-image.jpeg',
     content:`<p>My engineering story began at the <strong>Atal Tinkering Lab (ATL)</strong> in Solapur — a Government of India initiative under NITI Aayog's Atal Innovation Mission. This was where I first learned to think with my hands.</p>
     <p>As a Student Innovator, I built an <strong>IoT-based Smart Dustbin System</strong> (using Arduino Uno with ultrasonic sensing and waste segregation), Smart Home systems, a CubeSat model, self-balancing robots, Rubik's Cube solvers, and Line Follower Bots.</p>
     <p>I was honoured with the <strong>ATL Student Innovator 2020 Award</strong> by AIM, Government of India, and was nominated for the National Child Award 2022 in the Innovations category. As Student Lead STEM, I later guided younger students through similar experiences — paying forward what I had learned.</p>
@@ -1064,7 +1032,7 @@ const projects = [
     id:'thruster', num:'P.01', feat:true,
     name:'Numerical Simulation of Spray Combustion in MMH/N₂O₄ Bipropellant Thruster',
     brief:'Final year project — CFD modelling of combustion characteristics in a bipropellant rocket thruster using reduced chemical mechanisms.',
-    icon:'🚀', image:'images/thruster-project.jpg',
+    image:'images/proj-thruster.jpeg',
     period:'AUG 2025', tags:['CFD','Combustion','ANSYS Fluent','Rocket Propulsion','MMH/N2O4','Reduced Chemistry'],
     content:`<p>My undergraduate capstone — a comprehensive <strong>numerical simulation of spray combustion and heat transfer of MMH/N₂O₄</strong> (Monomethylhydrazine / Dinitrogen Tetroxide) in a bipropellant rocket thruster, using reduced chemical mechanism.</p>
     <p>The simulation focused on atomization behaviour, ignition characteristics, combustion stability, and thermal performance — with the goal of improving thruster efficiency and propulsion system reliability for aerospace applications.</p>
@@ -1075,7 +1043,7 @@ const projects = [
     id:'mandrel', num:'P.02', feat:false,
     name:'Integrated Mandrel Transport System — S200 Strap-on Boosters (ISRO)',
     brief:'Structural design and analysis of the mandrel handling system for S200 solid motor segments at SDSC-SHAR.',
-    icon:'🛰️', image:'images/mandrel-project.jpg',
+    image:'images/proj-mandrel.jpeg',
     period:'JUN–JUL 2025', tags:['Structural Design','Load Analysis','LVM3','ISRO','Launch Vehicle Systems'],
     content:`<p>Designed and analysed an <strong>integrated mandrel transport system</strong> for the middle and nozzle end segments of S200 strap-on boosters — the solid rocket boosters of India's LVM-III launch vehicle.</p>
     <p>The work at <strong>Satish Dhawan Space Centre (ISRO)</strong> involved structural design, load analysis, and system optimization to ensure safe and efficient handling during solid motor propellant casting operations.</p>
@@ -1085,7 +1053,7 @@ const projects = [
     id:'hypersonic', num:'P.03', feat:false,
     name:'CFD Analysis of Hypersonic Flow & Thermal Effects on Re-entry Vehicles',
     brief:'Academic study of aerodynamic performance, shock wave behaviour, and thermal loads at high Mach numbers using ANSYS Fluent.',
-    icon:'🌌', image:'images/hypersonic-project.jpg',
+    image:'images/proj-hypersonic.jpeg',
     period:'JAN–MAY 2025', tags:['CFD','Hypersonics','Re-entry','ANSYS Fluent','Aerodynamics','TPS'],
     content:`<p>Conducted a systematic <strong>CFD analysis of hypersonic flow</strong> and thermal effects on re-entry vehicle configurations, focusing on aerodynamic performance, shock wave patterns, pressure distribution, and thermal protection system (TPS) design implications.</p>
     <p>Multiple re-entry vehicle geometries were designed and analysed using <strong>ANSYS Fluent</strong> at Mach numbers representative of atmospheric re-entry — producing data on heat flux, stagnation pressure, and boundary layer behaviour.</p>
@@ -1095,7 +1063,7 @@ const projects = [
     id:'composite', num:'P.04', feat:false,
     name:'GFRP + Rohacell Foam Core Composite Sandwich Structures (DRDO)',
     brief:'Manufacturing and structural characterisation of aerospace-grade composite sandwich panels at DRDO Composite Research Centre.',
-    icon:'🔬', image:'images/composite-project.jpg',
+    image:'images/proj-composite.jpeg',
     period:'JUN–SEP 2024', tags:['Composite Materials','GFRP','Sandwich Structures','Manufacturing','DRDO','Additive Manufacturing'],
     content:`<p>Designed, manufactured, and analysed advanced <strong>GFRP (Glass Fibre Reinforced Polymer) face sheets with Rohacell foam core sandwich panels</strong> for aerospace applications during my DRDO internship.</p>
     <p>The project emphasised structural performance metrics, lightweight design advantages, and manufacturing process optimisation — including research into additive manufacturing techniques for composite component fabrication.</p>
@@ -1105,7 +1073,7 @@ const projects = [
     id:'drone', num:'P.05', feat:false,
     name:'FPV Freestyle Drone & Fixed-Wing RC Aircraft',
     brief:'End-to-end design, build, and flight testing of custom FPV drones and RC planes — from component selection to PID tuning.',
-    icon:'🚁', image:'images/drone-project.jpg',
+    image:'images/proj-drone.jpeg',
     period:'DEC 2022–MAR 2024', tags:['FPV','Drone','RC Plane','Flight Dynamics','Electronics','PID Tuning'],
     content:`<p>Built multiple <strong>custom FPV (First-Person View) drones and RC fixed-wing aircraft</strong> from scratch — covering component selection, frame fabrication, ESC/motor integration, flight controller configuration, and PID tuning.</p>
     <p>Applications explored included aerial photography, surveillance, and search-and-rescue scenarios. The RC plane builds deepened my understanding of <strong>aerodynamic trade-offs</strong> in wing design, control surface sizing, and propulsion matching at low Reynolds numbers.</p>
@@ -1115,7 +1083,7 @@ const projects = [
     id:'iot', num:'P.06', feat:false,
     name:'IoT-Based Smart Dustbin System for Municipal Corporations',
     brief:'Arduino-powered waste management system with ultrasonic sensing, segregation, and mobile app notification integration.',
-    icon:'💡', image:'images/iot-project.jpg',
+    image:'images/proj-iot.jpeg',
     period:'JUL–DEC 2019', tags:['IoT','Arduino','Ultrasonic Sensing','Waste Management','Embedded Systems'],
     content:`<p>Designed an <strong>IoT-based smart dustbin system</strong> using an Arduino Uno microcontroller. The system automatically opens the dustbin lid upon detecting an approaching user via ultrasonic sensor (ensuring hands-free operation) and closes automatically after use.</p>
     <p>The system incorporated <strong>waste segregation logic</strong> and was integrated with a mobile app notification system to alert garbage collection teams when the bin reaches capacity — enabling just-in-time collection and reducing overflow incidents.</p>
@@ -1178,10 +1146,22 @@ document.querySelectorAll('a,button,.tl-item,.proj-card,.blog-card,.award-c,.soc
   el.addEventListener('mouseleave',()=>document.body.classList.remove('ch'));
 });
 
-/* ─── SCROLL PROGRESS ────────────────── */
+/* ─── SCROLL PROGRESS & ANIMATIONS ───── */
 window.addEventListener('scroll',()=>{
+  // Progress Bar
   const p = window.scrollY/(document.body.scrollHeight-window.innerHeight)*100;
   document.getElementById('sprog').style.width = p+'%';
+
+  // Profile Photo Scroll Animation
+  const navImg = document.getElementById('nav-profile-img');
+  const heroPhoto = document.getElementById('main-hero-photo');
+  if(window.scrollY > 120) {
+    if(navImg) navImg.classList.add('scrolled');
+    if(heroPhoto) heroPhoto.classList.add('scrolled');
+  } else {
+    if(navImg) navImg.classList.remove('scrolled');
+    if(heroPhoto) heroPhoto.classList.remove('scrolled');
+  }
 });
 
 /* ─── STARFIELD CANVAS ───────────────── */
@@ -1271,10 +1251,7 @@ projects.forEach((p,i)=>{
   div.className='proj-card reveal'+(p.feat?' feat':'');
   div.innerHTML=`
     <div class="proj-img">
-      <div class="pimg-hold">
-        <div class="pimg-icon">${p.icon}</div>
-        <span>Add image:<br>${p.image}</span>
-      </div>
+      <img src="${p.image}" alt="${p.name}">
     </div>
     <div class="proj-body">
       <div class="proj-num">${p.num}</div>
@@ -1301,7 +1278,7 @@ function openDetail(item){
     ${isExp ? `<div class="det-sub">${item.company}</div>` : ''}
     <div class="det-period">${item.period}${item.location ? ' · '+item.location : ''}</div>
     <div class="det-img">
-      <div class="det-img-ph"><span>${item.imageHint || item.name}</span></div>
+      <img src="${item.image}" alt="${item.name || item.role}">
     </div>
     <div class="det-body">${item.content}</div>
     <div class="det-skills">
@@ -1343,9 +1320,6 @@ bdBack.addEventListener('click',closeBlog);
 
 /* ─── VISITOR COUNTER ────────────────── */
 (function(){
-  // Uses localStorage for a lightweight per-browser counter.
-  // To use a real global counter, replace this with a call to
-  // GoatCounter (goatcounter.com) or CountAPI (countapi.xyz).
   const key = 'srk_portfolio_visits';
   let v = parseInt(localStorage.getItem(key)||'0');
   const isNew = !sessionStorage.getItem('srk_session');
