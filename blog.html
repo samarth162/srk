@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Transmissions | Samarth Rajendra Kulkarni</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ─────────────────────────────────────────────
+   ROOT & BASE STYLES
+───────────────────────────────────────────── */
+:root {
+  --bg:          #02020b;
+  --surface:     #08081a;
+  --card:        rgba(255,255,255,0.032);
+  --card-hover:  rgba(255,255,255,0.058);
+  --border:      rgba(255,255,255,0.07);
+  --border-a:    rgba(0,255,224,0.22);
+  --accent:      #00ffe0;
+  --text:        #b8b8d8;
+  --text-bright: #eeeeff;
+  --text-dim:    #55557a;
+  --fh:          'Syne', sans-serif;
+  --fb:          'Cormorant Garamond', serif;
+  --fm:          'JetBrains Mono', monospace;
+  --ease:        cubic-bezier(0.4,0,0.2,1);
+}
+*,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background:var(--bg); color:var(--text);
+  font-family:var(--fb); font-size:18px; line-height:1.7;
+}
+a { color:inherit; text-decoration:none; }
+::-webkit-scrollbar { width:3px; }
+::-webkit-scrollbar-track { background:var(--bg); }
+::-webkit-scrollbar-thumb { background:var(--accent); border-radius:2px; }
+
+/* ─────────────────────────────────────────────
+   NAVIGATION
+───────────────────────────────────────────── */
+nav {
+  padding:24px 44px; display:flex;
+  justify-content:space-between; align-items:center;
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family:var(--fm); font-size:13px; color:var(--accent);
+  letter-spacing:4px; font-weight:500; text-transform: uppercase;
+}
+.back-btn {
+  font-family:var(--fm); font-size:11px; letter-spacing:2px;
+  color:var(--text); text-transform:uppercase;
+  display:flex; align-items:center; gap:8px; transition:color .3s;
+}
+.back-btn:hover { color:var(--accent); }
+.back-btn::before { content:'←'; }
+
+/* ─────────────────────────────────────────────
+   MAIN HEADER
+───────────────────────────────────────────── */
+.header { padding: 80px 44px 40px; text-align: center; }
+.title { font-family:var(--fh); font-size:clamp(40px,6vw,80px); font-weight:800; color:var(--text-bright); letter-spacing:-2px; margin-bottom: 12px;}
+.subtitle { font-family:var(--fb); font-style:italic; font-size:20px; color:var(--text-dim); font-weight:300; }
+
+/* ─────────────────────────────────────────────
+   BLOG CARDS
+───────────────────────────────────────────── */
+.blog-list {
+  display: flex; flex-direction: column; gap: 24px;
+  padding: 40px 44px 100px;
+  max-width: 900px; margin: 0 auto;
+}
+.blog-card {
+  background:var(--surface); padding:44px 40px;
+  cursor:pointer; position:relative; overflow:hidden; transition:.35s var(--ease);
+  border: 1px solid var(--border); border-radius: 8px;
+}
+.blog-card::after {
+  content:''; position:absolute; bottom:0; left:0;
+  width:0; height:2px; background:var(--accent);
+  transition:width .45s var(--ease);
+}
+.blog-card:hover::after { width:100%; }
+.blog-card:hover { background:var(--card-hover); border-color: var(--border-a); transform: translateY(-3px);}
+.blog-date { font-family:var(--fm); font-size:10px; letter-spacing:3px; color:var(--accent); margin-bottom:18px; }
+.blog-title { font-family:var(--fh); font-size:28px; font-weight:700; color:var(--text-bright); line-height:1.25; margin-bottom:14px; }
+.blog-expt { font-size:17px; color:var(--text-dim); line-height:1.7; font-weight:300; }
+.blog-go {
+  margin-top:24px; font-family:var(--fm); font-size:10px;
+  letter-spacing:3px; color:var(--text-dim); text-transform:uppercase;
+  display:flex; align-items:center; gap:8px; transition:color .3s, gap .3s;
+}
+.blog-card:hover .blog-go { color:var(--accent); gap:16px; }
+.blog-go::after { content:'→'; }
+
+/* ─────────────────────────────────────────────
+   BLOG DETAIL PANEL (Full Width Reading Mode)
+───────────────────────────────────────────── */
+#blog-detail {
+  position:fixed; inset:0; z-index:800;
+  opacity:0; visibility:hidden;
+  transition:opacity .45s, visibility .45s;
+}
+#blog-detail.open { opacity:1; visibility:visible; }
+#bd-back { position:absolute; inset:0; background:rgba(2,2,11,.95); backdrop-filter:blur(15px); }
+#bd-panel {
+  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%) scale(.96);
+  width:min(860px,94vw); max-height:90vh; overflow-y:auto;
+  background:var(--bg); border:1px solid var(--border-a); border-radius: 12px;
+  padding:80px; transition:transform .5s cubic-bezier(0.16,1,0.3,1), opacity .5s;
+  opacity:0; box-shadow: 0 0 50px rgba(0,255,224,0.05);
+}
+#blog-detail.open #bd-panel { transform:translate(-50%,-50%) scale(1); opacity:1; }
+#bd-close {
+  position:fixed; top:30px; right:30px;
+  background:var(--surface); border:1px solid var(--border); color:var(--text-dim);
+  width:44px; height:44px; display:flex; align-items:center; justify-content:center;
+  cursor:pointer; font-family:var(--fm); font-size:22px; border-radius: 50%;
+  transition:.3s var(--ease); z-index: 810;
+}
+#bd-close:hover { border-color:var(--accent); color:var(--accent); background: rgba(0,255,224,0.1);}
+.bd-date { font-family:var(--fm); font-size:11px; letter-spacing:4px; color:var(--accent); margin-bottom:20px; text-transform: uppercase; }
+.bd-title { font-family:var(--fh); font-size:clamp(32px,5vw,56px); font-weight:800; color:var(--text-bright); line-height:1.1; letter-spacing:-1.5px; margin-bottom:40px; }
+.bd-body { font-size:19px; line-height:2; color:var(--text); font-weight:300; }
+.bd-body p { margin-bottom:24px; }
+.bd-body strong { color:var(--text-bright); }
+.bd-body em { color:var(--accent); font-style: normal; }
+
+@media(max-width:768px) {
+  nav { padding: 20px 24px; }
+  .header { padding: 60px 24px 20px; }
+  .blog-list { padding: 20px 24px 60px; }
+  #bd-panel { padding:40px 28px; width: 95vw; }
+  #bd-close { top: 15px; right: 15px; width: 36px; height: 36px; font-size: 18px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="back-btn">Return to Mission Control</a>
+  <div class="nav-logo">Samarth Rajendra Kulkarni</div>
+</nav>
+
+<div class="header">
+  <div class="title">TRANSMISSIONS</div>
+  <div class="subtitle">Long-form thoughts on engineering, space, and strategy.</div>
+</div>
+
+<div class="blog-list" id="blog-list-container">
+  </div>
+
+<div id="blog-detail">
+  <div id="bd-back"></div>
+  <button id="bd-close" aria-label="Close">×</button>
+  <div id="bd-panel">
+    <div id="bd-content"></div>
+  </div>
+</div>
+
+<script>
+/* ─── BLOG DATA ───────────────────────────── */
+// You can add new blogs to the top of this array anytime!
+const blogs = [
+  {
+    date:'MAY 2026',
+    tag: 'JOURNEY',
+    title:'My Road to AIR-50 in GATE Aerospace Engineering',
+    brief: 'How 18 months of focused preparation, a structured study plan, and an unwavering belief in first-principles thinking got me a top 50 rank in India\'s most competitive engineering exam.',
+    content:`<p>People often ask me what it takes to crack GATE Aerospace Engineering — and more specifically, how I got to AIR-50 in 2026. The honest answer is: <strong>first principles, not memorisation</strong>.</p>
+    <p>I started preparing seriously about 18 months before the exam. The first thing I did was map every subject to its conceptual foundations — not to the question types that appear in previous papers, but to the core ideas those questions test. Structural mechanics. Fluid dynamics. Propulsion thermodynamics. Each domain has a handful of governing ideas; everything else is a variation.</p>
+    <p>My daily structure: two hours in the morning for new concepts (with derivations, not just reading), one hour in the afternoon for problem-solving, and a light evening review. Weekends were for mock tests and pattern analysis — understanding not just what I got wrong, but <em>why</em> the right answer is right from first principles.</p>
+    <p>The GATE AE paper rewards candidates who can <strong>move fluidly between domains</strong> — who can apply a structural mechanics concept in a propulsion context or spot the fluid dynamics underpinning an aircraft stability question. That cross-domain fluency only comes from genuine understanding, not rote preparation.</p>
+    <p>If I could give one piece of advice: fall in love with the subject. Rank follows naturally when you genuinely want to understand how things work.</p>`
+  },
+  {
+    date:'AUG 2025',
+    tag: 'INTERNSHIP DIARY',
+    title:'Inside ISRO\'s Mission: Life at Satish Dhawan Space Centre',
+    brief: 'What it\'s really like to work on the structural systems of India\'s most powerful launch vehicle — the stories, the learning, and the quiet magic of watching rockets come to life.',
+    content:`<p>The morning I first drove through the gates of <strong>Satish Dhawan Space Centre, Sriharikota</strong>, I felt something I hadn't felt before — a kind of weight in the air. Not the humid heat of coastal Andhra Pradesh, but something more like the accumulated mass of every rocket that had ever launched from this barrier island.</p>
+    <p>I was there to work on structural analysis of the <strong>S200 solid strap-on boosters</strong> of LVM3 — India's most powerful operational launch vehicle. The problem I was handed on day one was concrete, well-scoped, and genuinely consequential. That felt different from academic assignments.</p>
+    <p>The engineers there had a particular way of working. <strong>Deliberate. Unhurried. Precise.</strong> Mistakes in this domain don't announce themselves gently. So the culture doesn't allow shortcuts — not even in documentation. Especially in documentation.</p>
+    <p>The thing that struck me most wasn't the hardware (though the hardware is extraordinary). It was the <strong>institutional memory</strong>. Engineers who had worked on PSLV in the 1990s were still in the building, mentoring the team that would take India to the Moon and beyond. That depth of knowledge doesn't exist in many places in the world.</p>
+    <p>I came back from Sriharikota with a stronger engineering foundation and a clearer sense of purpose. If you ever get the chance to work at ISRO — take it. Whatever it costs you, take it.</p>`
+  },
+  {
+    date:'DEC 2024',
+    tag: 'OPINION',
+    title:'Why Space Sustainability Is the Most Important Engineering Challenge of Our Generation',
+    brief: 'Orbital debris, responsible launch practices, and the materials revolution needed to make humanity a truly multi-planetary species without trashing the neighbourhood first.',
+    content:`<p>We are living in the first era of genuine commercial spaceflight. Hundreds of satellites are launched every year. Mega-constellations are reshaping global connectivity. And orbital debris is quietly becoming <strong>the defining infrastructure risk of the 21st century</strong>.</p>
+    <p>Here's the uncomfortable truth: if we don't solve orbital sustainability, we may eventually reach a point where certain orbital regimes become unusable — not in theory, not in science fiction, but in practice. The Kessler syndrome isn't a remote scenario. It's a trajectory we're already on.</p>
+    <p>The engineering challenges are real and fascinating. <strong>Active debris removal</strong> requires matching orbital velocities with non-cooperative targets — objects that may be tumbling, degraded, and poorly characterised. Drag sails and de-orbit systems need to be lightweight, reliable, and fail-safe over multi-year missions. Satellite end-of-life protocols need to be standardised globally, which is as much a geopolitical problem as an engineering one.</p>
+    <p>My own research interest in <strong>reconfigurable space structures and advanced composite materials</strong> connects directly to this challenge. Lighter structures mean lower launch costs, which enables more sustainable constellation designs. Structures that can be reconfigured or repaired in orbit mean longer satellite lifetimes and less debris.</p>
+    <p>The generation of engineers entering the field now will either solve this problem or inherit its consequences. I know which option I'd prefer — and I'm building toward it.</p>`
+  }
+];
+
+/* ─── RENDER BLOGS ───────────────────────────── */
+const blogContainer = document.getElementById('blog-list-container');
+
+blogs.forEach((b, i) => {
+  const div = document.createElement('div');
+  div.className = 'blog-card';
+  div.onclick = () => openBlog(i);
+  div.innerHTML = `
+    <div class="blog-date">${b.date} · ${b.tag}</div>
+    <div class="blog-title">${b.title}</div>
+    <div class="blog-expt">${b.brief}</div>
+    <div class="blog-go">Read transmission</div>
+  `;
+  blogContainer.appendChild(div);
+});
+
+/* ─── BLOG DETAIL PANEL LOGIC ────────────────── */
+const bdEl = document.getElementById('blog-detail');
+const bdContent = document.getElementById('bd-content');
+const bdBack = document.getElementById('bd-back');
+const bdClose = document.getElementById('bd-close');
+
+function openBlog(i){
+  const b = blogs[i];
+  bdContent.innerHTML=`
+    <div class="bd-date">${b.date}</div>
+    <div class="bd-title">${b.title}</div>
+    <div class="bd-body">${b.content}</div>`;
+  bdEl.classList.add('open');
+  document.body.style.overflow='hidden'; // prevent background scrolling
+}
+function closeBlog(){
+  bdEl.classList.remove('open');
+  document.body.style.overflow='';
+}
+bdClose.addEventListener('click',closeBlog);
+bdBack.addEventListener('click',closeBlog);
+document.addEventListener('keydown', e => { if(e.key === 'Escape') closeBlog(); });
+
+</script>
+</body>
+</html>
