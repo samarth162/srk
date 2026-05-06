@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Samarth R. Kulkarni – Aerospace Engineer, Space Structures Researcher & Innovator. AIR-50 GATE '26 AE | Former Intern ISRO & DRDO.">
+<meta property="og:title" content="Samarth R. Kulkarni | Aerospace Engineer">
+<meta property="og:description" content="Building the future of aerospace — one structure at a time.">
+<title>Samarth R. Kulkarni</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ─────────────────────────────────────────────
+   ROOT & RESET
+───────────────────────────────────────────── */
+:root {
+  --bg:          #02020b;
+  --surface:     #08081a;
+  --card:        rgba(255,255,255,0.032);
+  --card-hover:  rgba(255,255,255,0.058);
+  --border:      rgba(255,255,255,0.07);
+  --border-a:    rgba(0,255,224,0.22);
+  --accent:      #00ffe0;
+  --accent-dim:  rgba(0,255,224,0.12);
+  --gold:        #f0a500;
+  --violet:      #a78bfa;
+  --text:        #b8b8d8;
+  --text-bright: #eeeeff;
+  --text-dim:    #55557a;
+  --fh:          'Syne', sans-serif;
+  --fb:          'Cormorant Garamond', serif;
+  --fm:          'JetBrains Mono', monospace;
+  --ease:        cubic-bezier(0.4,0,0.2,1);
+  --glow:        0 0 30px rgba(0,255,224,0.18), 0 0 80px rgba(0,255,224,0.07);
+}
+*,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; overflow-x:hidden; }
+body {
+  background:var(--bg); color:var(--text);
+  font-family:var(--fb); font-size:18px; line-height:1.7;
+  overflow-x:hidden; cursor:none;
+}
+a { color:inherit; text-decoration:none; }
+img { max-width:100%; display:block; }
+::-webkit-scrollbar { width:3px; }
+::-webkit-scrollbar-track { background:var(--bg); }
+::-webkit-scrollbar-thumb { background:var(--accent); border-radius:2px; }
+
+/* ─────────────────────────────────────────────
+   BOOT SEQUENCE
+───────────────────────────────────────────── */
+#boot {
+  position:fixed; inset:0; background:#000; z-index:9999;
+  display:flex; flex-direction:column; justify-content:center;
+  align-items:flex-start; padding:min(12vw,120px);
+  font-family:var(--fm); font-size:13px; color:var(--accent);
+  transition:opacity .8s ease, visibility .8s ease;
+}
+#boot.gone { opacity:0; visibility:hidden; pointer-events:none; }
+.bline { opacity:0; margin-bottom:5px; white-space:nowrap; }
+.bline .bl  { color:var(--text-dim); margin-right:12px; }
+.bline .bv  { color:var(--text-bright); }
+.bline .bok { color:#00ff88; }
+.boot-bar {
+  margin-top:32px; width:280px; height:2px;
+  background:rgba(255,255,255,0.06); overflow:hidden;
+}
+.boot-fill {
+  height:100%; width:0; background:var(--accent);
+  animation: bfill 1.6s 1.4s ease forwards;
+}
+@keyframes bfill { to { width:100%; } }
+
+/* ─────────────────────────────────────────────
+   CURSOR
+───────────────────────────────────────────── */
+#cdot {
+  position:fixed; width:5px; height:5px;
+  background:var(--accent); border-radius:50%;
+  pointer-events:none; z-index:9998;
+  transform:translate(-50%,-50%);
+  transition:transform .04s;
+}
+#cring {
+  position:fixed; width:34px; height:34px;
+  border:1px solid rgba(0,255,224,.45); border-radius:50%;
+  pointer-events:none; z-index:9997;
+  transform:translate(-50%,-50%);
+  transition:width .3s var(--ease), height .3s var(--ease),
+             border-color .3s, background .3s, left .12s ease, top .12s ease;
+}
+body.ch #cring {
+  width:58px; height:58px;
+  border-color:var(--accent);
+  background:rgba(0,255,224,.06);
+}
+
+/* ─────────────────────────────────────────────
+   SCROLL PROGRESS
+───────────────────────────────────────────── */
+#sprog {
+  position:fixed; top:0; left:0; height:2px; width:0%;
+  background:linear-gradient(90deg,var(--accent),var(--gold));
+  z-index:1000; transition:width .08s linear;
+}
+
+/* ─────────────────────────────────────────────
+   CANVAS / GRID BACKGROUND
+───────────────────────────────────────────── */
+#starfield {
+  position:fixed; inset:0; z-index:0; pointer-events:none;
+}
+.grid-bg {
+  position:fixed; inset:0; z-index:0; pointer-events:none;
+  background-image:
+    linear-gradient(rgba(0,255,224,.012) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,255,224,.012) 1px, transparent 1px);
+  background-size:80px 80px;
+}
+
+/* ─────────────────────────────────────────────
+   NAVIGATION
+───────────────────────────────────────────── */
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:500;
+  padding:24px 44px; display:flex;
+  justify-content:space-between; align-items:center;
+  background:linear-gradient(180deg,rgba(2,2,11,.96) 0%,transparent 100%);
+}
+.nav-logo {
+  font-family:var(--fm); font-size:13px; color:var(--accent);
+  letter-spacing:4px; font-weight:500;
+}
+.hamburger {
+  display:flex; flex-direction:column; gap:5px;
+  cursor:pointer; padding:6px; background:none; border:none;
+  z-index:600;
+}
+.hamburger span {
+  display:block; width:26px; height:1.5px;
+  background:var(--text); transition:.4s var(--ease);
+  transform-origin:center;
+}
+.hamburger.open span:nth-child(1) { transform:translateY(6.5px) rotate(45deg); background:var(--accent); }
+.hamburger.open span:nth-child(2) { opacity:0; transform:scaleX(0); }
+.hamburger.open span:nth-child(3) { transform:translateY(-6.5px) rotate(-45deg); background:var(--accent); }
+
+/* ─────────────────────────────────────────────
+   SIDEBAR / FULL OVERLAY MENU
+───────────────────────────────────────────── */
+#sidebar {
+  position:fixed; inset:0; z-index:450;
+  background:rgba(2,2,11,.97); backdrop-filter:blur(20px);
+  display:flex; flex-direction:column;
+  justify-content:center; align-items:center;
+  opacity:0; visibility:hidden;
+  transition:opacity .45s ease, visibility .45s ease;
+}
+#sidebar.open { opacity:1; visibility:visible; }
+.sb-links { list-style:none; text-align:center; }
+.sb-links li { overflow:hidden; }
+.sb-links a {
+  display:block; font-family:var(--fh);
+  font-size:clamp(36px,7vw,76px); font-weight:800;
+  color:var(--text-dim); padding:6px 0;
+  letter-spacing:-2px;
+  transform:translateY(110%);
+  transition:color .3s, transform .65s cubic-bezier(0.16,1,0.3,1);
+}
+#sidebar.open .sb-links a { transform:translateY(0); }
+.sb-links li:nth-child(1) a { transition-delay:.04s; }
+.sb-links li:nth-child(2) a { transition-delay:.08s; }
+.sb-links li:nth-child(3) a { transition-delay:.12s; }
+.sb-links li:nth-child(4) a { transition-delay:.16s; }
+.sb-links li:nth-child(5) a { transition-delay:.20s; }
+.sb-links li:nth-child(6) a { transition-delay:.24s; }
+.sb-links a:hover { color:var(--accent); }
+.sb-social {
+  margin-top:52px; display:flex; gap:28px;
+  opacity:0; transition:opacity .4s .42s;
+}
+#sidebar.open .sb-social { opacity:1; }
+.sb-social a {
+  font-family:var(--fm); font-size:10px;
+  letter-spacing:3px; color:var(--text-dim);
+  text-transform:uppercase;
+  transition:color .3s;
+}
+.sb-social a:hover { color:var(--accent); }
+
+/* ─────────────────────────────────────────────
+   MAIN & SHARED SECTION
+───────────────────────────────────────────── */
+main { position:relative; z-index:1; }
+section { padding:140px 44px; max-width:1180px; margin:0 auto; position:relative; }
+
+.sec-label {
+  display:flex; align-items:center; gap:14px; margin-bottom:56px;
+}
+.sec-num { font-family:var(--fm); font-size:11px; color:var(--accent); letter-spacing:2px; }
+.sec-line { width:50px; height:1px; background:var(--border-a); }
+.sec-tag { font-family:var(--fm); font-size:10px; letter-spacing:5px; text-transform:uppercase; color:var(--text-dim); }
+
+.sec-title {
+  font-family:var(--fh); font-size:clamp(52px,8vw,112px);
+  font-weight:800; color:var(--text-bright); line-height:.88;
+  letter-spacing:-3px; margin-bottom:12px;
+}
+.sec-sub {
+  font-family:var(--fb); font-style:italic; font-size:21px;
+  color:var(--text-dim); margin-bottom:80px; font-weight:300;
+}
+
+/* ─────────────────────────────────────────────
+   HERO
+───────────────────────────────────────────── */
+#hero {
+  min-height:100vh; display:flex; flex-direction:column;
+  justify-content:center; padding:0 44px; max-width:none;
+  position:relative; overflow:hidden;
+}
+.hero-eye {
+  font-family:var(--fm); font-size:11px; letter-spacing:7px;
+  color:var(--accent); text-transform:uppercase; margin-bottom:28px;
+  opacity:0; animation:fadeup .8s 2.6s forwards;
+}
+.hero-name {
+  font-family:var(--fh); font-weight:800;
+  font-size:clamp(52px,11vw,152px);
+  color:var(--text-bright); line-height:.86; letter-spacing:-5px;
+  max-width:800px;
+  opacity:0; animation:fadeup .8s 2.8s forwards;
+}
+.hero-name .ac { color:var(--accent); }
+.hero-tagline {
+  font-family:var(--fb); font-size:clamp(18px,2.2vw,28px);
+  color:var(--text-dim); font-style:italic; font-weight:300;
+  max-width:520px; margin-top:28px; margin-bottom:44px; line-height:1.5;
+  opacity:0; animation:fadeup .8s 3s forwards;
+}
+.hero-chips {
+  display:flex; flex-wrap:wrap; gap:10px; margin-bottom:52px;
+  opacity:0; animation:fadeup .8s 3.2s forwards;
+}
+.chip {
+  font-family:var(--fm); font-size:10px; letter-spacing:1.5px;
+  padding:6px 16px; border:1px solid var(--border); border-radius:100px;
+  color:var(--text-dim); background:var(--card);
+}
+.chip.hl { border-color:var(--accent); color:var(--accent); background:var(--accent-dim); }
+.hero-cta {
+  display:flex; gap:24px; align-items:center;
+  opacity:0; animation:fadeup .8s 3.4s forwards;
+}
+.btn-p {
+  font-family:var(--fm); font-size:11px; letter-spacing:2.5px;
+  text-transform:uppercase; padding:16px 40px;
+  background:var(--accent); color:var(--bg);
+  border:none; cursor:pointer; font-weight:500;
+  clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);
+  transition:background .3s, transform .3s, box-shadow .3s;
+}
+.btn-p:hover { background:#fff; transform:translateY(-2px); box-shadow:var(--glow); }
+.btn-s {
+  font-family:var(--fm); font-size:11px; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--text);
+  display:flex; align-items:center; gap:10px;
+  transition:color .3s, gap .3s;
+}
+.btn-s:hover { color:var(--accent); gap:18px; }
+.btn-s::after { content:'→'; }
+.hero-scroll {
+  position:absolute; bottom:44px; left:44px;
+  display:flex; align-items:center; gap:14px;
+  opacity:0; animation:fadeup .8s 3.7s forwards;
+}
+.s-line { width:40px; height:1px; background:var(--text-dim); animation:spulse 2.5s 4.5s infinite; }
+@keyframes spulse { 0%,100%{width:40px;opacity:.7} 50%{width:70px;opacity:.3} }
+.s-lbl { font-family:var(--fm); font-size:10px; letter-spacing:4px; color:var(--text-dim); text-transform:uppercase; }
+
+/* Rings */
+.ring {
+  position:absolute; border-radius:50%; pointer-events:none;
+  border:1px solid rgba(0,255,224,.055); right:-80px; top:50%;
+}
+.ring-1 { width:460px; height:460px; transform:translateY(-50%); }
+.ring-2 { width:680px; height:680px; transform:translateY(-50%); border-style:dashed; animation:rspin 50s linear infinite; }
+.ring-3 { width:920px; height:920px; transform:translateY(-50%); animation:rspin 80s linear infinite reverse; }
+.ring-4 { width:1160px; height:1160px; transform:translateY(-50%); border-color:rgba(0,255,224,.022); animation:rspin 120s linear infinite; }
+@keyframes rspin { to { transform:translateY(-50%) rotate(360deg); } }
+
+/* Hero photo */
+.hero-photo {
+  position:absolute; right:8%; top:50%;
+  transform:translateY(-50%);
+  width:clamp(220px,22vw,320px); aspect-ratio:3/4;
+  border:1px solid var(--border-a); overflow:hidden;
+  clip-path:polygon(16px 0%,100% 0%,calc(100% - 16px) 100%,0% 100%);
+  opacity:0; animation:fadein 1s 3.3s forwards;
+}
+.hero-photo img { width:100%; height:100%; object-fit:cover; filter:grayscale(15%) contrast(1.1) brightness(.9); }
+.pholder {
+  width:100%; height:100%; background:var(--surface);
+  display:flex; flex-direction:column; align-items:center;
+  justify-content:center; gap:10px;
+  font-family:var(--fm); font-size:10px; color:var(--text-dim);
+  text-align:center; letter-spacing:2px; padding:20px;
+}
+.pholder::before { content:'[ + ]'; font-size:22px; color:var(--accent); }
+.pholder small { opacity:.6; font-size:9px; }
+
+/* ─────────────────────────────────────────────
+   ABOUT — MISSION BRIEF
+───────────────────────────────────────────── */
+#about { padding-top:180px; }
+.about-grid { display:grid; grid-template-columns:1.1fr 1fr; gap:80px; align-items:start; }
+.about-text { font-size:19px; line-height:1.85; font-weight:300; }
+.about-text p + p { margin-top:20px; }
+.about-text em { color:var(--text-bright); font-style:italic; }
+.about-text strong { color:var(--accent); font-style:normal; }
+.about-right {}
+.stats-wrap { display:grid; grid-template-columns:1fr 1fr; gap:2px; background:var(--border); margin-bottom:40px; }
+.stat-c { background:var(--surface); padding:28px 20px; text-align:center; }
+.stat-n { font-family:var(--fh); font-size:48px; font-weight:800; color:var(--accent); line-height:1; letter-spacing:-2px; }
+.stat-l { font-family:var(--fm); font-size:9px; letter-spacing:3px; color:var(--text-dim); text-transform:uppercase; margin-top:6px; display:block; }
+.skills-wrap { }
+.skills-hd { font-family:var(--fm); font-size:9px; letter-spacing:5px; color:var(--text-dim); text-transform:uppercase; margin-bottom:14px; }
+.skills-row { display:flex; flex-wrap:wrap; gap:7px; margin-bottom:20px; }
+.sk {
+  font-family:var(--fm); font-size:10px; padding:5px 14px;
+  background:var(--card); border:1px solid var(--border); color:var(--text);
+  letter-spacing:1px; transition:.3s var(--ease); cursor:default;
+}
+.sk:hover { border-color:var(--accent); color:var(--accent); background:var(--accent-dim); }
+.langs-row { display:flex; flex-wrap:wrap; gap:7px; }
+.lang {
+  font-family:var(--fm); font-size:10px; padding:4px 12px;
+  border:1px solid var(--border); color:var(--text-dim); border-radius:100px;
+  letter-spacing:1px;
+}
+
+/* ─────────────────────────────────────────────
+   FLIGHT LOG — EXPERIENCE TIMELINE
+───────────────────────────────────────────── */
+#experience { padding-top:180px; }
+.timeline { position:relative; padding-left:56px; }
+.timeline::before {
+  content:''; position:absolute; left:0; top:12px; bottom:0;
+  width:1px; background:linear-gradient(180deg,var(--accent) 0%,transparent 100%);
+}
+.tl-item { position:relative; margin-bottom:44px; cursor:pointer; }
+.tl-dot {
+  position:absolute; left:-60px; top:10px;
+  width:8px; height:8px; border-radius:50%;
+  background:var(--bg); border:1px solid var(--accent);
+  transition:.35s var(--ease);
+}
+.tl-item:hover .tl-dot { background:var(--accent); box-shadow:0 0 14px var(--accent); }
+.tl-card {
+  background:var(--card); border:1px solid var(--border);
+  padding:32px 36px; position:relative; overflow:hidden;
+  transition:border-color .35s, background .35s, transform .35s var(--ease);
+}
+.tl-card::before {
+  content:''; position:absolute; left:0; top:0;
+  width:2px; height:0; background:var(--accent);
+  transition:height .4s ease;
+}
+.tl-item:hover .tl-card {
+  border-color:var(--border-a); background:var(--card-hover);
+  transform:translateX(10px);
+}
+.tl-item:hover .tl-card::before { height:100%; }
+.tl-period { font-family:var(--fm); font-size:10px; color:var(--accent); letter-spacing:2px; margin-bottom:8px; }
+.tl-role { font-family:var(--fh); font-size:22px; font-weight:700; color:var(--text-bright); margin-bottom:4px; }
+.tl-co { font-family:var(--fb); font-size:17px; color:var(--text-dim); font-style:italic; font-weight:300; margin-bottom:14px; }
+.tl-desc { font-size:15px; color:var(--text); line-height:1.7; font-weight:300; }
+.tl-tags { display:flex; flex-wrap:wrap; gap:6px; margin-top:14px; }
+.tl-tag { font-family:var(--fm); font-size:9px; padding:3px 10px; border:1px solid var(--border); color:var(--text-dim); letter-spacing:1px; }
+.tl-more {
+  position:absolute; right:28px; bottom:24px;
+  font-family:var(--fm); font-size:9px; letter-spacing:2px;
+  color:var(--accent); text-transform:uppercase;
+  display:flex; align-items:center; gap:6px;
+  opacity:0; transition:opacity .3s;
+}
+.tl-item:hover .tl-more { opacity:1; }
+
+/* ─────────────────────────────────────────────
+   LAUNCHPAD — PROJECTS
+───────────────────────────────────────────── */
+#projects { padding-top:180px; }
+.proj-grid {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:2px; background:var(--border);
+}
+.proj-card {
+  background:var(--surface); cursor:pointer;
+  position:relative; overflow:hidden; transition:.35s var(--ease);
+  display:flex; flex-direction:column;
+}
+.proj-card.feat { grid-column:span 2; }
+.proj-img {
+  width:100%; overflow:hidden; background:var(--bg);
+  position:relative;
+}
+.proj-card:not(.feat) .proj-img { height:200px; }
+.proj-card.feat .proj-img { height:260px; }
+.proj-img img { width:100%; height:100%; object-fit:cover; filter:grayscale(35%) brightness(.8); transition:transform .6s ease, filter .5s; }
+.proj-card:hover .proj-img img { transform:scale(1.06); filter:grayscale(0%) brightness(1); }
+.pimg-hold {
+  width:100%; height:100%; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; background:var(--surface);
+  font-family:var(--fm); font-size:10px; color:var(--text-dim);
+  gap:10px; letter-spacing:2px; text-align:center; padding:16px;
+}
+.pimg-icon { font-size:32px; opacity:.35; }
+.proj-body { padding:26px 28px 40px; flex:1; }
+.proj-num { font-family:var(--fm); font-size:9px; color:var(--accent); letter-spacing:3px; margin-bottom:8px; }
+.proj-name { font-family:var(--fh); font-size:18px; font-weight:700; color:var(--text-bright); line-height:1.3; margin-bottom:8px; }
+.proj-brief { font-size:14px; color:var(--text-dim); line-height:1.65; font-weight:300; }
+.proj-hover {
+  position:absolute; bottom:0; left:0; right:0;
+  background:linear-gradient(0deg,rgba(0,0,0,.8) 0%,transparent 100%);
+  padding:16px 24px; display:flex; justify-content:flex-end;
+  opacity:0; transition:opacity .3s; pointer-events:none;
+}
+.proj-card:hover .proj-hover { opacity:1; }
+.proj-cta {
+  font-family:var(--fm); font-size:9px; letter-spacing:2px;
+  color:var(--accent); text-transform:uppercase;
+  padding:7px 16px; border:1px solid var(--accent);
+  background:rgba(0,255,224,.1);
+}
+
+/* Awards strip */
+.awards-strip {
+  margin-top:60px; display:grid;
+  grid-template-columns:repeat(4,1fr); gap:2px; background:var(--border);
+}
+.award-c {
+  background:var(--surface); padding:28px 24px; text-align:center;
+  transition:.3s var(--ease);
+}
+.award-c:hover { background:var(--card-hover); }
+.award-icon { font-size:28px; margin-bottom:10px; }
+.award-title { font-family:var(--fh); font-size:15px; font-weight:700; color:var(--text-bright); margin-bottom:6px; line-height:1.3; }
+.award-by { font-family:var(--fm); font-size:9px; letter-spacing:2px; color:var(--text-dim); text-transform:uppercase; }
+
+/* ─────────────────────────────────────────────
+   SIGNAL TRANSMISSIONS — BLOG
+───────────────────────────────────────────── */
+#blog { padding-top:180px; }
+.blog-grid { display:grid; grid-template-columns:1fr 1fr; gap:2px; background:var(--border); }
+.blog-card {
+  background:var(--surface); padding:44px 40px;
+  cursor:pointer; position:relative; overflow:hidden; transition:.35s var(--ease);
+}
+.blog-card::after {
+  content:''; position:absolute; bottom:0; left:0;
+  width:0; height:2px; background:var(--accent);
+  transition:width .45s var(--ease);
+}
+.blog-card:hover::after { width:100%; }
+.blog-card:hover { background:var(--card-hover); }
+.blog-date { font-family:var(--fm); font-size:10px; letter-spacing:3px; color:var(--accent); margin-bottom:18px; }
+.blog-title { font-family:var(--fh); font-size:26px; font-weight:700; color:var(--text-bright); line-height:1.25; margin-bottom:14px; }
+.blog-expt { font-size:16px; color:var(--text-dim); line-height:1.7; font-weight:300; }
+.blog-go {
+  margin-top:24px; font-family:var(--fm); font-size:9px;
+  letter-spacing:3px; color:var(--text-dim); text-transform:uppercase;
+  display:flex; align-items:center; gap:8px; transition:color .3s, gap .3s;
+}
+.blog-card:hover .blog-go { color:var(--accent); gap:16px; }
+.blog-go::after { content:'→'; }
+.blog-card.cs {
+  display:flex; flex-direction:column; align-items:center;
+  justify-content:center; text-align:center; cursor:default;
+  border:1px dashed rgba(255,255,255,.05); background:transparent;
+}
+.blog-card.cs::after { display:none; }
+.cs-icon { font-size:36px; opacity:.2; margin-bottom:14px; }
+.cs-msg { font-family:var(--fm); font-size:10px; letter-spacing:4px; color:var(--text-dim); text-transform:uppercase; }
+
+/* ─────────────────────────────────────────────
+   OPEN COMMS — CONTACT
+───────────────────────────────────────────── */
+#contact {
+  padding-top:180px; display:flex; flex-direction:column;
+  align-items:center; text-align:center;
+}
+.contact-big {
+  font-family:var(--fb); font-size:clamp(42px,8vw,108px);
+  font-weight:300; font-style:italic; color:var(--text-bright);
+  line-height:1.08; max-width:820px; margin-bottom:52px;
+}
+.contact-big .word-a { color:var(--accent); }
+.contact-email {
+  font-family:var(--fm); font-size:clamp(13px,1.8vw,17px);
+  color:var(--accent); letter-spacing:2px;
+  border-bottom:1px solid rgba(0,255,224,.3); padding-bottom:5px;
+  transition:border-color .3s, text-shadow .3s; display:inline-block;
+  margin-bottom:64px;
+}
+.contact-email:hover { border-color:var(--accent); text-shadow:0 0 24px rgba(0,255,224,.5); }
+.socials { display:flex; gap:16px; align-items:center; justify-content:center; flex-wrap:wrap; }
+.soc-link {
+  display:flex; align-items:center; gap:10px;
+  font-family:var(--fm); font-size:10px; letter-spacing:2px;
+  color:var(--text-dim); text-transform:uppercase;
+  padding:12px 24px; border:1px solid var(--border);
+  transition:.35s var(--ease);
+}
+.soc-link:hover { color:var(--accent); border-color:var(--accent); background:var(--accent-dim); transform:translateY(-3px); }
+.soc-link svg { width:14px; height:14px; fill:currentColor; flex-shrink:0; }
+
+/* ─────────────────────────────────────────────
+   FOOTER
+───────────────────────────────────────────── */
+footer {
+  position:relative; z-index:1;
+  border-top:1px solid var(--border);
+  padding:44px; display:flex; flex-direction:column;
+  align-items:center; gap:18px;
+}
+.ft-logo { font-family:var(--fm); font-size:11px; letter-spacing:6px; color:var(--text-dim); text-transform:uppercase; }
+.ft-copy { font-family:var(--fm); font-size:10px; color:var(--text-dim); letter-spacing:1.5px; text-align:center; }
+.ft-visitor {
+  display:flex; align-items:center; gap:10px;
+  font-family:var(--fm); font-size:10px; color:var(--text-dim); letter-spacing:2px;
+}
+.vc { color:var(--accent); font-size:13px; font-weight:500; }
+.ft-divider { width:1px; height:12px; background:var(--border); }
+
+/* ─────────────────────────────────────────────
+   DETAIL PANEL (slide-in page)
+───────────────────────────────────────────── */
+#detail {
+  position:fixed; inset:0; z-index:800;
+  opacity:0; visibility:hidden;
+  transition:opacity .45s, visibility .45s;
+}
+#detail.open { opacity:1; visibility:visible; }
+#det-back {
+  position:absolute; inset:0;
+  background:rgba(2,2,11,.88); backdrop-filter:blur(10px);
+}
+#det-panel {
+  position:absolute; right:0; top:0; bottom:0;
+  width:min(680px,100vw);
+  background:var(--surface);
+  border-left:1px solid var(--border-a);
+  overflow-y:auto; padding:60px 52px;
+  transform:translateX(100%);
+  transition:transform .55s cubic-bezier(0.16,1,0.3,1);
+}
+#detail.open #det-panel { transform:translateX(0); }
+#det-close {
+  position:absolute; top:24px; right:24px;
+  background:none; border:1px solid var(--border); color:var(--text-dim);
+  width:40px; height:40px; display:flex; align-items:center; justify-content:center;
+  cursor:pointer; font-family:var(--fm); font-size:20px; line-height:1;
+  transition:.3s var(--ease);
+}
+#det-close:hover { border-color:var(--accent); color:var(--accent); }
+.det-tag { font-family:var(--fm); font-size:10px; letter-spacing:4px; color:var(--accent); text-transform:uppercase; margin-bottom:14px; }
+.det-title { font-family:var(--fh); font-size:clamp(26px,4vw,44px); font-weight:800; color:var(--text-bright); line-height:1.1; letter-spacing:-1px; margin-bottom:8px; }
+.det-sub { font-family:var(--fb); font-style:italic; font-size:19px; color:var(--text-dim); margin-bottom:6px; font-weight:300; }
+.det-period {
+  font-family:var(--fm); font-size:10px; color:var(--text-dim);
+  letter-spacing:2px; margin-bottom:36px;
+  display:flex; align-items:center; gap:12px;
+}
+.det-period::before { content:''; display:block; width:18px; height:1px; background:var(--accent); }
+.det-img {
+  width:100%; aspect-ratio:16/9; background:var(--bg);
+  border:1px solid var(--border); overflow:hidden; margin-bottom:36px;
+  position:relative;
+}
+.det-img img { width:100%; height:100%; object-fit:cover; filter:grayscale(15%) contrast(1.1); }
+.det-img-ph {
+  width:100%; height:100%; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:8px;
+  font-family:var(--fm); font-size:10px; color:var(--text-dim);
+  letter-spacing:2px; text-align:center; padding:20px;
+}
+.det-img-ph::before { content:'[ ADD IMAGE ]'; color:var(--border-a); font-size:12px; }
+.det-body { font-size:16px; line-height:1.85; color:var(--text); font-weight:300; }
+.det-body p + p { margin-top:16px; }
+.det-body strong { color:var(--text-bright); font-style:italic; }
+.det-body em { color:var(--accent); font-style:normal; font-family:var(--fm); font-size:13px; letter-spacing:1px; }
+.det-skills { margin-top:32px; padding-top:32px; border-top:1px solid var(--border); }
+.det-skills-hd { font-family:var(--fm); font-size:9px; letter-spacing:5px; color:var(--text-dim); text-transform:uppercase; margin-bottom:14px; }
+.det-tags { display:flex; flex-wrap:wrap; gap:7px; }
+.det-t { font-family:var(--fm); font-size:9px; padding:4px 12px; background:var(--card); border:1px solid var(--border); color:var(--text-dim); letter-spacing:1px; }
+
+/* ─────────────────────────────────────────────
+   BLOG DETAIL (same panel, full width)
+───────────────────────────────────────────── */
+#blog-detail {
+  position:fixed; inset:0; z-index:800;
+  opacity:0; visibility:hidden;
+  transition:opacity .45s, visibility .45s;
+}
+#blog-detail.open { opacity:1; visibility:visible; }
+#bd-back { position:absolute; inset:0; background:rgba(2,2,11,.9); backdrop-filter:blur(10px); }
+#bd-panel {
+  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%) scale(.96);
+  width:min(760px,94vw); max-height:88vh; overflow-y:auto;
+  background:var(--surface); border:1px solid var(--border-a);
+  padding:60px; transition:transform .5s cubic-bezier(0.16,1,0.3,1), opacity .5s;
+  opacity:0;
+}
+#blog-detail.open #bd-panel { transform:translate(-50%,-50%) scale(1); opacity:1; }
+#bd-close {
+  position:absolute; top:20px; right:20px;
+  background:none; border:1px solid var(--border); color:var(--text-dim);
+  width:38px; height:38px; display:flex; align-items:center; justify-content:center;
+  cursor:pointer; font-family:var(--fm); font-size:18px;
+  transition:.3s var(--ease);
+}
+#bd-close:hover { border-color:var(--accent); color:var(--accent); }
+.bd-date { font-family:var(--fm); font-size:10px; letter-spacing:4px; color:var(--accent); margin-bottom:16px; }
+.bd-title { font-family:var(--fh); font-size:clamp(24px,4vw,46px); font-weight:800; color:var(--text-bright); line-height:1.1; letter-spacing:-1px; margin-bottom:32px; }
+.bd-body { font-size:17px; line-height:1.9; color:var(--text); font-weight:300; }
+.bd-body p + p { margin-top:18px; }
+.bd-body strong { color:var(--text-bright); }
+
+/* ─────────────────────────────────────────────
+   SCROLL REVEAL
+───────────────────────────────────────────── */
+.reveal { opacity:0; transform:translateY(40px); transition:opacity .75s ease, transform .75s ease; }
+.reveal.vis { opacity:1; transform:translateY(0); }
+.rd1 { transition-delay:.1s; }
+.rd2 { transition-delay:.2s; }
+.rd3 { transition-delay:.3s; }
+.rd4 { transition-delay:.4s; }
+
+/* ─────────────────────────────────────────────
+   KEYFRAMES
+───────────────────────────────────────────── */
+@keyframes fadeup { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+@keyframes fadein { from{opacity:0} to{opacity:1} }
+
+/* ─────────────────────────────────────────────
+   MEDIA QUERIES
+───────────────────────────────────────────── */
+@media(max-width:1024px) {
+  .proj-grid { grid-template-columns:1fr 1fr; }
+  .proj-card.feat { grid-column:span 2; }
+  .about-grid { grid-template-columns:1fr; }
+  .awards-strip { grid-template-columns:1fr 1fr; }
+}
+@media(max-width:768px) {
+  nav { padding:20px 24px; }
+  section { padding:100px 24px; }
+  #hero { padding:0 24px; }
+  .hero-scroll { left:24px; }
+  .ring { display:none; }
+  .hero-photo { display:none; }
+  .proj-grid { grid-template-columns:1fr; background:none; gap:2px; }
+  .proj-card.feat { grid-column:span 1; }
+  .blog-grid { grid-template-columns:1fr; }
+  .awards-strip { grid-template-columns:1fr 1fr; }
+  #det-panel { padding:40px 28px; }
+  #bd-panel { padding:40px 28px; }
+  .contact-big { font-size:clamp(36px,10vw,72px); }
+  footer { padding:32px 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- BOOT SEQUENCE ─────────────────────── -->
+<div id="boot">
+  <div class="bline" style="animation-delay:.1s"><span class="bl">SYSTEM</span><span class="bv">Initializing Samarth.R.Kulkarni v1.0</span></div>
+  <div class="bline" style="animation-delay:.4s"><span class="bl">CORE</span><span class="bok">✓</span> Aerospace Engineering kernel loaded</div>
+  <div class="bline" style="animation-delay:.7s"><span class="bl">MODULE</span><span class="bok">✓</span> ISRO · DRDO · ICTS experience mounted</div>
+  <div class="bline" style="animation-delay:1s"><span class="bl">GATE'26</span><span class="bok">✓</span> AIR-50 credential verified</div>
+  <div class="bline" style="animation-delay:1.3s"><span class="bl">NET</span><span class="bok">✓</span> 3K+ connections online</div>
+  <div class="bline" style="animation-delay:1.6s"><span class="bl">STATUS</span><span class="bv">Systems nominal — launching portfolio...</span></div>
+  <div class="boot-bar"><div class="boot-fill"></div></div>
+</div>
+
+<!-- CUSTOM CURSOR ─────────────────────── -->
+<div id="cdot"></div>
+<div id="cring"></div>
+
+<!-- SCROLL PROGRESS ──────────────────── -->
+<div id="sprog"></div>
+
+<!-- BACKGROUNDS ──────────────────────── -->
+<canvas id="starfield"></canvas>
+<div class="grid-bg"></div>
+
+<!-- NAVIGATION ───────────────────────── -->
+<nav>
+  <a href="#hero" class="nav-logo">SRK</a>
+  <button class="hamburger" id="ham" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- SIDEBAR MENU ─────────────────────── -->
+<div id="sidebar">
+  <ul class="sb-links">
+    <li><a href="#about" class="sb-link">Mission Brief</a></li>
+    <li><a href="#experience" class="sb-link">Flight Log</a></li>
+    <li><a href="#projects" class="sb-link">Launchpad</a></li>
+    <li><a href="#blog" class="sb-link">Transmissions</a></li>
+    <li><a href="#contact" class="sb-link">Open Comms</a></li>
+  </ul>
+  <div class="sb-social">
+    <a href="https://www.linkedin.com/in/samarthk162" target="_blank">LinkedIn</a>
+    <a href="mailto:samarthkulkarni162@gmail.com">Email</a>
+    <a href="https://www.instagram.com/" target="_blank">Instagram</a>
+    <a href="https://github.com/" target="_blank">GitHub</a>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     MAIN
+══════════════════════════════════════ -->
+<main>
+
+<!-- ① HERO ─────────────────────────── -->
+<section id="hero">
+  <div class="ring ring-1"></div>
+  <div class="ring ring-2"></div>
+  <div class="ring ring-3"></div>
+  <div class="ring ring-4"></div>
+
+  <div class="hero-eye">Aerospace Engineer · Innovator · Space Enthusiast</div>
+  <div class="hero-name">SAMARTH<br><span class="ac">R. KULKARNI</span></div>
+  <p class="hero-tagline">Designing the structures that carry humanity's dreams beyond gravity — one simulation at a time.</p>
+  <div class="hero-chips">
+    <span class="chip hl">AIR-50 GATE '26 AE</span>
+    <span class="chip">Former ISRO Intern</span>
+    <span class="chip">Former DRDO Intern</span>
+    <span class="chip">Composite Materials</span>
+    <span class="chip">Structural Analysis · FEA · CFD</span>
+  </div>
+  <div class="hero-cta">
+    <a href="#projects" class="btn-p">Explore Work</a>
+    <a href="#contact" class="btn-s">Let's Connect</a>
+  </div>
+  <div class="hero-scroll"><div class="s-line"></div><span class="s-lbl">Scroll to explore</span></div>
+
+  <!-- Profile photo: replace placeholder with <img src="images/samarth-profile.jpg" alt="Samarth R. Kulkarni"> -->
+  <div class="hero-photo">
+    <div class="pholder"><small>Replace with your photo<br>images/samarth-profile.jpg</small></div>
+  </div>
+</section>
+
+<!-- ② MISSION BRIEF (ABOUT) ─────────── -->
+<section id="about">
+  <div class="sec-label reveal">
+    <span class="sec-num">01</span>
+    <div class="sec-line"></div>
+    <span class="sec-tag">Origin Story</span>
+  </div>
+  <div class="sec-title reveal rd1">MISSION<br>BRIEF</div>
+  <p class="sec-sub reveal rd2">A quick debrief on the astronaut before liftoff.</p>
+
+  <div class="about-grid">
+    <div class="about-text reveal rd2">
+      <p>Hi — I'm <em>Samarth</em>. A final-year Aerospace Engineering student at <strong>Amity University Maharashtra, Mumbai</strong>, with a passion for the intersection of space structures, advanced materials, and sustainable innovation.</p>
+      <p>My research interests gravitate toward <em>reconfigurable space structures</em>, advanced composite materials, In-Space Manufacturing, and structural optimization — supported by proficiency in FEA, CAD, and CFD.</p>
+      <p>I've had the privilege of interning at <strong>ISRO's SDSC-SHAR</strong> (working on S200 strap-on boosters of LVM3) and <strong>DRDO's Composite Research Centre</strong> in Pune. I also hold a Business Administration minor — because the best aerospace innovations need visionary builders too.</p>
+      <p>Inspired by the legacies of <em>Dr. APJ Abdul Kalam</em> and <em>Sir Ratan Tata</em>, I believe technology earns its worth when it creates tangible value for humanity.</p>
+    </div>
+    <div class="about-right reveal rd3">
+      <div class="stats-wrap">
+        <div class="stat-c">
+          <div class="stat-n">50</div>
+          <span class="stat-l">All India Rank · GATE '26</span>
+        </div>
+        <div class="stat-c">
+          <div class="stat-n">3K+</div>
+          <span class="stat-l">LinkedIn Network</span>
+        </div>
+        <div class="stat-c">
+          <div class="stat-n">2</div>
+          <span class="stat-l">Govt. R&D Internships</span>
+        </div>
+        <div class="stat-c">
+          <div class="stat-n">6+</div>
+          <span class="stat-l">Major Projects</span>
+        </div>
+      </div>
+      <div class="skills-wrap">
+        <div class="skills-hd">Technical Arsenal</div>
+        <div class="skills-row">
+          <span class="sk">SOLIDWORKS</span>
+          <span class="sk">Ansys Mechanical</span>
+          <span class="sk">Ansys Fluent</span>
+          <span class="sk">CATIA</span>
+          <span class="sk">FEA</span>
+          <span class="sk">CFD</span>
+          <span class="sk">Composite Materials</span>
+          <span class="sk">Python</span>
+          <span class="sk">MATLAB</span>
+          <span class="sk">3D Printing</span>
+        </div>
+        <div class="skills-hd" style="margin-top:20px">Languages Spoken</div>
+        <div class="langs-row">
+          <span class="lang">English</span>
+          <span class="lang">Hindi</span>
+          <span class="lang">Marathi</span>
+          <span class="lang">Kannada</span>
+          <span class="lang">Spanish</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ③ FLIGHT LOG (EXPERIENCE) ────────── -->
+<section id="experience">
+  <div class="sec-label reveal">
+    <span class="sec-num">02</span>
+    <div class="sec-line"></div>
+    <span class="sec-tag">Work History</span>
+  </div>
+  <div class="sec-title reveal rd1">FLIGHT<br>LOG</div>
+  <p class="sec-sub reveal rd2">Every mission that shaped the engineer.</p>
+
+  <div class="timeline reveal rd3" id="timeline-wrap">
+    <!-- Items injected by JS -->
+  </div>
+</section>
+
+<!-- ④ LAUNCHPAD (PROJECTS) ───────────── -->
+<section id="projects">
+  <div class="sec-label reveal">
+    <span class="sec-num">03</span>
+    <div class="sec-line"></div>
+    <span class="sec-tag">Selected Work</span>
+  </div>
+  <div class="sec-title reveal rd1">LAUNCH<br>PAD</div>
+  <p class="sec-sub reveal rd2">Engineering experiments that pushed boundaries.</p>
+
+  <div class="proj-grid reveal rd3" id="proj-grid">
+    <!-- Items injected by JS -->
+  </div>
+
+  <!-- Awards -->
+  <div class="sec-label reveal" style="margin-top:80px;margin-bottom:40px">
+    <span class="sec-num">03.1</span>
+    <div class="sec-line"></div>
+    <span class="sec-tag">Recognition</span>
+  </div>
+  <div class="awards-strip reveal rd2">
+    <div class="award-c">
+      <div class="award-icon">🏆</div>
+      <div class="award-title">AIR 50 — GATE '26</div>
+      <div class="award-by">IIT Guwahati · Top 1%</div>
+    </div>
+    <div class="award-c">
+      <div class="award-icon">🥇</div>
+      <div class="award-title">Best Project — Innovation Gallery 2026</div>
+      <div class="award-by">E-Cell AUM · 1st of 40+ Teams</div>
+    </div>
+    <div class="award-c">
+      <div class="award-icon">🌍</div>
+      <div class="award-title">Best Delegate — AWMUN UNESCO</div>
+      <div class="award-by">Asia World MUN · 2021</div>
+    </div>
+    <div class="award-c">
+      <div class="award-icon">⚡</div>
+      <div class="award-title">ATL Student Innovator Award</div>
+      <div class="award-by">AIM · Niti Aayog · 2019</div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑤ SIGNAL TRANSMISSIONS (BLOG) ────── -->
+<section id="blog">
+  <div class="sec-label reveal">
+    <span class="sec-num">04</span>
+    <div class="sec-line"></div>
+    <span class="sec-tag">Writings &amp; Reflections</span>
+  </div>
+  <div class="sec-title reveal rd1">SIGNAL<br>TRANS&shy;MISSIONS</div>
+  <p class="sec-sub reveal rd2">Thoughts broadcast from the edge of the atmosphere.</p>
+
+  <div class="blog-grid reveal rd3">
+    <div class="blog-card" onclick="openBlog(0)">
+      <div class="blog-date">MAY 2026 · JOURNEY</div>
+      <div class="blog-title">My Road to AIR-50 in GATE Aerospace Engineering</div>
+      <div class="blog-expt">How 18 months of focused preparation, a structured study plan, and an unwavering belief in first-principles thinking got me a top 50 rank in India's most competitive engineering exam.</div>
+      <div class="blog-go">Read transmission</div>
+    </div>
+    <div class="blog-card" onclick="openBlog(1)">
+      <div class="blog-date">AUG 2025 · INTERNSHIP DIARY</div>
+      <div class="blog-title">Inside ISRO's Mission: Life at Satish Dhawan Space Centre</div>
+      <div class="blog-expt">What it's really like to work on the structural systems of India's most powerful launch vehicle — the stories, the learning, and the quiet magic of watching rockets come to life.</div>
+      <div class="blog-go">Read transmission</div>
+    </div>
+    <div class="blog-card" onclick="openBlog(2)">
+      <div class="blog-date">DEC 2024 · OPINION</div>
+      <div class="blog-title">Why Space Sustainability Is the Most Important Engineering Challenge of Our Generation</div>
+      <div class="blog-expt">Orbital debris, responsible launch practices, and the materials revolution needed to make humanity a truly multi-planetary species without trashing the neighbourhood first.</div>
+      <div class="blog-go">Read transmission</div>
+    </div>
+    <div class="blog-card cs">
+      <div class="cs-icon">📡</div>
+      <div class="cs-msg">More transmissions incoming · Stay tuned</div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑥ OPEN COMMS (CONTACT) ───────────── -->
+<section id="contact">
+  <div class="sec-label reveal" style="justify-content:center">
+    <span class="sec-num">05</span>
+    <div class="sec-line"></div>
+    <span class="sec-tag">Get in Touch</span>
+  </div>
+  <div class="contact-big reveal rd1">
+    Got a mission<br>worth <span class="word-a">launching</span><br>together?
+  </div>
+  <a href="mailto:samarthkulkarni162@gmail.com" class="contact-email reveal rd2">
+    samarthkulkarni162@gmail.com
+  </a>
+  <div class="socials reveal rd3">
+    <a class="soc-link" href="https://www.linkedin.com/in/samarthk162" target="_blank">
+      <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      LinkedIn
+    </a>
+    <a class="soc-link" href="https://www.instagram.com/" target="_blank">
+      <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+      Instagram
+    </a>
+    <a class="soc-link" href="https://github.com/" target="_blank">
+      <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+      GitHub
+    </a>
+    <a class="soc-link" href="mailto:samarthkulkarni162@gmail.com">
+      <svg viewBox="0 0 24 24"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 010 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>
+      Email
+    </a>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER ───────────────────────────── -->
+<footer>
+  <div class="ft-logo">Samarth R. Kulkarni</div>
+  <div class="ft-copy">© 2026 Samarth R. Kulkarni · All rights reserved · Built with curiosity &amp; caffeine</div>
+  <div class="ft-visitor">
+    <span>Mission visitors:</span>
+    <span class="vc" id="visitor-count">—</span>
+    <div class="ft-divider"></div>
+    <span style="font-size:9px;letter-spacing:3px">AMITY UNIV MUMBAI · 2026</span>
+  </div>
+</footer>
+
+<!-- DETAIL PANEL ─────────────────────── -->
+<div id="detail">
+  <div id="det-back"></div>
+  <div id="det-panel">
+    <button id="det-close" aria-label="Close">×</button>
+    <div id="det-content"></div>
+  </div>
+</div>
+
+<!-- BLOG DETAIL PANEL ────────────────── -->
+<div id="blog-detail">
+  <div id="bd-back"></div>
+  <div id="bd-panel">
+    <button id="bd-close" aria-label="Close">×</button>
+    <div id="bd-content"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════ -->
+<script>
+/* ─── DATA ───────────────────────────── */
+const experiences = [
+  {
+    id:'isro', period:'JUN – JUL 2025', type:'EXPERIENCE',
+    role:'Summer Research Intern',
+    company:'ISRO · Satish Dhawan Space Centre SHAR',
+    location:'Sriharikota, Andhra Pradesh',
+    tags:['Structural Analysis','FEA','LVM3','S200 Boosters','Mandrel System','Solid Propulsion'],
+    brief:'Structural analysis of S200 Solid Stage Boosters for LVM3 at India\'s premier launch facility.',
+    image:'images/isro-intern.jpg', imageHint:'ISRO SDSC-SHAR Internship',
+    content:`<p>At <strong>ISRO's Satish Dhawan Space Centre (SDSC-SHAR)</strong>, I worked on structural analysis related to the S200 Solid Stage Boosters — the strap-on boosters of India's most powerful launch vehicle, the LVM3.</p>
+    <p>The role provided deep exposure to <strong>materials and structural testing</strong> methodologies relevant to launch vehicle systems, including the simulation approaches used in actual mission preparation phases.</p>
+    <p>A major deliverable was the <strong>design and analysis of an integrated mandrel transport system</strong> for the middle and nozzle end segments of S200 strap-on boosters. This involved structural design, load analysis, and system optimization to ensure safe and efficient handling during solid motor propellant casting operations.</p>
+    <p>Working alongside ISRO engineers gave me first-hand insight into the rigour, precision, and culture of an organization that has consistently punched above its weight on the global space stage.</p>`
+  },
+  {
+    id:'aerosustain', period:'JAN 2023 – JUN 2025', type:'EXPERIENCE',
+    role:'Team Lead',
+    company:'Team AeroSustain',
+    location:'Mumbai, Maharashtra',
+    tags:['Drones','RC Planes','Model Rocketry','Robotics','Team Leadership','Competition'],
+    brief:'Led an aerospace innovation club competing nationally and internationally in drones, rocketry, and robotics.',
+    image:'images/aerosustain.jpg', imageHint:'Team AeroSustain',
+    content:`<p><strong>Team AeroSustain</strong> is a student-run aerospace innovation club with a focus on building real flying machines — FPV drones, fixed-wing RC aircraft, model rockets, and autonomous robots.</p>
+    <p>As Team Lead, I was responsible for guiding cross-functional sub-teams, coordinating project timelines, and representing the team at <strong>national and international competitions</strong>. The role demanded as much leadership and communication skill as it did engineering acumen.</p>
+    <p>We competed in events organized by IITs and other premier institutions, regularly pushing the boundaries of what student teams can build on constrained budgets. The experience sharpened my ability to make rapid decisions under pressure, manage people, and translate ambitious ideas into flying prototypes.</p>`
+  },
+  {
+    id:'drdo', period:'JUN – SEP 2024', type:'EXPERIENCE',
+    role:'Summer R&D Intern',
+    company:'DRDO · R&DE(Engrs.), Composite Research Centre',
+    location:'Pune, Maharashtra',
+    tags:['Composite Structures','GFRP','Rohacell Foam','Manufacturing','Additive Manufacturing','Aerospace Materials'],
+    brief:'Research on advanced GFRP/Rohacell composite sandwich structures for aerospace at DRDO Pune.',
+    image:'images/drdo-intern.jpg', imageHint:'DRDO DRDO R&DE Pune Internship',
+    content:`<p>At <strong>DRDO's Research & Development Establishment (Engrs.)</strong> in Pune, I worked within the Composite Research Centre on the project <em>"Manufacturing of Composite Structures for Aerospace Applications."</em></p>
+    <p>The project centred on <strong>GFRP face sheets with Rohacell foam core sandwich panels</strong> — analysing their structural performance, lightweight advantages, and aerospace suitability. I conducted research on composite manufacturing techniques, material selection, and additive manufacturing integration.</p>
+    <p>Working directly under senior DRDO scientists and engineers, I was involved in the development and testing of composite structures aimed at enhancing both <strong>performance and durability</strong> in demanding aerospace environments.</p>
+    <p>This internship deepened my appreciation for the intricate relationship between material microstructure and macro-scale structural performance — a perspective that now informs all my research thinking.</p>`
+  },
+  {
+    id:'icts', period:'JUN – JUL 2024', type:'EXPERIENCE',
+    role:'Research Fellow',
+    company:'International Centre for Theoretical Sciences (ICTS-TIFR)',
+    location:'Bengaluru, Karnataka',
+    tags:['Gravitational Waves','Astrophysics','Neutron Stars','Black Holes','Research','TIFR'],
+    brief:'Selected for the 2024 Summer School on Gravitational Wave Astronomy at ICTS-TIFR Bengaluru.',
+    image:'images/icts.jpg', imageHint:'ICTS-TIFR Summer School',
+    content:`<p>Selected from a competitive applicant pool for the <strong>2024 Summer School on Gravitational Wave Astronomy</strong> at the International Centre for Theoretical Sciences (ICTS-TIFR), Bengaluru.</p>
+    <p>The programme covered frontier topics including the <strong>astrophysics of neutron stars and binaries</strong> (Dipankar Bhattacharya, Ashoka University), ultralight boson clouds around black holes (Nils Siemonsen, Princeton), rapidly spinning neutron stars and emission mechanisms (Keith Riles, University of Michigan), and search methods for continuous gravitational waves (Alicia M. Sintes, University of the Balearic Islands).</p>
+    <p>This experience expanded my scientific worldview well beyond aerospace structures and into the deepest observational physics being done today — reinforcing my belief that the most interesting engineering frontiers sit at the boundary between disciplines.</p>`
+  },
+  {
+    id:'gdsc', period:'AUG 2023 – JUL 2024', type:'EXPERIENCE',
+    role:'Head of Public Relations',
+    company:'Google Developer Student Clubs · Amity University Mumbai',
+    location:'Mumbai, Maharashtra',
+    tags:['Public Relations','Community Building','Events','Tech Outreach','Communication','Leadership'],
+    brief:'Led PR strategy for GDSC-AUM, connecting 500+ students with technology and innovation opportunities.',
+    image:'images/gdsc.jpg', imageHint:'Google Developer Student Clubs AUM',
+    content:`<p>As <strong>Head of Public Relations</strong> for the Google Developer Student Clubs chapter at Amity University Mumbai, I was responsible for amplifying the voice of our tech community to a wider audience.</p>
+    <p>I employed strategic communication to foster connections with industry stakeholders, curated impactful events, and nurtured a culture of innovation on campus. The role gave me hands-on experience in <strong>community management, content strategy, and stakeholder engagement</strong> — skills that complement my technical profile well.</p>
+    <p>The experience reinforced my belief that great technology needs great storytelling, and that connecting brilliant people with the right opportunities can spark ideas that change trajectories.</p>`
+  },
+  {
+    id:'atl', period:'JUN 2018 – MAY 2020', type:'EXPERIENCE',
+    role:'Student Lead STEM & Student Innovator',
+    company:'Atal Innovation Mission · Govt. of India',
+    location:'Solapur, Maharashtra',
+    tags:['STEM','Robotics','IoT','3D Printing','Coding','Outreach','Innovation'],
+    brief:'Early roots: building IoT systems, robots, and CubeSat models at the Atal Tinkering Lab.',
+    image:'images/atl.jpg', imageHint:'Atal Tinkering Lab Solapur',
+    content:`<p>My engineering story began at the <strong>Atal Tinkering Lab (ATL)</strong> in Solapur — a Government of India initiative under NITI Aayog's Atal Innovation Mission. This was where I first learned to think with my hands.</p>
+    <p>As a Student Innovator, I built an <strong>IoT-based Smart Dustbin System</strong> (using Arduino Uno with ultrasonic sensing and waste segregation), Smart Home systems, a CubeSat model, self-balancing robots, Rubik's Cube solvers, and Line Follower Bots.</p>
+    <p>I was honoured with the <strong>ATL Student Innovator 2020 Award</strong> by AIM, Government of India, and was nominated for the National Child Award 2022 in the Innovations category. As Student Lead STEM, I later guided younger students through similar experiences — paying forward what I had learned.</p>
+    <p>These formative years installed the maker's instinct that still drives every project I take on.</p>`
+  }
+];
+
+const projects = [
+  {
+    id:'thruster', num:'P.01', feat:true,
+    name:'Numerical Simulation of Spray Combustion in MMH/N₂O₄ Bipropellant Thruster',
+    brief:'Final year project — CFD modelling of combustion characteristics in a bipropellant rocket thruster using reduced chemical mechanisms.',
+    icon:'🚀', image:'images/thruster-project.jpg',
+    period:'AUG 2025', tags:['CFD','Combustion','ANSYS Fluent','Rocket Propulsion','MMH/N2O4','Reduced Chemistry'],
+    content:`<p>My undergraduate capstone — a comprehensive <strong>numerical simulation of spray combustion and heat transfer of MMH/N₂O₄</strong> (Monomethylhydrazine / Dinitrogen Tetroxide) in a bipropellant rocket thruster, using reduced chemical mechanism.</p>
+    <p>The simulation focused on atomization behaviour, ignition characteristics, combustion stability, and thermal performance — with the goal of improving thruster efficiency and propulsion system reliability for aerospace applications.</p>
+    <p>Tools: <strong>ANSYS Fluent</strong> for CFD simulation. The project won <em>First Prize</em> at Innovation Gallery 2026 (E-Cell, Amity University Maharashtra) among 40+ competing teams.</p>
+    <p>This work represents the deepest technical challenge I've undertaken independently, combining fluid dynamics, chemical kinetics, and aerospace engineering in a single model.</p>`
+  },
+  {
+    id:'mandrel', num:'P.02', feat:false,
+    name:'Integrated Mandrel Transport System — S200 Strap-on Boosters (ISRO)',
+    brief:'Structural design and analysis of the mandrel handling system for S200 solid motor segments at SDSC-SHAR.',
+    icon:'🛰️', image:'images/mandrel-project.jpg',
+    period:'JUN–JUL 2025', tags:['Structural Design','Load Analysis','LVM3','ISRO','Launch Vehicle Systems'],
+    content:`<p>Designed and analysed an <strong>integrated mandrel transport system</strong> for the middle and nozzle end segments of S200 strap-on boosters — the solid rocket boosters of India's LVM-III launch vehicle.</p>
+    <p>The work at <strong>Satish Dhawan Space Centre (ISRO)</strong> involved structural design, load analysis, and system optimization to ensure safe and efficient handling during solid motor propellant casting operations.</p>
+    <p>This project gave me hands-on exposure to aerospace manufacturing practices and the structural thinking required when systems must be both safe and operable under demanding factory conditions.</p>`
+  },
+  {
+    id:'hypersonic', num:'P.03', feat:false,
+    name:'CFD Analysis of Hypersonic Flow & Thermal Effects on Re-entry Vehicles',
+    brief:'Academic study of aerodynamic performance, shock wave behaviour, and thermal loads at high Mach numbers using ANSYS Fluent.',
+    icon:'🌌', image:'images/hypersonic-project.jpg',
+    period:'JAN–MAY 2025', tags:['CFD','Hypersonics','Re-entry','ANSYS Fluent','Aerodynamics','TPS'],
+    content:`<p>Conducted a systematic <strong>CFD analysis of hypersonic flow</strong> and thermal effects on re-entry vehicle configurations, focusing on aerodynamic performance, shock wave patterns, pressure distribution, and thermal protection system (TPS) design implications.</p>
+    <p>Multiple re-entry vehicle geometries were designed and analysed using <strong>ANSYS Fluent</strong> at Mach numbers representative of atmospheric re-entry — producing data on heat flux, stagnation pressure, and boundary layer behaviour.</p>
+    <p>The study provided insights into geometry-driven trade-offs between drag, stability, and thermal loads — critical considerations for next-generation re-entry capsules and hypersonic glide vehicles.</p>`
+  },
+  {
+    id:'composite', num:'P.04', feat:false,
+    name:'GFRP + Rohacell Foam Core Composite Sandwich Structures (DRDO)',
+    brief:'Manufacturing and structural characterisation of aerospace-grade composite sandwich panels at DRDO Composite Research Centre.',
+    icon:'🔬', image:'images/composite-project.jpg',
+    period:'JUN–SEP 2024', tags:['Composite Materials','GFRP','Sandwich Structures','Manufacturing','DRDO','Additive Manufacturing'],
+    content:`<p>Designed, manufactured, and analysed advanced <strong>GFRP (Glass Fibre Reinforced Polymer) face sheets with Rohacell foam core sandwich panels</strong> for aerospace applications during my DRDO internship.</p>
+    <p>The project emphasised structural performance metrics, lightweight design advantages, and manufacturing process optimisation — including research into additive manufacturing techniques for composite component fabrication.</p>
+    <p>Results were used to understand the structural suitability of these panels for aerospace component applications where weight, stiffness, and damage tolerance must be simultaneously optimised.</p>`
+  },
+  {
+    id:'drone', num:'P.05', feat:false,
+    name:'FPV Freestyle Drone & Fixed-Wing RC Aircraft',
+    brief:'End-to-end design, build, and flight testing of custom FPV drones and RC planes — from component selection to PID tuning.',
+    icon:'🚁', image:'images/drone-project.jpg',
+    period:'DEC 2022–MAR 2024', tags:['FPV','Drone','RC Plane','Flight Dynamics','Electronics','PID Tuning'],
+    content:`<p>Built multiple <strong>custom FPV (First-Person View) drones and RC fixed-wing aircraft</strong> from scratch — covering component selection, frame fabrication, ESC/motor integration, flight controller configuration, and PID tuning.</p>
+    <p>Applications explored included aerial photography, surveillance, and search-and-rescue scenarios. The RC plane builds deepened my understanding of <strong>aerodynamic trade-offs</strong> in wing design, control surface sizing, and propulsion matching at low Reynolds numbers.</p>
+    <p>These projects were undertaken within <strong>Team AeroSustain</strong> and contributed directly to competition entries at national-level events.</p>`
+  },
+  {
+    id:'iot', num:'P.06', feat:false,
+    name:'IoT-Based Smart Dustbin System for Municipal Corporations',
+    brief:'Arduino-powered waste management system with ultrasonic sensing, segregation, and mobile app notification integration.',
+    icon:'💡', image:'images/iot-project.jpg',
+    period:'JUL–DEC 2019', tags:['IoT','Arduino','Ultrasonic Sensing','Waste Management','Embedded Systems'],
+    content:`<p>Designed an <strong>IoT-based smart dustbin system</strong> using an Arduino Uno microcontroller. The system automatically opens the dustbin lid upon detecting an approaching user via ultrasonic sensor (ensuring hands-free operation) and closes automatically after use.</p>
+    <p>The system incorporated <strong>waste segregation logic</strong> and was integrated with a mobile app notification system to alert garbage collection teams when the bin reaches capacity — enabling just-in-time collection and reducing overflow incidents.</p>
+    <p>This early project — built at the Atal Tinkering Lab in Solapur — was one of my first encounters with the idea that engineering can make everyday civic infrastructure smarter and more humane. It won recognition at the district level and contributed to the ATL Student Innovator Award.</p>`
+  }
+];
+
+const blogs = [
+  {
+    date:'MAY 2026',
+    title:'My Road to AIR-50 in GATE Aerospace Engineering',
+    content:`<p>People often ask me what it takes to crack GATE Aerospace Engineering — and more specifically, how I got to AIR-50 in 2026. The honest answer is: <strong>first principles, not memorisation</strong>.</p>
+    <p>I started preparing seriously about 18 months before the exam. The first thing I did was map every subject to its conceptual foundations — not to the question types that appear in previous papers, but to the core ideas those questions test. Structural mechanics. Fluid dynamics. Propulsion thermodynamics. Each domain has a handful of governing ideas; everything else is a variation.</p>
+    <p>My daily structure: two hours in the morning for new concepts (with derivations, not just reading), one hour in the afternoon for problem-solving, and a light evening review. Weekends were for mock tests and pattern analysis — understanding not just what I got wrong, but <em>why</em> the right answer is right from first principles.</p>
+    <p>The GATE AE paper rewards candidates who can <strong>move fluidly between domains</strong> — who can apply a structural mechanics concept in a propulsion context or spot the fluid dynamics underpinning an aircraft stability question. That cross-domain fluency only comes from genuine understanding, not rote preparation.</p>
+    <p>If I could give one piece of advice: fall in love with the subject. Rank follows naturally when you genuinely want to understand how things work.</p>`
+  },
+  {
+    date:'AUG 2025',
+    title:'Inside ISRO\'s Mission: Life at Satish Dhawan Space Centre',
+    content:`<p>The morning I first drove through the gates of <strong>Satish Dhawan Space Centre, Sriharikota</strong>, I felt something I hadn't felt before — a kind of weight in the air. Not the humid heat of coastal Andhra Pradesh, but something more like the accumulated mass of every rocket that had ever launched from this barrier island.</p>
+    <p>I was there to work on structural analysis of the <strong>S200 solid strap-on boosters</strong> of LVM3 — India's most powerful operational launch vehicle. The problem I was handed on day one was concrete, well-scoped, and genuinely consequential. That felt different from academic assignments.</p>
+    <p>The engineers there had a particular way of working. <strong>Deliberate. Unhurried. Precise.</strong> Mistakes in this domain don't announce themselves gently. So the culture doesn't allow shortcuts — not even in documentation. Especially in documentation.</p>
+    <p>The thing that struck me most wasn't the hardware (though the hardware is extraordinary). It was the <strong>institutional memory</strong>. Engineers who had worked on PSLV in the 1990s were still in the building, mentoring the team that would take India to the Moon and beyond. That depth of knowledge doesn't exist in many places in the world.</p>
+    <p>I came back from Sriharikota with a stronger engineering foundation and a clearer sense of purpose. If you ever get the chance to work at ISRO — take it. Whatever it costs you, take it.</p>`
+  },
+  {
+    date:'DEC 2024',
+    title:'Why Space Sustainability Is the Most Important Engineering Challenge of Our Generation',
+    content:`<p>We are living in the first era of genuine commercial spaceflight. Hundreds of satellites are launched every year. Mega-constellations are reshaping global connectivity. And orbital debris is quietly becoming <strong>the defining infrastructure risk of the 21st century</strong>.</p>
+    <p>Here's the uncomfortable truth: if we don't solve orbital sustainability, we may eventually reach a point where certain orbital regimes become unusable — not in theory, not in science fiction, but in practice. The Kessler syndrome isn't a remote scenario. It's a trajectory we're already on.</p>
+    <p>The engineering challenges are real and fascinating. <strong>Active debris removal</strong> requires matching orbital velocities with non-cooperative targets — objects that may be tumbling, degraded, and poorly characterised. Drag sails and de-orbit systems need to be lightweight, reliable, and fail-safe over multi-year missions. Satellite end-of-life protocols need to be standardised globally, which is as much a geopolitical problem as an engineering one.</p>
+    <p>My own research interest in <strong>reconfigurable space structures and advanced composite materials</strong> connects directly to this challenge. Lighter structures mean lower launch costs, which enables more sustainable constellation designs. Structures that can be reconfigured or repaired in orbit mean longer satellite lifetimes and less debris.</p>
+    <p>The generation of engineers entering the field now will either solve this problem or inherit its consequences. I know which option I'd prefer — and I'm building toward it.</p>`
+  }
+];
+
+/* ─── BOOT SEQUENCE ──────────────────── */
+window.addEventListener('load', () => {
+  const boot = document.getElementById('boot');
+  const lines = boot.querySelectorAll('.bline');
+  lines.forEach((l,i) => {
+    l.style.animationDelay = (i * 0.3 + 0.1) + 's';
+  });
+  setTimeout(() => boot.classList.add('gone'), 3200);
+});
+
+/* ─── CURSOR ─────────────────────────── */
+const cdot = document.getElementById('cdot');
+const cring = document.getElementById('cring');
+let mx=0, my=0, rx=0, ry=0;
+document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; cdot.style.left=mx+'px'; cdot.style.top=my+'px'; });
+(function animCursor(){
+  rx += (mx-rx)*.14; ry += (my-ry)*.14;
+  cring.style.left=rx+'px'; cring.style.top=ry+'px';
+  requestAnimationFrame(animCursor);
+})();
+document.querySelectorAll('a,button,.tl-item,.proj-card,.blog-card,.award-c,.soc-link').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('ch'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('ch'));
+});
+
+/* ─── SCROLL PROGRESS ────────────────── */
+window.addEventListener('scroll',()=>{
+  const p = window.scrollY/(document.body.scrollHeight-window.innerHeight)*100;
+  document.getElementById('sprog').style.width = p+'%';
+});
+
+/* ─── STARFIELD CANVAS ───────────────── */
+(function(){
+  const c = document.getElementById('starfield');
+  const ctx = c.getContext('2d');
+  let stars=[];
+  function resize(){
+    c.width=window.innerWidth; c.height=window.innerHeight;
+  }
+  function makeStars(n){
+    stars=[];
+    for(let i=0;i<n;i++){
+      stars.push({
+        x:Math.random()*c.width,
+        y:Math.random()*c.height,
+        r:Math.random()*1.1+.15,
+        a:Math.random(),
+        s:Math.random()*.0008+.0002,
+        phase:Math.random()*Math.PI*2
+      });
+    }
+  }
+  let t=0;
+  function draw(){
+    ctx.clearRect(0,0,c.width,c.height);
+    t+=.01;
+    stars.forEach(s=>{
+      const a = s.a*(0.5+0.5*Math.sin(t*s.s*100+s.phase));
+      ctx.beginPath();
+      ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(180,200,255,${a})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  resize(); makeStars(220); draw();
+  window.addEventListener('resize',()=>{ resize(); makeStars(220); });
+})();
+
+/* ─── HAMBURGER / SIDEBAR ────────────── */
+const ham = document.getElementById('ham');
+const sidebar = document.getElementById('sidebar');
+ham.addEventListener('click',()=>{
+  ham.classList.toggle('open');
+  sidebar.classList.toggle('open');
+  document.body.style.overflow = sidebar.classList.contains('open')?'hidden':'';
+});
+document.querySelectorAll('.sb-link').forEach(a=>{
+  a.addEventListener('click',()=>{
+    ham.classList.remove('open');
+    sidebar.classList.remove('open');
+    document.body.style.overflow='';
+  });
+});
+
+/* ─── SCROLL REVEAL ──────────────────── */
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('vis'); });
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+/* ─── RENDER TIMELINE ────────────────── */
+const tlWrap = document.getElementById('timeline-wrap');
+experiences.forEach((exp,i)=>{
+  const div = document.createElement('div');
+  div.className='tl-item reveal rd'+(Math.min(i%4+1,4));
+  div.innerHTML=`
+    <div class="tl-dot"></div>
+    <div class="tl-card">
+      <div class="tl-period">${exp.period}</div>
+      <div class="tl-role">${exp.role}</div>
+      <div class="tl-co">${exp.company}</div>
+      <div class="tl-desc">${exp.brief}</div>
+      <div class="tl-tags">${exp.tags.map(t=>`<span class="tl-tag">${t}</span>`).join('')}</div>
+      <div class="tl-more">View Dossier ›</div>
+    </div>`;
+  div.addEventListener('click',()=>openDetail(exp));
+  tlWrap.appendChild(div);
+  obs.observe(div);
+});
+
+/* ─── RENDER PROJECTS ────────────────── */
+const pgrid = document.getElementById('proj-grid');
+projects.forEach((p,i)=>{
+  const div = document.createElement('div');
+  div.className='proj-card reveal'+(p.feat?' feat':'');
+  div.innerHTML=`
+    <div class="proj-img">
+      <div class="pimg-hold">
+        <div class="pimg-icon">${p.icon}</div>
+        <span>Add image:<br>${p.image}</span>
+      </div>
+    </div>
+    <div class="proj-body">
+      <div class="proj-num">${p.num}</div>
+      <div class="proj-name">${p.name}</div>
+      <div class="proj-brief">${p.brief}</div>
+    </div>
+    <div class="proj-hover"><span class="proj-cta">Open Dossier</span></div>`;
+  div.addEventListener('click',()=>openDetail(p));
+  pgrid.appendChild(div);
+  obs.observe(div);
+});
+
+/* ─── DETAIL PANEL ───────────────────── */
+const detEl = document.getElementById('detail');
+const detContent = document.getElementById('det-content');
+const detBack = document.getElementById('det-back');
+const detClose = document.getElementById('det-close');
+
+function openDetail(item){
+  const isExp = !!item.role;
+  detContent.innerHTML=`
+    <div class="det-tag">${item.type || 'PROJECT'}</div>
+    <div class="det-title">${item.role || item.name}</div>
+    ${isExp ? `<div class="det-sub">${item.company}</div>` : ''}
+    <div class="det-period">${item.period}${item.location ? ' · '+item.location : ''}</div>
+    <div class="det-img">
+      <div class="det-img-ph"><span>${item.imageHint || item.name}</span></div>
+    </div>
+    <div class="det-body">${item.content}</div>
+    <div class="det-skills">
+      <div class="det-skills-hd">${isExp ? 'Skills & Keywords' : 'Technologies'}</div>
+      <div class="det-tags">${item.tags.map(t=>`<span class="det-t">${t}</span>`).join('')}</div>
+    </div>`;
+  detEl.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeDetail(){
+  detEl.classList.remove('open');
+  document.body.style.overflow='';
+}
+detClose.addEventListener('click',closeDetail);
+detBack.addEventListener('click',closeDetail);
+document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ closeDetail(); closeBlog(); }});
+
+/* ─── BLOG DETAIL ────────────────────── */
+const bdEl = document.getElementById('blog-detail');
+const bdContent = document.getElementById('bd-content');
+const bdBack = document.getElementById('bd-back');
+const bdClose = document.getElementById('bd-close');
+
+function openBlog(i){
+  const b = blogs[i];
+  bdContent.innerHTML=`
+    <div class="bd-date">${b.date}</div>
+    <div class="bd-title">${b.title}</div>
+    <div class="bd-body">${b.content}</div>`;
+  bdEl.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeBlog(){
+  bdEl.classList.remove('open');
+  document.body.style.overflow='';
+}
+bdClose.addEventListener('click',closeBlog);
+bdBack.addEventListener('click',closeBlog);
+
+/* ─── VISITOR COUNTER ────────────────── */
+(function(){
+  // Uses localStorage for a lightweight per-browser counter.
+  // To use a real global counter, replace this with a call to
+  // GoatCounter (goatcounter.com) or CountAPI (countapi.xyz).
+  const key = 'srk_portfolio_visits';
+  let v = parseInt(localStorage.getItem(key)||'0');
+  const isNew = !sessionStorage.getItem('srk_session');
+  if(isNew){ v++; localStorage.setItem(key,v); sessionStorage.setItem('srk_session','1'); }
+  document.getElementById('visitor-count').textContent = v.toLocaleString();
+})();
+
+/* ─── ACTIVE NAV HIGHLIGHTING ────────── */
+const sections = document.querySelectorAll('section[id]');
+const io = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      // No inline nav links shown on mobile; could be extended
+    }
+  });
+},{threshold:.4});
+sections.forEach(s=>io.observe(s));
+</script>
+</body>
+</html>
