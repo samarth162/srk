@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Archive | Samarth Rajendra Kulkarni</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ─────────────────────────────────────────────
+   ROOT & BASE STYLES
+───────────────────────────────────────────── */
+:root {
+  --bg:          #02020b;
+  --surface:     #08081a;
+  --border:      rgba(255,255,255,0.07);
+  --border-a:    rgba(0,255,224,0.22);
+  --accent:      #00ffe0;
+  --text:        #b8b8d8;
+  --text-bright: #eeeeff;
+  --text-dim:    #55557a;
+  --fh:          'Syne', sans-serif;
+  --fb:          'Cormorant Garamond', serif;
+  --fm:          'JetBrains Mono', monospace;
+  --ease:        cubic-bezier(0.4,0,0.2,1);
+}
+*,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background:var(--bg); color:var(--text);
+  font-family:var(--fb); font-size:18px; line-height:1.7;
+}
+a { color:inherit; text-decoration:none; }
+
+/* ─────────────────────────────────────────────
+   NAVIGATION
+───────────────────────────────────────────── */
+nav {
+  padding:24px 44px; display:flex;
+  justify-content:space-between; align-items:center;
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family:var(--fm); font-size:13px; color:var(--accent);
+  letter-spacing:4px; font-weight:500; text-transform: uppercase;
+}
+.back-btn {
+  font-family:var(--fm); font-size:11px; letter-spacing:2px;
+  color:var(--text); text-transform:uppercase;
+  display:flex; align-items:center; gap:8px; transition:color .3s;
+}
+.back-btn:hover { color:var(--accent); }
+.back-btn::before { content:'←'; }
+
+/* ─────────────────────────────────────────────
+   MAIN HEADER
+───────────────────────────────────────────── */
+.header { padding: 80px 44px 40px; text-align: center; }
+.title { font-family:var(--fh); font-size:clamp(40px,6vw,80px); font-weight:800; color:var(--text-bright); letter-spacing:-2px; margin-bottom: 12px;}
+.subtitle { font-family:var(--fb); font-style:italic; font-size:20px; color:var(--text-dim); font-weight:300; }
+
+/* ─────────────────────────────────────────────
+   MEDIA GRIDS & CARDS
+───────────────────────────────────────────── */
+.section-title {
+  font-family:var(--fm); font-size:12px; letter-spacing:4px;
+  color:var(--accent); text-transform:uppercase; margin: 60px 44px 20px;
+  border-bottom: 1px solid var(--border); padding-bottom: 10px;
+}
+.media-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px; padding: 0 44px 80px;
+}
+
+/* Card Styling */
+.media-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 8px; overflow: hidden;
+  transition: transform .3s var(--ease), border-color .3s, box-shadow .3s;
+  display: flex; flex-direction: column;
+}
+.media-card:hover { 
+  transform: translateY(-5px); 
+  border-color: var(--border-a); 
+  box-shadow: 0 10px 30px rgba(0, 255, 224, 0.05);
+}
+.media-content {
+  aspect-ratio: 4/3; width: 100%; background: var(--bg); overflow: hidden;
+}
+.media-content img, .media-content video {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform .5s ease;
+}
+.media-card:hover .media-content img {
+  transform: scale(1.03);
+}
+.media-caption {
+  padding: 20px;
+  font-family: var(--fb);
+  font-size: 16px;
+  color: var(--text-dim);
+  line-height: 1.6;
+  border-top: 1px solid var(--border);
+}
+.media-caption strong {
+  display: block;
+  font-family: var(--fh);
+  font-size: 18px;
+  color: var(--text-bright);
+  margin-bottom: 6px;
+  font-weight: 700;
+}
+
+@media(max-width:768px) {
+  nav { padding: 20px 24px; }
+  .header { padding: 60px 24px 20px; }
+  .section-title { margin: 40px 24px 20px; }
+  .media-grid { padding: 0 24px 60px; grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="back-btn">Return to Mission Control</a>
+  <div class="nav-logo">Samarth Rajendra Kulkarni</div>
+</nav>
+
+<div class="header">
+  <div class="title">VISUAL ARCHIVE</div>
+  <div class="subtitle">Fragments of testing, builds, and milestones.</div>
+</div>
+
+<div class="section-title">Image Logs</div>
+<div class="media-grid">
+  
+  <div class="media-card">
+    <div class="media-content">
+      <img src="images/name1.png" alt="Archive Image 1">
+    </div>
+    <div class="media-caption">
+      <strong>Image Title 1</strong>
+      abcd... You can edit this text later to describe what is happening in the photo, the technology used, or the event it was taken at.
+    </div>
+  </div>
+
+  <div class="media-card">
+    <div class="media-content">
+      <img src="images/name2.png" alt="Archive Image 2">
+    </div>
+    <div class="media-caption">
+      <strong>Image Title 2</strong>
+      abcd... Add your brief description here.
+    </div>
+  </div>
+
+  <div class="media-card">
+    <div class="media-content">
+      <img src="images/name3.png" alt="Archive Image 3">
+    </div>
+    <div class="media-caption">
+      <strong>Image Title 3</strong>
+      abcd... Add your brief description here.
+    </div>
+  </div>
+
+  <div class="media-card">
+    <div class="media-content">
+      <img src="images/name4.png" alt="Archive Image 4">
+    </div>
+    <div class="media-caption">
+      <strong>Image Title 4</strong>
+      abcd... Add your brief description here.
+    </div>
+  </div>
+
+  <div class="media-card">
+    <div class="media-content">
+      <img src="images/name5.png" alt="Archive Image 5">
+    </div>
+    <div class="media-caption">
+      <strong>Image Title 5</strong>
+      abcd... Add your brief description here.
+    </div>
+  </div>
+
+</div>
+
+
+<div class="section-title">Video Telemetry</div>
+<div class="media-grid">
+  
+  <div class="media-card">
+    <div class="media-content">
+      <video src="images/video1.mp4" controls muted></video>
+    </div>
+    <div class="media-caption">
+      <strong>Video Title 1</strong>
+      abcd... Explain the test flight, simulation run, or project demonstration shown in this video.
+    </div>
+  </div>
+
+  <div class="media-card">
+    <div class="media-content">
+      <video src="images/video2.mp4" controls muted></video>
+    </div>
+    <div class="media-caption">
+      <strong>Video Title 2</strong>
+      abcd... Add your brief description here.
+    </div>
+  </div>
+
+  <div class="media-card">
+    <div class="media-content">
+      <video src="images/video3.mp4" controls muted></video>
+    </div>
+    <div class="media-caption">
+      <strong>Video Title 3</strong>
+      abcd... Add your brief description here.
+    </div>
+  </div>
+
+  <div class="media-card">
+    <div class="media-content">
+      <video src="images/video4.mp4" controls muted></video>
+    </div>
+    <div class="media-caption">
+      <strong>Video Title 4</strong>
+      abcd... Add your brief description here.
+    </div>
+  </div>
+
+  <div class="media-card">
+    <div class="media-content">
+      <video src="images/video5.mp4" controls muted></video>
+    </div>
+    <div class="media-caption">
+      <strong>Video Title 5</strong>
+      abcd... Add your brief description here.
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
