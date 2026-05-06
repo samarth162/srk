@@ -168,15 +168,17 @@ nav {
   justify-content:center; align-items:center;
   opacity:0; visibility:hidden;
   transition:opacity .45s ease, visibility .45s ease;
+  overflow-y: auto;
 }
 #sidebar.open { opacity:1; visibility:visible; }
-.sb-links { list-style:none; text-align:center; }
+.sb-links { list-style:none; text-align:center; padding: 20px 0;}
 .sb-links li { overflow:hidden; }
 .sb-links a {
   display:block; font-family:var(--fh);
-  font-size:clamp(36px,7vw,76px); font-weight:800;
-  color:var(--text-dim); padding:6px 0;
-  letter-spacing:-2px;
+  font-size:clamp(18px,4vw,38px); /* Reduced font size for mobile fit */
+  font-weight:800;
+  color:var(--text-dim); padding:8px 0;
+  letter-spacing:-1px;
   transform:translateY(110%);
   transition:color .3s, transform .65s cubic-bezier(0.16,1,0.3,1);
 }
@@ -187,9 +189,10 @@ nav {
 .sb-links li:nth-child(4) a { transition-delay:.16s; }
 .sb-links li:nth-child(5) a { transition-delay:.20s; }
 .sb-links li:nth-child(6) a { transition-delay:.24s; }
+.sb-links li:nth-child(7) a { transition-delay:.28s; }
 .sb-links a:hover { color:var(--accent); }
 .sb-social {
-  margin-top:52px; display:flex; gap:28px;
+  margin-top:32px; display:flex; gap:28px;
   opacity:0; transition:opacity .4s .42s;
 }
 #sidebar.open .sb-social { opacity:1; }
@@ -258,9 +261,8 @@ section { padding:140px 44px; max-width:1180px; margin:0 auto; position:relative
   padding:6px 16px; border:1px solid var(--border); border-radius:100px;
   color:var(--text-dim); background:var(--card);
 }
-.chip.hl { border-color:var(--accent); color:var(--accent); background:var(--accent-dim); }
 .hero-cta {
-  display:flex; gap:24px; align-items:center;
+  display:flex; gap:24px; align-items:center; flex-wrap: wrap;
   opacity:0; animation:fadeup .8s 3.4s forwards; position: relative; z-index: 2;
 }
 .btn-p {
@@ -275,19 +277,10 @@ section { padding:140px 44px; max-width:1180px; margin:0 auto; position:relative
 .btn-s {
   font-family:var(--fm); font-size:11px; letter-spacing:2.5px;
   text-transform:uppercase; color:var(--text);
-  display:flex; align-items:center; gap:10px;
+  display:flex; align-items:center; gap:8px;
   transition:color .3s, gap .3s;
 }
-.btn-s:hover { color:var(--accent); gap:18px; }
-.btn-s::after { content:'→'; }
-.hero-scroll {
-  position:absolute; bottom:44px; left:44px;
-  display:flex; align-items:center; gap:14px;
-  opacity:0; animation:fadeup .8s 3.7s forwards;
-}
-.s-line { width:40px; height:1px; background:var(--text-dim); animation:spulse 2.5s 4.5s infinite; }
-@keyframes spulse { 0%,100%{width:40px;opacity:.7} 50%{width:70px;opacity:.3} }
-.s-lbl { font-family:var(--fm); font-size:10px; letter-spacing:4px; color:var(--text-dim); text-transform:uppercase; }
+.btn-s:hover { color:var(--accent); gap:12px; }
 
 /* Rings */
 .ring {
@@ -302,11 +295,14 @@ section { padding:140px 44px; max-width:1180px; margin:0 auto; position:relative
 
 /* Hero photo */
 .hero-photo {
-  position:absolute; right:8%; top:50%; z-index:1;
-  transform:translateY(-50%);
-  width:clamp(220px,22vw,320px); aspect-ratio:3/4;
-  border:1px solid var(--border-a); overflow:hidden;
-  clip-path:polygon(16px 0%,100% 0%,calc(100% - 16px) 100%,0% 100%);
+  position:absolute; right:2%; top:15%; z-index:1;
+  width:clamp(200px,22vw,280px); aspect-ratio:3/4;
+  border: 3px solid var(--accent);
+  padding: 10px;
+  border-radius: 16px;
+  background: rgba(0, 255, 224, 0.05);
+  box-shadow: var(--glow);
+  overflow:hidden;
   opacity:0; animation:fadein 1s 3.3s forwards;
   transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -314,7 +310,11 @@ section { padding:140px 44px; max-width:1180px; margin:0 auto; position:relative
   opacity: 0;
   transform: translateY(-150%) scale(0.5);
 }
-.hero-photo img { width:100%; height:100%; object-fit:cover; filter:grayscale(15%) contrast(1.1) brightness(.8); }
+.hero-photo img { 
+  width:100%; height:100%; object-fit:cover; 
+  filter:grayscale(10%) contrast(1.1) brightness(.9); 
+  border-radius: 8px; 
+}
 
 /* ─────────────────────────────────────────────
    ABOUT — MISSION BRIEF
@@ -345,9 +345,13 @@ section { padding:140px 44px; max-width:1180px; margin:0 auto; position:relative
 }
 
 /* ─────────────────────────────────────────────
-   FLIGHT LOG — EXPERIENCE TIMELINE
+   EDUCATION — ACADEMIC CORE
 ───────────────────────────────────────────── */
-#experience { padding-top:180px; }
+#education { padding-top:180px; }
+
+/* ─────────────────────────────────────────────
+   TIMELINE STYLES (Used in Edu & Exp)
+───────────────────────────────────────────── */
 .timeline { position:relative; padding-left:56px; }
 .timeline::before {
   content:''; position:absolute; left:0; top:12px; bottom:0;
@@ -389,7 +393,12 @@ section { padding:140px 44px; max-width:1180px; margin:0 auto; position:relative
   display:flex; align-items:center; gap:6px;
   opacity:0; transition:opacity .3s;
 }
-.tl-item:hover .tl-more { opacity:1; }
+.tl-item.exp-card:hover .tl-more { opacity:1; } /* Only show 'View Dossier' on experience */
+
+/* ─────────────────────────────────────────────
+   FLIGHT LOG — EXPERIENCE TIMELINE
+───────────────────────────────────────────── */
+#experience { padding-top:180px; }
 
 /* ─────────────────────────────────────────────
    LAUNCHPAD — PROJECTS
@@ -528,7 +537,6 @@ footer {
   font-family:var(--fm); font-size:10px; color:var(--text-dim); letter-spacing:2px;
 }
 .vc { color:var(--accent); font-size:13px; font-weight:500; }
-.ft-divider { width:1px; height:12px; background:var(--border); }
 
 /* ─────────────────────────────────────────────
    DETAIL PANEL (slide-in page)
@@ -646,7 +654,6 @@ footer {
   nav { padding:20px 24px; }
   section { padding:100px 24px; }
   #hero { padding:0 24px; }
-  .hero-scroll { left:24px; }
   .ring { display:none; }
   .hero-photo { display:none; }
   .proj-grid { grid-template-columns:1fr; background:none; gap:2px; }
@@ -692,6 +699,7 @@ footer {
 <div id="sidebar">
   <ul class="sb-links">
     <li><a href="#about" class="sb-link">Mission Brief</a></li>
+    <li><a href="#education" class="sb-link">Academic Core</a></li>
     <li><a href="#experience" class="sb-link">Flight Log</a></li>
     <li><a href="#projects" class="sb-link">Launchpad</a></li>
     <li><a href="#blog" class="sb-link">Transmissions</a></li>
@@ -701,7 +709,7 @@ footer {
   <div class="sb-social">
     <a href="https://www.linkedin.com/in/samarthk162" target="_blank">LinkedIn</a>
     <a href="mailto:samarthkulkarni162@gmail.com">Email</a>
-    <a href="https://www.instagram.com/" target="_blank">Instagram</a>
+    <a href="https://www.instagram.com/samarthk162/" target="_blank">Instagram</a>
     <a href="https://github.com/" target="_blank">GitHub</a>
   </div>
 </div>
@@ -727,8 +735,10 @@ footer {
   <div class="hero-cta">
     <a href="#projects" class="btn-p">Explore Work</a>
     <a href="#contact" class="btn-s">Let's Connect</a>
+    <a href="resume.pdf" target="_blank" class="btn-s">
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" style="margin-right:4px;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM6 20V4h5v7h7v9H6z"/></svg> View Resume
+    </a>
   </div>
-  <div class="hero-scroll"><div class="s-line"></div><span class="s-lbl">Scroll to explore</span></div>
 
   <div class="hero-photo" id="main-hero-photo">
     <img src="images/profile-image.jpeg" alt="Samarth Rajendra Kulkarni">
@@ -792,6 +802,55 @@ footer {
           <span class="lang">Kannada</span>
           <span class="lang">Spanish</span>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="sec-label reveal">
+    <span class="sec-num">01.5</span>
+    <div class="sec-line"></div>
+    <span class="sec-tag">Academic Core</span>
+  </div>
+  <div class="sec-title reveal rd1">EDUCATION<br>BACKGROUND</div>
+  <p class="sec-sub reveal rd2">The academic launchpads of my journey.</p>
+
+  <div class="timeline reveal rd3">
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <div class="tl-period">SEP 2022 – JUN 2026</div>
+        <div class="tl-role">B.Tech Aerospace Engineering</div>
+        <div class="tl-co">Amity University Mumbai</div>
+        <div class="tl-desc">Final-year student specializing in Aeronautical and Astronautical Space Engineering. Minor in Business Management. Currently in the 8th Semester (Enrollment: A70405522015).</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <div class="tl-period">JUL 2021 – AUG 2021</div>
+        <div class="tl-role">Summer Immersion Pre-college Program</div>
+        <div class="tl-co">Columbia University School of Professional Studies</div>
+        <div class="tl-desc">Studied Entrepreneurship & Innovation alongside the Physics & Technologies of the future. Engaged in high-level coursework and collaborative group presentations.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <div class="tl-period">JUL 2020 – JUL 2022</div>
+        <div class="tl-role">Maharashtra Board (HSC) Class 12th</div>
+        <div class="tl-co">Walchand College of Arts and Science, Solapur</div>
+        <div class="tl-desc">Science stream graduate with a focus on core analytical subjects and bifocal Computer Science.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <div class="tl-period">JUN 2008 – JUN 2020</div>
+        <div class="tl-role">CBSE Class 10th</div>
+        <div class="tl-co">KLE English Medium School, Solapur</div>
+        <div class="tl-desc">Foundational education and early exposure to STEM through the Atal Tinkering Lab initiatives.</div>
       </div>
     </div>
   </div>
@@ -903,7 +962,7 @@ footer {
       <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
       LinkedIn
     </a>
-    <a class="soc-link" href="https://www.instagram.com/" target="_blank">
+    <a class="soc-link" href="https://www.instagram.com/samarthk162/" target="_blank">
       <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
       Instagram
     </a>
@@ -925,9 +984,7 @@ footer {
   <div class="ft-copy">© 2026 Samarth Rajendra Kulkarni · All rights reserved · Built with curiosity &amp; caffeine</div>
   <div class="ft-visitor">
     <span>Mission visitors:</span>
-    <span class="vc" id="visitor-count">—</span>
-    <div class="ft-divider"></div>
-    <span style="font-size:9px;letter-spacing:3px">AMITY UNIV MUMBAI · 2026</span>
+    <span class="vc" id="visitor-count">...</span>
   </div>
 </footer>
 
@@ -995,7 +1052,7 @@ const experiences = [
     location:'Bengaluru, Karnataka',
     tags:['Gravitational Waves','Astrophysics','Neutron Stars','Black Holes','Research','TIFR'],
     brief:'Selected for the 2024 Summer School on Gravitational Wave Astronomy at ICTS-TIFR Bengaluru.',
-    image:'images/icts-image.jpeg',
+    image:'images/icts-image.png',
     content:`<p>Selected from a competitive applicant pool for the <strong>2024 Summer School on Gravitational Wave Astronomy</strong> at the International Centre for Theoretical Sciences (ICTS-TIFR), Bengaluru.</p>
     <p>The programme covered frontier topics including the <strong>astrophysics of neutron stars and binaries</strong> (Dipankar Bhattacharya, Ashoka University), ultralight boson clouds around black holes (Nils Siemonsen, Princeton), rapidly spinning neutron stars and emission mechanisms (Keith Riles, University of Michigan), and search methods for continuous gravitational waves (Alicia M. Sintes, University of the Balearic Islands).</p>
     <p>This experience expanded my scientific worldview well beyond aerospace structures and into the deepest observational physics being done today — reinforcing my belief that the most interesting engineering frontiers sit at the boundary between disciplines.</p>`
@@ -1007,7 +1064,7 @@ const experiences = [
     location:'Mumbai, Maharashtra',
     tags:['Public Relations','Community Building','Events','Tech Outreach','Communication','Leadership'],
     brief:'Led PR strategy for GDSC-AUM, connecting 500+ students with technology and innovation opportunities.',
-    image:'images/gdsc-image.jpeg',
+    image:'images/gdsc-image.png',
     content:`<p>As <strong>Head of Public Relations</strong> for the Google Developer Student Clubs chapter at Amity University Mumbai, I was responsible for amplifying the voice of our tech community to a wider audience.</p>
     <p>I employed strategic communication to foster connections with industry stakeholders, curated impactful events, and nurtured a culture of innovation on campus. The role gave me hands-on experience in <strong>community management, content strategy, and stakeholder engagement</strong> — skills that complement my technical profile well.</p>
     <p>The experience reinforced my belief that great technology needs great storytelling, and that connecting brilliant people with the right opportunities can spark ideas that change trajectories.</p>`
@@ -1019,7 +1076,7 @@ const experiences = [
     location:'Solapur, Maharashtra',
     tags:['STEM','Robotics','IoT','3D Printing','Coding','Outreach','Innovation'],
     brief:'Early roots: building IoT systems, robots, and CubeSat models at the Atal Tinkering Lab.',
-    image:'images/atl-image.jpeg',
+    image:'images/atl-image.jpg',
     content:`<p>My engineering story began at the <strong>Atal Tinkering Lab (ATL)</strong> in Solapur — a Government of India initiative under NITI Aayog's Atal Innovation Mission. This was where I first learned to think with my hands.</p>
     <p>As a Student Innovator, I built an <strong>IoT-based Smart Dustbin System</strong> (using Arduino Uno with ultrasonic sensing and waste segregation), Smart Home systems, a CubeSat model, self-balancing robots, Rubik's Cube solvers, and Line Follower Bots.</p>
     <p>I was honoured with the <strong>ATL Student Innovator 2020 Award</strong> by AIM, Government of India, and was nominated for the National Child Award 2022 in the Innovations category. As Student Lead STEM, I later guided younger students through similar experiences — paying forward what I had learned.</p>
@@ -1043,7 +1100,7 @@ const projects = [
     id:'mandrel', num:'P.02', feat:false,
     name:'Integrated Mandrel Transport System — S200 Strap-on Boosters (ISRO)',
     brief:'Structural design and analysis of the mandrel handling system for S200 solid motor segments at SDSC-SHAR.',
-    image:'images/proj-mandrel.jpeg',
+    image:'images/proj-mandrel.png',
     period:'JUN–JUL 2025', tags:['Structural Design','Load Analysis','LVM3','ISRO','Launch Vehicle Systems'],
     content:`<p>Designed and analysed an <strong>integrated mandrel transport system</strong> for the middle and nozzle end segments of S200 strap-on boosters — the solid rocket boosters of India's LVM-III launch vehicle.</p>
     <p>The work at <strong>Satish Dhawan Space Centre (ISRO)</strong> involved structural design, load analysis, and system optimization to ensure safe and efficient handling during solid motor propellant casting operations.</p>
@@ -1063,7 +1120,7 @@ const projects = [
     id:'composite', num:'P.04', feat:false,
     name:'GFRP + Rohacell Foam Core Composite Sandwich Structures (DRDO)',
     brief:'Manufacturing and structural characterisation of aerospace-grade composite sandwich panels at DRDO Composite Research Centre.',
-    image:'images/proj-composite.jpeg',
+    image:'images/proj-composite.jpg',
     period:'JUN–SEP 2024', tags:['Composite Materials','GFRP','Sandwich Structures','Manufacturing','DRDO','Additive Manufacturing'],
     content:`<p>Designed, manufactured, and analysed advanced <strong>GFRP (Glass Fibre Reinforced Polymer) face sheets with Rohacell foam core sandwich panels</strong> for aerospace applications during my DRDO internship.</p>
     <p>The project emphasised structural performance metrics, lightweight design advantages, and manufacturing process optimisation — including research into additive manufacturing techniques for composite component fabrication.</p>
@@ -1083,7 +1140,7 @@ const projects = [
     id:'iot', num:'P.06', feat:false,
     name:'IoT-Based Smart Dustbin System for Municipal Corporations',
     brief:'Arduino-powered waste management system with ultrasonic sensing, segregation, and mobile app notification integration.',
-    image:'images/proj-iot.jpeg',
+    image:'images/proj-iot.webp',
     period:'JUL–DEC 2019', tags:['IoT','Arduino','Ultrasonic Sensing','Waste Management','Embedded Systems'],
     content:`<p>Designed an <strong>IoT-based smart dustbin system</strong> using an Arduino Uno microcontroller. The system automatically opens the dustbin lid upon detecting an approaching user via ultrasonic sensor (ensuring hands-free operation) and closes automatically after use.</p>
     <p>The system incorporated <strong>waste segregation logic</strong> and was integrated with a mobile app notification system to alert garbage collection teams when the bin reaches capacity — enabling just-in-time collection and reducing overflow incidents.</p>
@@ -1228,7 +1285,7 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 const tlWrap = document.getElementById('timeline-wrap');
 experiences.forEach((exp,i)=>{
   const div = document.createElement('div');
-  div.className='tl-item reveal rd'+(Math.min(i%4+1,4));
+  div.className='tl-item exp-card reveal rd'+(Math.min(i%4+1,4));
   div.innerHTML=`
     <div class="tl-dot"></div>
     <div class="tl-card">
@@ -1318,13 +1375,17 @@ function closeBlog(){
 bdClose.addEventListener('click',closeBlog);
 bdBack.addEventListener('click',closeBlog);
 
-/* ─── VISITOR COUNTER ────────────────── */
+/* ─── GLOBAL VISITOR COUNTER ─────────── */
 (function(){
-  const key = 'srk_portfolio_visits';
-  let v = parseInt(localStorage.getItem(key)||'0');
-  const isNew = !sessionStorage.getItem('srk_session');
-  if(isNew){ v++; localStorage.setItem(key,v); sessionStorage.setItem('srk_session','1'); }
-  document.getElementById('visitor-count').textContent = v.toLocaleString();
+  // Uses a free API to track global page hits
+  fetch('https://api.counterapi.dev/v1/samarthk162/portfolio_visits/up')
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById('visitor-count').textContent = data.count.toLocaleString();
+    })
+    .catch(err => {
+      document.getElementById('visitor-count').textContent = "Live";
+    });
 })();
 
 /* ─── ACTIVE NAV HIGHLIGHTING ────────── */
@@ -1332,7 +1393,7 @@ const sections = document.querySelectorAll('section[id]');
 const io = new IntersectionObserver(entries=>{
   entries.forEach(e=>{
     if(e.isIntersecting){
-      // No inline nav links shown on mobile; could be extended
+      // Optional: Add nav highlight logic here if needed
     }
   });
 },{threshold:.4});
