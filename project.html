@@ -213,7 +213,15 @@ const projects = [
     content:`<p>My undergraduate capstone — a comprehensive <strong>numerical simulation of spray combustion and heat transfer of MMH/N₂O₄</strong> (Monomethylhydrazine / Dinitrogen Tetroxide) in a bipropellant rocket thruster, using reduced chemical mechanism.</p>
     <p>The simulation focused on atomization behaviour, ignition characteristics, combustion stability, and thermal performance — with the goal of improving thruster efficiency and propulsion system reliability for aerospace applications.</p>
     <p>Tools: <strong>ANSYS Fluent</strong> for CFD simulation. The project won <em>First Prize</em> at Innovation Gallery 2026 (E-Cell, Amity University Maharashtra) among 40+ competing teams.</p>
-    <p>This work represents the deepest technical challenge I've undertaken independently, combining fluid dynamics, chemical kinetics, and aerospace engineering in a single model.</p>`
+    <p>This work represents the deepest technical challenge I've undertaken independently, combining fluid dynamics, chemical kinetics, and aerospace engineering in a single model.</p>
+    <div style="margin-top: 32px;">
+      <a href="https://samarth162.github.io/thesis-simulator/" target="_blank" style="display: inline-flex; align-items: center; gap: 10px; font-family: var(--fm); font-size: 10px; letter-spacing: 2px; color: var(--bg); text-transform: uppercase; padding: 12px 24px; background: var(--accent); text-decoration: none; font-weight: 600; border-radius: 4px; transition: transform 0.3s, box-shadow 0.3s;">
+        Launch Virtual Simulator ↗
+      </a>
+      <div style="font-family: var(--fm); font-size: 11px; color: var(--text-dim); margin-top: 12px; line-height: 1.6;">
+        * Redirects to the online interactive chemical simulator for surrogate fluids.
+      </div>
+    </div>`
   },
   {
     id:'mandrel', num:'P.02', feat:false,
@@ -281,7 +289,7 @@ projects.forEach((p,i)=>{
       <div class="proj-name">${p.name}</div>
       <div class="proj-brief">${p.brief}</div>
     </div>
-    <div class="proj-hover"><span class="proj-cta">Open Dossier</span></div>`;
+    <div class="proj-hover"><span class="proj-cta">View More Details</span></div>`;
   div.addEventListener('click',()=>openDetail(p));
   pgrid.appendChild(div);
 });
