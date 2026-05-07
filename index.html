@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Samarth Rajendra Kulkarni – Aerospace Engineer, Space Structures Researcher & Innovator. AIR-50 GATE '26 AE | Former Intern ISRO & DRDO.">
 <meta property="og:title" content="Samarth Rajendra Kulkarni | Aerospace Engineer">
-<meta property="og:description" content="Building the future of aerospace — one structure at a time.">
+<meta property="og:description" content="Building the future of space exploration — one structure at a time.">
 <title>Samarth Rajendra Kulkarni</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 /* ─────────────────────────────────────────────
-   ROOT & RESET
+   ROOT & RESET (DESKTOP PRESERVED)
 ───────────────────────────────────────────── */
 :root {
   --bg:          #02020b;
@@ -39,7 +39,8 @@ html { scroll-behavior:smooth; overflow-x:hidden; }
 body {
   background:var(--bg); color:var(--text);
   font-family:var(--fb); font-size:18px; line-height:1.7;
-  overflow-x:hidden; cursor:none;
+  overflow-x:hidden; 
+  /* Cursor normal */
 }
 a { color:inherit; text-decoration:none; }
 img { max-width:100%; display:block; }
@@ -62,12 +63,11 @@ img { max-width:100%; display:block; }
   width: 240px;
 }
 .rocket-wrap {
-  height: 60px; /* Space for the rocket */
+  height: 60px;
   width: 100%;
   display: flex; justify-content: center; align-items: flex-end;
   margin-bottom: 15px;
 }
-/* Rocket SVG Styles */
 .rocket-svg {
   transform: translateY(0);
   transition: transform 0.7s cubic-bezier(0.5, 0, 0.2, 1);
@@ -77,20 +77,17 @@ img { max-width:100%; display:block; }
   transition: opacity 0.2s ease;
   transform-origin: top;
 }
-/* Ignition state */
 .rocket-svg.ignite .rocket-flame {
   opacity: 1;
   animation: flicker 0.1s infinite alternate;
 }
-/* Launch state */
 .rocket-svg.launch {
-  transform: translateY(-120vh); /* Shoots off the screen */
+  transform: translateY(-120vh); 
 }
 @keyframes flicker {
   0% { transform: scaleY(1); stroke: var(--gold); }
   100% { transform: scaleY(1.4); stroke: #ff5500; }
 }
-
 .boot-bar {
   width: 100%; height: 2px;
   background: rgba(255,255,255,0.06); overflow: hidden;
@@ -99,30 +96,6 @@ img { max-width:100%; display:block; }
 .boot-fill {
   height: 100%; width: 0%; background: var(--accent);
   transition: width 0.15s linear;
-}
-
-/* ─────────────────────────────────────────────
-   CURSOR
-───────────────────────────────────────────── */
-#cdot {
-  position:fixed; width:5px; height:5px;
-  background:var(--accent); border-radius:50%;
-  pointer-events:none; z-index:9998;
-  transform:translate(-50%,-50%);
-  transition:transform .04s;
-}
-#cring {
-  position:fixed; width:34px; height:34px;
-  border:1px solid rgba(0,255,224,.45); border-radius:50%;
-  pointer-events:none; z-index:9997;
-  transform:translate(-50%,-50%);
-  transition:width .3s var(--ease), height .3s var(--ease),
-             border-color .3s, background .3s, left .12s ease, top .12s ease;
-}
-body.ch #cring {
-  width:58px; height:58px;
-  border-color:var(--accent);
-  background:rgba(0,255,224,.06);
 }
 
 /* ─────────────────────────────────────────────
@@ -243,7 +216,7 @@ section { padding:140px 44px; max-width:1180px; margin:0 auto; position:relative
 .sec-label { display:flex; align-items:center; gap:14px; margin-bottom:56px; }
 .sec-num { font-family:var(--fm); font-size:11px; color:var(--accent); letter-spacing:2px; }
 .sec-line { width:50px; height:1px; background:var(--border-a); }
-.sec-tag { font-family:var(--fm); font-size:12px; letter-spacing:5px; text-transform:uppercase; color:var(--text-dim); }
+.sec-tag { font-family:var(--fm); font-size:13px; letter-spacing:5px; text-transform:uppercase; color:var(--text-dim); }
 
 .sec-title {
   font-family:var(--fh); font-size:clamp(44px,6.8vw,95px);
@@ -273,8 +246,8 @@ section { padding:140px 44px; max-width:1180px; margin:0 auto; position:relative
   font-size:clamp(35px,7.2vw,110px);
   color:var(--text-bright); line-height:.86; letter-spacing:-4px;
   max-width:900px; position:relative; z-index:2;
-  opacity:0; /* Hidden initially, JS typing effect reveals it */
-  min-height: 180px; /* Prevents layout jump during typing */
+  opacity:0; 
+  min-height: 180px; 
 }
 .hero-name .ac { color:var(--accent); }
 .hero-tagline {
@@ -395,7 +368,19 @@ section { padding:140px 44px; max-width:1180px; margin:0 auto; position:relative
   background:var(--bg); border:1px solid var(--accent);
   transition:.35s var(--ease);
 }
+/* Pulse Animation for Timeline Dots */
+.tl-dot::after {
+  content:''; position:absolute; inset:-5px; border-radius:50%;
+  border:1px solid var(--accent); opacity:0;
+  animation: nodePulse 2.5s infinite cubic-bezier(0.21, 0.53, 0.56, 0.8);
+}
+@keyframes nodePulse {
+  0% { transform:scale(0.5); opacity:1; }
+  100% { transform:scale(2.8); opacity:0; }
+}
 .tl-item:hover .tl-dot { background:var(--accent); box-shadow:0 0 14px var(--accent); }
+.tl-item:hover .tl-dot::after { animation:none; opacity:0; }
+
 .tl-card {
   background:var(--card); border:1px solid var(--border);
   padding:32px 36px; position:relative; overflow:hidden;
@@ -642,7 +627,7 @@ footer {
 @keyframes fadein { from{opacity:0} to{opacity:1} }
 
 /* ─────────────────────────────────────────────
-   MEDIA QUERIES
+   MEDIA QUERIES (STRICTLY FOR MOBILE FIXES)
 ───────────────────────────────────────────── */
 @media(max-width:1024px) {
   .proj-grid { grid-template-columns:1fr 1fr; }
@@ -650,17 +635,36 @@ footer {
   .about-grid { grid-template-columns:1fr; }
   .awards-strip { grid-template-columns:repeat(2, 1fr); }
 }
+
 @media(max-width:768px) {
   nav { padding:20px 24px; }
   section { padding:100px 24px; }
-  #hero { padding:0 24px; }
-  .hero-photo { display:none; }
+  
+  /* Mobile Hero Adjustments */
+  #hero { padding:120px 24px 60px; justify-content:center; }
+  .ring { display:none; }
+  
+  /* Bring the profile photo safely onto the mobile screen */
+  .hero-photo { 
+    display:block; 
+    position:relative; 
+    right:auto; top:auto;
+    width:140px; 
+    margin:0 0 30px 0;
+    box-shadow: 0 0 20px rgba(0,255,224,0.15);
+  }
+  .hero-photo.scrolled { opacity: 0; transform: translateY(-50px) scale(0.8); }
+  
+  /* Prevent text overflow on small screens */
+  .sec-title { font-size:clamp(32px, 10vw, 50px) !important; word-break: break-word; }
+  .hero-name { font-size:clamp(32px, 10vw, 55px); word-break: break-word; line-height:1.1; min-height:100px; }
+  .contact-big { font-size:clamp(30px, 9vw, 50px); }
+
   .proj-grid { grid-template-columns:1fr; background:none; gap:2px; }
   .proj-card.feat { grid-column:span 1; }
   .blog-grid { grid-template-columns:1fr; }
   .awards-strip { grid-template-columns:1fr; }
-  #det-panel { padding:40px 28px; }
-  .contact-big { font-size:clamp(34px,9vw,68px); }
+  #det-panel { padding:40px 24px; width:100%; }
   footer { padding:32px 24px; }
 }
 </style>
@@ -724,6 +728,10 @@ footer {
   <div class="ring ring-3"></div>
   <div class="ring ring-4"></div>
 
+  <div class="hero-photo" id="main-hero-photo">
+    <img src="images/profile-image.jpeg" alt="Samarth Rajendra Kulkarni">
+  </div>
+
   <div class="hero-eye">Aerospace Engineer · Innovator · Business Adm.</div>
   
   <div class="hero-name" id="hero-name-container"></div>
@@ -742,10 +750,6 @@ footer {
     <a href="resume.pdf" target="_blank" class="btn-s">
       <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" style="margin-right:4px;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM6 20V4h5v7h7v9H6z"/></svg> View Resume
     </a>
-  </div>
-
-  <div class="hero-photo" id="main-hero-photo">
-    <img src="images/profile-image.jpeg" alt="Samarth Rajendra Kulkarni">
   </div>
 </section>
 
