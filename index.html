@@ -63,11 +63,12 @@ img { max-width:100%; display:block; }
   width: 240px;
 }
 .rocket-wrap {
-  height: 60px;
+  height: 60px; /* Space for the rocket */
   width: 100%;
   display: flex; justify-content: center; align-items: flex-end;
   margin-bottom: 15px;
 }
+/* Rocket SVG Styles */
 .rocket-svg {
   transform: translateY(0);
   transition: transform 0.7s cubic-bezier(0.5, 0, 0.2, 1);
@@ -77,17 +78,20 @@ img { max-width:100%; display:block; }
   transition: opacity 0.2s ease;
   transform-origin: top;
 }
+/* Ignition state */
 .rocket-svg.ignite .rocket-flame {
   opacity: 1;
   animation: flicker 0.1s infinite alternate;
 }
+/* Launch state */
 .rocket-svg.launch {
-  transform: translateY(-120vh); 
+  transform: translateY(-120vh); /* Shoots off the screen */
 }
 @keyframes flicker {
   0% { transform: scaleY(1); stroke: var(--gold); }
   100% { transform: scaleY(1.4); stroke: #ff5500; }
 }
+
 .boot-bar {
   width: 100%; height: 2px;
   background: rgba(255,255,255,0.06); overflow: hidden;
@@ -246,8 +250,8 @@ section { padding:140px 44px; max-width:1180px; margin:0 auto; position:relative
   font-size:clamp(35px,7.2vw,110px);
   color:var(--text-bright); line-height:.86; letter-spacing:-4px;
   max-width:900px; position:relative; z-index:2;
-  opacity:0; 
-  min-height: 180px; 
+  opacity:0; /* Hidden initially, JS typing effect reveals it */
+  min-height: 180px; /* Prevents layout jump during typing */
 }
 .hero-name .ac { color:var(--accent); }
 .hero-tagline {
@@ -821,7 +825,7 @@ footer {
     <div class="sec-line"></div>
     <span class="sec-tag">Academics</span>
   </div>
-  <div class="sec-title reveal rd1" style="font-size: clamp(33px, 5.2vw, 70px);">EDUCATION<br>BACKGROUND</div>
+  <div class="sec-title reveal rd1" style="font-size: clamp(41px, 6.4vw, 90px);">EDUCATION<br>BACKGROUND</div>
   <p class="sec-sub reveal rd2">The academic launchpads of my journey.</p>
 
   <div class="timeline reveal rd3">
@@ -1176,13 +1180,16 @@ const projects = [
     <p>The simulation focused on atomization behaviour, ignition characteristics, combustion stability, and thermal performance — with the goal of improving thruster efficiency and propulsion system reliability for aerospace applications.</p>
     <p>Tools: <strong>ANSYS Fluent</strong> for CFD simulation. The project won <em>First Prize</em> at Innovation Gallery 2026 (E-Cell, Amity University Maharashtra) among 40+ competing teams.</p>
     <p>This work represents the deepest technical challenge I've undertaken independently, combining fluid dynamics, chemical kinetics, and aerospace engineering in a single model.</p>
-    <div style="margin-top: 32px;">
+    <div style="margin-top: 32px; display: flex; flex-wrap: wrap; gap: 12px;">
+      <a href="https://youtu.be/KRImP5lA4fE?si=TyB-AyyYuw3DLU-X" target="_blank" style="display: inline-flex; align-items: center; gap: 10px; font-family: var(--fm); font-size: 10px; letter-spacing: 2px; color: var(--accent); text-transform: uppercase; padding: 12px 24px; border: 1px solid var(--accent); background: rgba(0,255,224,0.05); text-decoration: none; font-weight: 600; border-radius: 4px; transition: all 0.3s;">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg> Watch Project Brief ↗
+      </a>
       <a href="https://samarth162.github.io/thesis-simulator/" target="_blank" style="display: inline-flex; align-items: center; gap: 10px; font-family: var(--fm); font-size: 10px; letter-spacing: 2px; color: var(--bg); text-transform: uppercase; padding: 12px 24px; background: var(--accent); text-decoration: none; font-weight: 600; border-radius: 4px; transition: transform 0.3s, box-shadow 0.3s;">
         Launch Virtual Simulator ↗
       </a>
-      <div style="font-family: var(--fm); font-size: 11px; color: var(--text-dim); margin-top: 12px; line-height: 1.6;">
-        * Redirects to the online interactive chemical simulator for surrogate fluids.
-      </div>
+    </div>
+    <div style="font-family: var(--fm); font-size: 11px; color: var(--text-dim); margin-top: 12px; line-height: 1.6;">
+      * Simulator redirects to the online interactive chemical simulator for surrogate fluids.
     </div>`
   },
   {
