@@ -14,6 +14,8 @@
 :root {
   --bg:          #02020b;
   --surface:     #08081a;
+  --card:        rgba(255,255,255,0.032);
+  --card-hover:  rgba(255,255,255,0.058);
   --border:      rgba(255,255,255,0.07);
   --border-a:    rgba(0,255,224,0.22);
   --accent:      #00ffe0;
@@ -29,8 +31,12 @@
 body {
   background:var(--bg); color:var(--text);
   font-family:var(--fb); font-size:18px; line-height:1.7;
+  overflow-x:hidden;
 }
 a { color:inherit; text-decoration:none; }
+::-webkit-scrollbar { width:3px; }
+::-webkit-scrollbar-track { background:var(--bg); }
+::-webkit-scrollbar-thumb { background:var(--accent); border-radius:2px; }
 
 /* ─────────────────────────────────────────────
    NAVIGATION
@@ -39,6 +45,11 @@ nav {
   padding:24px 44px; display:flex;
   justify-content:space-between; align-items:center;
   border-bottom: 1px solid var(--border);
+  background: rgba(2,2,11,0.9);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 500;
 }
 .nav-logo {
   font-family:var(--fm); font-size:13px; color:var(--accent);
@@ -55,67 +66,188 @@ nav {
 /* ─────────────────────────────────────────────
    MAIN HEADER
 ───────────────────────────────────────────── */
-.header { padding: 80px 44px 40px; text-align: center; }
+.header { padding: 80px 44px 60px; text-align: center; }
 .title { font-family:var(--fh); font-size:clamp(40px,6vw,80px); font-weight:800; color:var(--text-bright); letter-spacing:-2px; margin-bottom: 12px;}
 .subtitle { font-family:var(--fb); font-style:italic; font-size:20px; color:var(--text-dim); font-weight:300; }
 
 /* ─────────────────────────────────────────────
-   MEDIA GRIDS & CARDS
+   ARCHIVE GRID (MASONRY LAYOUT)
 ───────────────────────────────────────────── */
-.section-title {
-  font-family:var(--fm); font-size:12px; letter-spacing:4px;
-  color:var(--accent); text-transform:uppercase; margin: 60px 44px 20px;
-  border-bottom: 1px solid var(--border); padding-bottom: 10px;
+.archive-container {
+  max-width: 1280px; margin: 0 auto; padding: 0 44px 100px;
 }
-.media-grid {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 24px; padding: 0 44px 80px;
+.archive-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 280px;
+  gap: 16px;
+  grid-auto-flow: dense;
 }
 
-/* Card Styling */
-.media-card {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: 8px; overflow: hidden;
-  transition: transform .3s var(--ease), border-color .3s, box-shadow .3s;
-  display: flex; flex-direction: column;
+/* Base Item Styles */
+.arc-item {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.4s var(--ease), transform 0.4s var(--ease);
 }
-.media-card:hover { 
-  transform: translateY(-5px); 
-  border-color: var(--border-a); 
-  box-shadow: 0 10px 30px rgba(0, 255, 224, 0.05);
+.arc-item:hover {
+  border-color: var(--border-a);
+  transform: translateY(-4px);
+  z-index: 2;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
-.media-content {
-  aspect-ratio: 4/3; width: 100%; background: var(--bg); overflow: hidden;
+
+/* Orientation Modifiers */
+.arc-item.landscape { grid-column: span 2; grid-row: span 1; }
+.arc-item.portrait  { grid-column: span 1; grid-row: span 2; }
+
+/* Media Content */
+.arc-media {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: grayscale(20%) brightness(0.8);
+  transition: filter 0.5s, transform 0.7s var(--ease);
 }
-.media-content img, .media-content video {
-  width: 100%; height: 100%; object-fit: cover;
-  transition: transform .5s ease;
-}
-.media-card:hover .media-content img {
+.arc-item:hover .arc-media {
+  filter: grayscale(0%) brightness(1.05);
   transform: scale(1.03);
 }
-.media-caption {
-  padding: 20px;
-  font-family: var(--fb);
-  font-size: 16px;
-  color: var(--text-dim);
-  line-height: 1.6;
-  border-top: 1px solid var(--border);
+
+/* Hover Overlay & Captions */
+.arc-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 30%, rgba(2,2,11,0.95) 100%);
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 24px;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: auto; /* Allows button clicks */
 }
-.media-caption strong {
-  display: block;
-  font-family: var(--fh);
-  font-size: 18px;
-  color: var(--text-bright);
-  margin-bottom: 6px;
-  font-weight: 700;
+.arc-item:hover .arc-overlay { opacity: 1; }
+
+.arc-type {
+  font-family: var(--fm); font-size: 9px; letter-spacing: 3px;
+  color: var(--accent); text-transform: uppercase; margin-bottom: 6px;
+}
+.arc-caption {
+  font-family: var(--fh); font-size: 14px; font-weight: 600;
+  color: var(--text-bright); line-height: 1.4;
 }
 
+/* ─────────────────────────────────────────────
+   INTERACTIVE ACTIONS (SHARE ONLY)
+───────────────────────────────────────────── */
+.arc-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 18px;
+  align-items: center;
+}
+.action-btn {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 50%;
+  width: 38px; height: 38px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+  backdrop-filter: blur(4px);
+}
+.action-btn:hover {
+  background: var(--accent-dim);
+  border-color: var(--accent);
+  color: var(--text-bright);
+  transform: translateY(-2px);
+}
+.action-btn svg { width: 16px; height: 16px; fill: currentColor; transition: transform 0.2s; }
+.action-btn:active svg { transform: scale(0.85); }
+
+/* Tooltip for copy */
+.action-msg {
+  font-family: var(--fm); font-size: 10px; letter-spacing: 1px; color: var(--accent);
+  opacity: 0; transition: opacity 0.3s;
+  pointer-events: none;
+}
+.action-msg.show { opacity: 1; }
+
+/* Play Icon for Videos */
+.vid-icon {
+  position: absolute; top: 20px; right: 20px;
+  width: 24px; height: 24px;
+  background: rgba(0,0,0,0.5); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255,255,255,0.2);
+  pointer-events: none;
+}
+.vid-icon::after {
+  content: ''; display: block;
+  border-left: 8px solid var(--text-bright);
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  margin-left: 3px;
+}
+
+/* ─────────────────────────────────────────────
+   FULLSCREEN LIGHTBOX MODAL
+───────────────────────────────────────────── */
+#lightbox {
+  position: fixed; inset: 0; z-index: 9000;
+  background: rgba(2,2,11,0.96); backdrop-filter: blur(15px);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.4s, visibility 0.4s;
+}
+#lightbox.active { opacity: 1; visibility: visible; }
+#lb-close {
+  position: absolute; top: 30px; right: 40px;
+  background: none; border: none; color: var(--text-dim);
+  font-family: var(--fm); font-size: 30px; cursor: pointer;
+  transition: color 0.3s;
+}
+#lb-close:hover { color: var(--accent); }
+#lb-content {
+  max-width: 85vw; max-height: 85vh;
+  position: relative;
+}
+#lb-content img, #lb-content video {
+  max-width: 100%; max-height: 85vh;
+  object-fit: contain;
+  border: 1px solid var(--border-a);
+  border-radius: 4px;
+  box-shadow: 0 0 50px rgba(0,255,224,0.1);
+}
+#lb-caption {
+  position: absolute; bottom: -40px; left: 0; right: 0;
+  text-align: center; font-family: var(--fm); font-size: 12px;
+  color: var(--text-bright); letter-spacing: 1px;
+}
+
+/* ─────────────────────────────────────────────
+   RESPONSIVE DESIGN
+───────────────────────────────────────────── */
+@media(max-width:1024px) {
+  .archive-grid { grid-template-columns: repeat(2, 1fr); }
+  .arc-item.landscape { grid-column: span 2; }
+}
 @media(max-width:768px) {
   nav { padding: 20px 24px; }
   .header { padding: 60px 24px 20px; }
-  .section-title { margin: 40px 24px 20px; }
-  .media-grid { padding: 0 24px 60px; grid-template-columns: 1fr; }
+  .archive-container { padding: 0 24px 60px; }
+  
+  /* Mobile Stacking Layout */
+  .archive-grid { grid-template-columns: 1fr; grid-auto-rows: auto; gap: 12px; }
+  .arc-item.landscape { grid-column: span 1; aspect-ratio: 16/9; }
+  .arc-item.portrait { grid-column: span 1; aspect-ratio: 4/5; }
+  
+  /* Keep overlay visible on mobile since no hover */
+  .arc-overlay { opacity: 1; background: linear-gradient(180deg, transparent 40%, rgba(2,2,11,0.95) 100%); }
+  #lb-content { max-width: 95vw; }
 }
 </style>
 </head>
@@ -127,120 +259,218 @@ nav {
 </nav>
 
 <div class="header">
-  <div class="title">VISUAL ARCHIVE</div>
-  <div class="subtitle">Fragments of testing, builds, and milestones.</div>
+  <div class="title">THE ARCHIVE</div>
+  <div class="subtitle">Raw footage, milestones, and behind-the-scenes visuals.</div>
 </div>
 
-<div class="section-title">Image Logs</div>
-<div class="media-grid">
+<div class="archive-container">
+  <div class="archive-grid" id="archive-grid">
+    </div>
+</div>
+
+<div id="lightbox">
+  <button id="lb-close" aria-label="Close Lightbox">×</button>
+  <div id="lb-content">
+    <div id="lb-media-container"></div>
+    <div id="lb-caption"></div>
+  </div>
+</div>
+
+<script>
+/* ─── ARCHIVE DATA ───────────────────────────── */
+const archiveData = [
+  {
+    id: 'arc-1', type: 'video', orientation: 'portrait',
+    src: 'images/vid-rc-plane.mp4', 
+    caption: 'RC plane flying in action at IIT Kanpur'
+  },
+  {
+    id: 'arc-2', type: 'image', orientation: 'landscape',
+    src: 'images/img-ceo-conclave.jpg', 
+    caption: 'On stage presenting PPT as IT Head for CEO Conclave 2025 at Amity University'
+  },
+  {
+    id: 'arc-3', type: 'video', orientation: 'portrait',
+    src: 'images/vid-drone-show.mp4', 
+    caption: 'Showcasing custom drone build and hardware setup'
+  },
+  {
+    id: 'arc-4', type: 'image', orientation: 'landscape',
+    src: 'images/img-amiprakalp.jpg', 
+    caption: 'Presenting final project on hypergolic propellant and combustion at Amiprakalp 2026'
+  },
+  {
+    id: 'arc-5', type: 'video', orientation: 'portrait',
+    src: 'images/vid-isro-nisar.mp4', 
+    caption: 'Witnessing the ISRO NISAR satellite launch live from nearest point after point zero'
+  },
+  {
+    id: 'arc-6', type: 'image', orientation: 'landscape',
+    src: 'images/img-amiemerge.jpg', 
+    caption: 'On stage winning prize for poster presentation at Amiemerge 2026'
+  },
+  {
+    id: 'arc-7', type: 'video', orientation: 'landscape',
+    src: 'images/vid-technicia-3d.mp4', 
+    caption: 'Premiere of 3D video during banner drop at Technicia 2024 (Creator, Editor & Digital Head)'
+  },
+  {
+    id: 'arc-8', type: 'video', orientation: 'portrait',
+    src: 'images/vid-aminova-kratex.mp4', 
+    caption: 'Concert management during Aminova 2023 for DJ Kratex as General Management Coordinator'
+  },
+  {
+    id: 'arc-9', type: 'image', orientation: 'landscape',
+    src: 'images/img-aerosustain-iitk.jpg', 
+    caption: 'Team AeroSustain geared up at IIT Kanpur for national drone competition'
+  },
+  {
+    id: 'arc-10', type: 'video', orientation: 'portrait',
+    src: 'images/vid-suicide-drone.mp4', 
+    caption: 'Suicide drone prototype testing project at Amity University'
+  },
+  {
+    id: 'arc-11', type: 'image', orientation: 'landscape',
+    src: 'images/img-isro-conference.jpg', 
+    caption: 'Attending technical conference at ISRO SDSC-SHAR, Sriharikota'
+  },
+  {
+    id: 'arc-12', type: 'image', orientation: 'landscape',
+    src: 'images/img-boeing.jpg', 
+    caption: 'Selected for Boeing National Level Aeromodelling Workshop 2023 at IIT Kanpur'
+  },
+  {
+    id: 'arc-13', type: 'image', orientation: 'landscape',
+    src: 'images/img-millennium-fellowship.jpg', 
+    caption: 'Team Sustenance volunteer work targeting Zero Hunger Sustainable Goal under Millennium Fellowship 2024'
+  },
+  {
+    id: 'arc-14', type: 'image', orientation: 'landscape',
+    src: 'images/img-rc-fighter-testing.jpg', 
+    caption: 'Trial and testing of an RC fighter plane on college grounds with HOD Dr. Amol Kamble and the team'
+  },
+  {
+    id: 'arc-15', type: 'video', orientation: 'landscape',
+    src: 'images/vid-hypergolic-testing.mp4', 
+    caption: 'Physical testing of hypergolic chemicals for combustion research'
+  },
+  {
+    id: 'arc-16', type: 'image', orientation: 'landscape',
+    src: 'images/img-ssp-donation.jpg', 
+    caption: 'Donating 30,000+ books and 5,000+ stationery items to underprivileged children in rural areas via SSP team'
+  },
+  {
+    id: 'arc-17', type: 'video', orientation: 'portrait',
+    src: 'images/vid-drone-workshop.mp4', 
+    caption: 'Drone making workshop organized under Team AeroSustain at Amity University Mumbai with 50+ participants in 2024'
+  },
+  {
+    id: 'arc-18', type: 'video', orientation: 'portrait',
+    src: 'images/vid-prabalgad-trek.mp4', 
+    caption: 'Trekking Prabalgad and Kalavantin Durg in the Western Ghats. One of the best memories from over 10+ summits in Maharashtra'
+  }
+];
+
+/* ─── SHARE LOGIC ────────────────────────────── */
+window.shareItem = async function(event, title) {
+  event.stopPropagation(); // Stops the lightbox from opening
+  const btn = event.currentTarget;
+  const msgSpan = btn.nextElementSibling;
   
-  <div class="media-card">
-    <div class="media-content">
-      <img src="images/name1.png" alt="Archive Image 1">
-    </div>
-    <div class="media-caption">
-      <strong>Image Title 1</strong>
-      abcd... coming soon. We'll update you soon.
-    </div>
-  </div>
+  const shareData = {
+    title: 'Samarth Rajendra Kulkarni | Archive',
+    text: title,
+    url: window.location.href
+  };
 
-  <div class="media-card">
-    <div class="media-content">
-      <img src="images/name2.png" alt="Archive Image 2">
-    </div>
-    <div class="media-caption">
-      <strong>Image Title 2</strong>
-      abcd... coming soon. We'll update you soon.
-    </div>
-  </div>
+  try {
+    if (navigator.share) {
+      await navigator.share(shareData);
+    } else {
+      navigator.clipboard.writeText(window.location.href);
+      msgSpan.textContent = "Link Copied!";
+      msgSpan.classList.add('show');
+      setTimeout(() => msgSpan.classList.remove('show'), 2000);
+    }
+  } catch (err) {
+    console.error('Share failed:', err);
+  }
+};
 
-  <div class="media-card">
-    <div class="media-content">
-      <img src="images/name3.png" alt="Archive Image 3">
-    </div>
-    <div class="media-caption">
-      <strong>Image Title 3</strong>
-      abcd... coming soon. We'll update you soon.
-    </div>
-  </div>
+/* ─── RENDER GRID ────────────────────────────── */
+const grid = document.getElementById('archive-grid');
 
-  <div class="media-card">
-    <div class="media-content">
-      <img src="images/name4.png" alt="Archive Image 4">
-    </div>
-    <div class="media-caption">
-      <strong>Image Title 4</strong>
-      abcd... coming soon. We'll update you soon.
-    </div>
-  </div>
-
-  <div class="media-card">
-    <div class="media-content">
-      <img src="images/name5.png" alt="Archive Image 5">
-    </div>
-    <div class="media-caption">
-      <strong>Image Title 5</strong>
-      abcd... coming soon. We'll update you soon.
-    </div>
-  </div>
-
-</div>
-
-
-<div class="section-title">Video Telemetry</div>
-<div class="media-grid">
+archiveData.forEach((item) => {
+  const div = document.createElement('div');
+  div.className = `arc-item ${item.orientation}`;
   
-  <div class="media-card">
-    <div class="media-content">
-      <video src="images/video1.mp4" controls muted></video>
-    </div>
-    <div class="media-caption">
-      <strong>Video Title 1</strong>
-      abcd... coming soon. We'll update you soon.
-    </div>
-  </div>
+  let mediaHTML = '';
+  let iconHTML = '';
+  
+  if (item.type === 'video') {
+    mediaHTML = `<video class="arc-media" src="${item.src}" autoplay muted loop playsinline></video>`;
+    iconHTML = `<div class="vid-icon"></div>`;
+  } else {
+    mediaHTML = `<img class="arc-media" src="${item.src}" alt="${item.caption}" loading="lazy">`;
+  }
 
-  <div class="media-card">
-    <div class="media-content">
-      <video src="images/video2.mp4" controls muted></video>
+  div.innerHTML = `
+    ${mediaHTML}
+    ${iconHTML}
+    <div class="arc-overlay">
+      <div class="arc-type">${item.type} · ${item.orientation}</div>
+      <div class="arc-caption">${item.caption}</div>
+      
+      <div class="arc-actions">
+        <button class="action-btn" aria-label="Share" onclick="shareItem(event, '${item.caption.replace(/'/g, "\\'")}')">
+          <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg>
+        </button>
+        <span class="action-msg"></span>
+      </div>
     </div>
-    <div class="media-caption">
-      <strong>Video Title 2</strong>
-      abcd... coming soon. We'll update you soon.
-    </div>
-  </div>
+  `;
+  
+  div.addEventListener('click', () => openLightbox(item));
+  grid.appendChild(div);
+});
 
-  <div class="media-card">
-    <div class="media-content">
-      <video src="images/video3.mp4" controls muted></video>
-    </div>
-    <div class="media-caption">
-      <strong>Video Title 3</strong>
-      abcd... coming soon. We'll update you soon.
-     </div>
-  </div>
-   
-  <div class="media-card">
-    <div class="media-content">
-      <video src="images/video4.mp4" controls muted></video>
-    </div>
-    <div class="media-caption">
-      <strong>Video Title 4</strong>
-      abcd... coming soon. We'll update you soon.
-    </div>
-  </div>
+/* ─── LIGHTBOX LOGIC ─────────────────────────── */
+const lb = document.getElementById('lightbox');
+const lbContainer = document.getElementById('lb-media-container');
+const lbCaption = document.getElementById('lb-caption');
+const lbClose = document.getElementById('lb-close');
 
-  <div class="media-card">
-    <div class="media-content">
-      <video src="images/video5.mp4" controls muted></video>
-    </div>
-    <div class="media-caption">
-      <strong>Video Title 5</strong>
-      abcd... coming soon. We'll update you soon.
-    </div>
-  </div>
+function openLightbox(item) {
+  lbContainer.innerHTML = ''; 
+  
+  if (item.type === 'video') {
+    lbContainer.innerHTML = `<video src="${item.src}" controls autoplay playsinline style="width:100%; height:100%;"></video>`;
+  } else {
+    lbContainer.innerHTML = `<img src="${item.src}" alt="Archive Media">`;
+  }
+  
+  lbCaption.textContent = item.caption;
+  lb.classList.add('active');
+  document.body.style.overflow = 'hidden'; 
+}
 
-</div>
+function closeLightbox() {
+  lb.classList.remove('active');
+  document.body.style.overflow = '';
+  
+  setTimeout(() => {
+    lbContainer.innerHTML = '';
+  }, 400); 
+}
 
+lbClose.addEventListener('click', closeLightbox);
+lb.addEventListener('click', (e) => {
+  if (e.target === lb) closeLightbox();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && lb.classList.contains('active')) closeLightbox();
+});
+
+</script>
 </body>
 </html>
