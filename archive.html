@@ -26,6 +26,7 @@
   --fb:          'Cormorant Garamond', serif;
   --fm:          'JetBrains Mono', monospace;
   --ease:        cubic-bezier(0.4,0,0.2,1);
+  --glow:        0 0 30px rgba(0,255,224,0.18), 0 0 80px rgba(0,255,224,0.07);
 }
 *,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
 body {
@@ -51,9 +52,22 @@ nav {
   top: 0;
   z-index: 500;
 }
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
 .nav-logo {
   font-family:var(--fm); font-size:13px; color:var(--accent);
   letter-spacing:4px; font-weight:500; text-transform: uppercase;
+}
+.nav-dp {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--accent);
+  box-shadow: var(--glow);
 }
 .back-btn {
   font-family:var(--fm); font-size:11px; letter-spacing:2px;
@@ -238,6 +252,10 @@ nav {
 }
 @media(max-width:768px) {
   nav { padding: 20px 24px; }
+  .nav-right { gap: 10px; }
+  .nav-logo { font-size: 11px; letter-spacing: 2px; }
+  .nav-dp { width: 36px; height: 36px; }
+
   .header { padding: 60px 24px 20px; }
   .archive-container { padding: 0 24px 60px; }
   
@@ -257,7 +275,10 @@ nav {
 
 <nav>
   <a href="index.html" class="back-btn">Return to Mission Control</a>
-  <div class="nav-logo">Samarth Rajendra Kulkarni</div>
+  <div class="nav-right">
+    <div class="nav-logo">Samarth Rajendra Kulkarni</div>
+    <img src="images/profile-image.jpeg" alt="Samarth" class="nav-dp">
+  </div>
 </nav>
 
 <div class="header">
@@ -290,7 +311,7 @@ const archiveData = [
   },
   {
     id: 'arc-2', type: 'image', orientation: 'landscape',
-    src: 'images/img-ceo-conclave.jpg', 
+    src: 'images/img-ceo-conclave.jpeg', 
     caption: 'On stage presenting PPT as IT Head for CEO Conclave 2025 at Amity University'
   },
   {
@@ -300,7 +321,7 @@ const archiveData = [
   },
   {
     id: 'arc-4', type: 'image', orientation: 'landscape',
-    src: 'images/img-amiprakalp.jpg', 
+    src: 'images/img-amiprakalp.jpeg', 
     caption: 'Presenting final project on hypergolic propellant and combustion at Amiprakalp 2026'
   },
   {
@@ -310,7 +331,7 @@ const archiveData = [
   },
   {
     id: 'arc-6', type: 'image', orientation: 'landscape',
-    src: 'images/img-amiemerge.jpg', 
+    src: 'images/img-amiemerge.jpeg', 
     caption: 'On stage winning prize for poster presentation at Amiemerge 2026'
   },
   {
@@ -325,7 +346,7 @@ const archiveData = [
   },
   {
     id: 'arc-9', type: 'image', orientation: 'landscape',
-    src: 'images/img-aerosustain-iitk.jpg', 
+    src: 'images/img-aerosustain-iitk.jpeg', 
     caption: 'Team AeroSustain geared up at IIT Kanpur for national drone competition'
   },
   {
@@ -335,22 +356,22 @@ const archiveData = [
   },
   {
     id: 'arc-11', type: 'image', orientation: 'landscape',
-    src: 'images/img-isro-conference.jpg', 
+    src: 'images/img-isro-conference.jpeg', 
     caption: 'Attending technical conference at ISRO SDSC-SHAR, Sriharikota'
   },
   {
     id: 'arc-12', type: 'image', orientation: 'landscape',
-    src: 'images/img-boeing.jpg', 
+    src: 'images/img-boeing.jpeg', 
     caption: 'Selected for Boeing National Level Aeromodelling Workshop 2023 at IIT Kanpur'
   },
   {
     id: 'arc-13', type: 'image', orientation: 'landscape',
-    src: 'images/img-millennium-fellowship.jpg', 
+    src: 'images/img-millennium-fellowship.jpeg', 
     caption: 'Team Sustenance volunteer work targeting Zero Hunger Sustainable Goal under Millennium Fellowship 2024'
   },
   {
     id: 'arc-14', type: 'image', orientation: 'landscape',
-    src: 'images/img-rc-fighter-testing.jpg', 
+    src: 'images/img-rc-fighter-testing.jpeg', 
     caption: 'Trial and testing of an RC fighter plane on college grounds with HOD Dr. Amol Kamble and the team'
   },
   {
@@ -360,7 +381,7 @@ const archiveData = [
   },
   {
     id: 'arc-16', type: 'image', orientation: 'landscape',
-    src: 'images/img-ssp-donation.jpg', 
+    src: 'images/img-ssp-donation.jpeg', 
     caption: 'Donating 30,000+ books and 5,000+ stationery items to underprivileged children in rural areas via SSP team'
   },
   {
@@ -375,7 +396,7 @@ const archiveData = [
   },
   {
     id: 'arc-19', type: 'image', orientation: 'square',
-    src: 'images/img-btech-batch.jpg', 
+    src: 'images/img-btech-batch.jpeg', 
     caption: 'B.Tech Aerospace Engineering (2022-26) batch group photo with professors at Amity University Mumbai'
   }
 ];
