@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Non-Core | Coming Soon</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!-- LOTTIE PLAYER FOR THE TYPING ANIMATION -->
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+<style>
+/* ─────────────────────────────────────────────
+   EXECUTIVE GLOSSY LIGHT THEME
+───────────────────────────────────────────── */
+:root {
+  --bg:          #f8f9fa;
+  --text-main:   #1a1f2b; /* Deep Navy / Almost Black */
+  --text-dim:    #64748b;
+  --gold:        #d4af37; /* Executive Gold */
+  --border:      rgba(0, 0, 0, 0.08);
+  --fh:          'Syne', sans-serif;
+  --fm:          'JetBrains Mono', monospace;
+}
+
+body {
+  /* Glossy White/Grey Gradient */
+  background: radial-gradient(circle at 50% 30%, #ffffff 0%, #e2e6eb 100%);
+  color: var(--text-main);
+  font-family: var(--fm); margin: 0; padding: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  min-height: 100vh; overflow: hidden;
+}
+
+/* ─────────────────────────────────────────────
+   THIN BLACK GRID (Graph Paper Effect)
+───────────────────────────────────────────── */
+.grid-bg {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  /* Darkened the opacity to 0.15 so it is undeniably visible */
+  background-image: 
+    linear-gradient(rgba(0, 0, 0, 0.15) 1px, transparent 1px), 
+    linear-gradient(90deg, rgba(0, 0, 0, 0.15) 1px, transparent 1px);
+  background-size: 40px 40px; 
+}
+
+/* GLOSS OVERLAY FOR EXTRA SHINE */
+.gloss {
+  position: fixed; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(135deg, rgba(255,255,255,0.7) 0%, transparent 40%, rgba(0,0,0,0.02) 100%);
+}
+
+/* ─────────────────────────────────────────────
+   PREMIUM PRELOADER (Concentric Orbit)
+───────────────────────────────────────────── */
+#preloader {
+  position: fixed; inset: 0; z-index: 9999;
+  /* Removed the blur effect completely so the thin grid lines stay sharp */
+  background: rgba(248, 249, 250, 0.65);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+#preloader.done { opacity: 0; visibility: hidden; pointer-events: none; }
+
+.premium-loader {
+  position: relative;
+  width: 70px; height: 70px;
+  margin-bottom: 30px;
+}
+
+.premium-loader .ring {
+  position: absolute; inset: 0;
+  border-radius: 50%;
+  border: 2px solid transparent;
+}
+
+.premium-loader .ring-navy {
+  border-top-color: var(--text-main);
+  border-bottom-color: var(--text-main);
+  animation: spinNavy 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+}
+
+.premium-loader .ring-gold {
+  inset: 10px;
+  border-left-color: var(--gold);
+  border-right-color: var(--gold);
+  animation: spinGold 2s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+}
+
+.premium-loader .core {
+  position: absolute; inset: 24px;
+  background: var(--text-main);
+  border-radius: 50%;
+  animation: pulseCore 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes spinNavy { 100% { transform: rotate(360deg); } }
+@keyframes spinGold { 100% { transform: rotate(-360deg); } }
+@keyframes pulseCore {
+  0% { transform: scale(0.8); opacity: 0.8; box-shadow: 0 0 0 0 rgba(26, 31, 43, 0.2); }
+  100% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 15px 5px rgba(26, 31, 43, 0.1); }
+}
+
+.loader-text {
+  font-family: var(--fm); font-size: 11px; letter-spacing: 5px;
+  text-transform: uppercase; color: var(--text-main); font-weight: 600;
+  animation: pulseText 1.5s ease-in-out infinite alternate;
+}
+@keyframes pulseText {
+  from { opacity: 0.5; }
+  to { opacity: 1; }
+}
+
+/* ─────────────────────────────────────────────
+   MAIN CONTENT (COMING SOON)
+───────────────────────────────────────────── */
+.content-wrapper {
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  opacity: 0; transform: translateY(30px); transition: all 1s ease 0.4s;
+  padding: 0 20px; position: relative; z-index: 10;
+}
+.content-wrapper.vis { opacity: 1; transform: translateY(0); }
+
+.lottie-wrap {
+  margin-bottom: 0px;
+  filter: drop-shadow(0 15px 25px rgba(0,0,0,0.05));
+}
+
+.tag {
+  font-size: 11px; letter-spacing: 5px; color: var(--gold);
+  text-transform: uppercase; margin-bottom: 12px; font-weight: 600;
+}
+.title {
+  font-family: var(--fh); font-size: clamp(38px, 6vw, 72px);
+  font-weight: 800; letter-spacing: -2px; margin-bottom: 10px; line-height: 1;
+}
+.sub {
+  font-size: 15px; color: var(--text-dim); max-width: 480px;
+  line-height: 1.7; margin-bottom: 40px; font-weight: 500;
+}
+
+.back-btn {
+  font-family: var(--fm); font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--text-main); padding: 16px 36px; border: 1px solid var(--text-main);
+  background: rgba(255,255,255,0.8); backdrop-filter: blur(10px);
+  cursor: pointer; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
+  font-weight: 600; border-radius: 4px;
+}
+.back-btn:hover {
+  background: var(--text-main); color: #fff;
+  box-shadow: 0 15px 30px rgba(26, 31, 43, 0.2); transform: translateY(-3px);
+}
+</style>
+</head>
+<body>
+
+<!-- BACKGROUND ELEMENTS -->
+<div class="grid-bg"></div>
+<div class="gloss"></div>
+
+<!-- 1. PREMIUM PRELOADER -->
+<div id="preloader">
+  <div class="premium-loader">
+    <div class="ring ring-navy"></div>
+    <div class="ring ring-gold"></div>
+    <div class="core"></div>
+  </div>
+  <div class="loader-text">Loading Dimension...</div>
+</div>
+
+<!-- 2. MAIN CONTENT -->
+<div class="content-wrapper" id="main-content">
+  
+  <div class="lottie-wrap">
+    <!-- Boy Coding on PC Lottie Animation -->
+    <lottie-player 
+      src="https://assets2.lottiefiles.com/packages/lf20_w51pcehl.json" 
+      background="transparent" 
+      speed="1" 
+      style="width: 320px; height: 320px;" 
+      loop 
+      autoplay>
+    </lottie-player>
+  </div>
+
+  <div class="tag">Work In Progress</div>
+  <div class="title">COMING SOON</div>
+  <div class="sub">This non-core dimension is currently under construction. Check back soon.</div>
+  
+  <a href="index.html" class="back-btn">
+    ← Return to Mission Control
+  </a>
+
+</div>
+
+<script>
+window.addEventListener('load', () => {
+  const preloader = document.getElementById('preloader');
+  const mainContent = document.getElementById('main-content');
+  
+  // Wait 3.5 seconds to show the preloader, then fade it out
+  setTimeout(() => {
+    preloader.classList.add('done');
+    
+    // Trigger the slide-up animation for the main content
+    setTimeout(() => {
+      mainContent.classList.add('vis');
+    }, 300);
+
+  }, 3500); 
+});
+</script>
+</body>
+</html>
