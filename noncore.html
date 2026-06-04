@@ -3,213 +3,849 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Non-Core | Coming Soon</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-
-<!-- LOTTIE PLAYER FOR THE TYPING ANIMATION -->
-<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-
+<title>Samarth Rajendra Kulkarni — Non-Core Dimension</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=JetBrains+Mono:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
 <style>
-/* ─────────────────────────────────────────────
-   EXECUTIVE GLOSSY LIGHT THEME
-───────────────────────────────────────────── */
-:root {
-  --bg:          #f8f9fa;
-  --text-main:   #1a1f2b; /* Deep Navy / Almost Black */
-  --text-dim:    #64748b;
-  --gold:        #d4af37; /* Executive Gold */
-  --border:      rgba(0, 0, 0, 0.08);
-  --fh:          'Syne', sans-serif;
-  --fm:          'JetBrains Mono', monospace;
-}
+  /* ─── DESIGN SYSTEM ─── */
+  :root {
+    --bg: #f8f9fa;
+    --bg2: #ffffff;
+    --navy: #1a1f2b;
+    --gold: #d4af37;
+    --slate: #64748b;
+    --border: rgba(0,0,0,0.08);
+    --shadow: 0 10px 30px rgba(26,31,43,0.08);
+    --shadow-lg: 0 20px 60px rgba(26,31,43,0.14);
+    --font-head: 'Syne', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --font-body: 'Cormorant Garamond', serif;
+  }
 
-body {
-  /* Glossy White/Grey Gradient */
-  background: radial-gradient(circle at 50% 30%, #ffffff 0%, #e2e6eb 100%);
-  color: var(--text-main);
-  font-family: var(--fm); margin: 0; padding: 0;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  min-height: 100vh; overflow: hidden;
-}
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; font-size: 16px; }
 
-/* ─────────────────────────────────────────────
-   THIN BLACK GRID (Graph Paper Effect)
-───────────────────────────────────────────── */
-.grid-bg {
-  position: fixed; inset: 0; z-index: 0; pointer-events: none;
-  /* Darkened the opacity to 0.15 so it is undeniably visible */
-  background-image: 
-    linear-gradient(rgba(0, 0, 0, 0.15) 1px, transparent 1px), 
-    linear-gradient(90deg, rgba(0, 0, 0, 0.15) 1px, transparent 1px);
-  background-size: 40px 40px; 
-}
+  body {
+    background: radial-gradient(circle at 50% 30%, #ffffff 0%, #e2e6eb 100%);
+    color: var(--navy);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+  }
 
-/* GLOSS OVERLAY FOR EXTRA SHINE */
-.gloss {
-  position: fixed; inset: 0; z-index: 1; pointer-events: none;
-  background: linear-gradient(135deg, rgba(255,255,255,0.7) 0%, transparent 40%, rgba(0,0,0,0.02) 100%);
-}
+  /* ─── BACKGROUND GRID & GLOSS ─── */
+  .grid-bg {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background-image: 
+      linear-gradient(rgba(0, 0, 0, 0.12) 1px, transparent 1px), 
+      linear-gradient(90deg, rgba(0, 0, 0, 0.12) 1px, transparent 1px);
+    background-size: 40px 40px; 
+  }
+  .gloss {
+    position: fixed; inset: 0; z-index: 1; pointer-events: none;
+    background: linear-gradient(135deg, rgba(255,255,255,0.7) 0%, transparent 40%, rgba(0,0,0,0.02) 100%);
+  }
 
-/* ─────────────────────────────────────────────
-   PREMIUM PRELOADER (Concentric Orbit)
-───────────────────────────────────────────── */
-#preloader {
-  position: fixed; inset: 0; z-index: 9999;
-  /* Removed the blur effect completely so the thin grid lines stay sharp */
-  background: rgba(248, 249, 250, 0.65);
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  transition: opacity 0.8s ease, visibility 0.8s ease;
-}
-#preloader.done { opacity: 0; visibility: hidden; pointer-events: none; }
+  /* ─── PRELOADER ─── */
+  #preloader {
+    position: fixed; inset: 0; z-index: 9999;
+    background: rgba(248, 249, 250, 0.85);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+  }
+  #preloader.done { opacity: 0; visibility: hidden; pointer-events: none; }
+  
+  .premium-loader { position: relative; width: 80px; height: 80px; margin-bottom: 30px; }
+  .ring { position: absolute; inset: 0; border-radius: 50%; border: 2px solid transparent; }
+  .ring-navy { border-top-color: var(--navy); border-bottom-color: var(--navy); animation: spinNavy 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite; }
+  .ring-gold { inset: 10px; border-left-color: var(--gold); border-right-color: var(--gold); animation: spinGold 2s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite; }
+  .core { position: absolute; inset: 26px; background: var(--navy); border-radius: 50%; animation: pulseCore 1.5s ease-in-out infinite alternate; }
+  
+  @keyframes spinNavy { 100% { transform: rotate(360deg); } }
+  @keyframes spinGold { 100% { transform: rotate(-360deg); } }
+  @keyframes pulseCore {
+    0% { transform: scale(0.8); opacity: 0.8; box-shadow: 0 0 0 0 rgba(26, 31, 43, 0.2); }
+    100% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 15px 5px rgba(26, 31, 43, 0.1); }
+  }
+  .preloader-label {
+    font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.2em;
+    color: var(--navy); text-transform: uppercase; font-weight: 600;
+    animation: pulseText 1.5s infinite alternate;
+  }
+  @keyframes pulseText { from { opacity: 0.4; } to { opacity: 1; } }
 
-.premium-loader {
-  position: relative;
-  width: 70px; height: 70px;
-  margin-bottom: 30px;
-}
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 900; height: 70px;
+    background: linear-gradient(180deg, rgba(248,249,250,0.95) 0%, transparent 100%);
+    display: flex; align-items: center; justify-content: space-between; padding: 0 40px;
+  }
+  .nav-logo {
+    font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.18em;
+    color: var(--navy); text-transform: uppercase; text-decoration: none; font-weight: 600;
+  }
 
-.premium-loader .ring {
-  position: absolute; inset: 0;
-  border-radius: 50%;
-  border: 2px solid transparent;
-}
+  /* ─── NAVBAR MINI DP (SCROLL ANIMATION) ─── */
+  .nav-dp-wrap { display: flex; align-items: center; gap: 15px; }
+  .nav-dp {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--navy) 0%, #3d4766 100%);
+    display: flex; align-items: center; justify-content: center;
+    border: 1.5px solid var(--gold);
+    opacity: 0; transform: scale(0.5) translateX(-20px);
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+  .nav-dp img {
+    width: 100%; height: 100%; object-fit: cover;
+  }
+  body.scrolled .nav-dp {
+    opacity: 1; transform: scale(1) translateX(0); pointer-events: auto;
+  }
 
-.premium-loader .ring-navy {
-  border-top-color: var(--text-main);
-  border-bottom-color: var(--text-main);
-  animation: spinNavy 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
-}
+  .hamburger {
+    background: none; border: none; cursor: pointer; display: flex; flex-direction: column; gap: 6px; padding: 5px;
+  }
+  .hamburger span { display: block; width: 30px; height: 2px; background: var(--navy); transition: 0.3s; transform-origin: left; }
+  .hamburger.open span:nth-child(1) { transform: rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: rotate(-45deg); }
 
-.premium-loader .ring-gold {
-  inset: 10px;
-  border-left-color: var(--gold);
-  border-right-color: var(--gold);
-  animation: spinGold 2s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
-}
+  /* ─── FULL-SCREEN MENU ─── */
+  #fullmenu {
+    position: fixed; inset: 0; z-index: 800; background: rgba(26,31,43,0.98);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    transform: translateY(-100%); transition: transform 0.5s cubic-bezier(0.77,0,0.175,1);
+  }
+  #fullmenu.open { transform: translateY(0); }
+  .menu-links { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-bottom: 40px; }
+  
+  .menu-links a {
+    font-family: var(--font-head); font-size: clamp(1.53rem, 3.4vw, 2.38rem); font-weight: 800;
+    color: rgba(255,255,255,0.2); text-decoration: none; letter-spacing: 0.02em; transition: 0.3s; text-transform: uppercase;
+  }
+  .menu-links a:hover { color: #fff; letter-spacing: 0.06em; }
+  
+  .menu-sub { display: flex; gap: 30px; margin-bottom: 40px; }
+  .menu-sub a {
+    font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.16em;
+    color: rgba(255,255,255,0.5); text-decoration: none; text-transform: uppercase; transition: 0.2s;
+  }
+  .menu-sub a:hover { color: var(--gold); }
 
-.premium-loader .core {
-  position: absolute; inset: 24px;
-  background: var(--text-main);
-  border-radius: 50%;
-  animation: pulseCore 1.5s ease-in-out infinite alternate;
-}
+  /* ─── NEON GOLD TOGGLE WRAPPER ─── */
+  .neon-toggle-wrap {
+    display: inline-flex; align-items: center; justify-content: center; gap: 14px;
+    background: rgba(15, 18, 25, 0.85);
+    padding: 8px 20px;
+    border-radius: 40px;
+    border: 1px solid var(--gold);
+    box-shadow: 0 0 12px rgba(212, 175, 55, 0.3), inset 0 0 6px rgba(212, 175, 55, 0.1);
+    font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase;
+    backdrop-filter: blur(5px);
+    margin-bottom: 40px;
+  }
+  .neon-toggle-wrap span { color: rgba(255,255,255,0.6); font-weight: 500; transition: 0.3s; }
+  .neon-toggle-wrap span.active { color: var(--gold); text-shadow: 0 0 8px rgba(212, 175, 55, 0.6); font-weight: 700; }
+  
+  .toggle-sw { position: relative; width: 50px; height: 24px; cursor: pointer; display: block; }
+  .toggle-sw input { opacity: 0; width: 0; height: 0; position: absolute; }
+  .toggle-track { 
+    position: absolute; inset: 0; background: rgba(255,255,255,0.1); 
+    border-radius: 24px; border: 1px solid rgba(255,255,255,0.15); transition: 0.3s; 
+  }
+  .toggle-track::after { 
+    content: ''; position: absolute; left: 3px; top: 3px; width: 16px; height: 16px; 
+    border-radius: 50%; background: #fff; transition: 0.3s; box-shadow: 0 0 5px rgba(0,0,0,0.5);
+  }
+  .toggle-sw input:checked + .toggle-track { background: rgba(212,175,55,0.3); border-color: var(--gold); }
+  .toggle-sw input:checked + .toggle-track::after { transform: translateX(26px); background: var(--gold); box-shadow: 0 0 8px var(--gold); }
 
-@keyframes spinNavy { 100% { transform: rotate(360deg); } }
-@keyframes spinGold { 100% { transform: rotate(-360deg); } }
-@keyframes pulseCore {
-  0% { transform: scale(0.8); opacity: 0.8; box-shadow: 0 0 0 0 rgba(26, 31, 43, 0.2); }
-  100% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 15px 5px rgba(26, 31, 43, 0.1); }
-}
+  .menu-socials { display: flex; gap: 20px; }
+  .menu-socials a {
+    font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.14em;
+    color: rgba(255,255,255,0.4); text-decoration: none; text-transform: uppercase;
+    border: 1px solid rgba(255,255,255,0.15); padding: 8px 16px; border-radius: 2px; transition: 0.2s;
+  }
+  .menu-socials a:hover { border-color: var(--gold); color: var(--gold); }
 
-.loader-text {
-  font-family: var(--fm); font-size: 11px; letter-spacing: 5px;
-  text-transform: uppercase; color: var(--text-main); font-weight: 600;
-  animation: pulseText 1.5s ease-in-out infinite alternate;
-}
-@keyframes pulseText {
-  from { opacity: 0.5; }
-  to { opacity: 1; }
-}
+  /* ─── MAIN WRAPPER ─── */
+  main { position: relative; z-index: 10; padding-top: 70px; }
+  section { padding: 90px 0; border-bottom: 1px solid var(--border); }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
 
-/* ─────────────────────────────────────────────
-   MAIN CONTENT (COMING SOON)
-───────────────────────────────────────────── */
-.content-wrapper {
-  display: flex; flex-direction: column; align-items: center; text-align: center;
-  opacity: 0; transform: translateY(30px); transition: all 1s ease 0.4s;
-  padding: 0 20px; position: relative; z-index: 10;
-}
-.content-wrapper.vis { opacity: 1; transform: translateY(0); }
+  /* ─── SECTION LABELS ─── */
+  .section-label {
+    font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.26em;
+    color: var(--gold); text-transform: uppercase; margin-bottom: 12px;
+    display: flex; align-items: center; gap: 10px; font-weight: 600;
+  }
+  .section-label::after { content:''; flex: 1; height: 1px; background: linear-gradient(90deg, var(--gold), transparent); max-width: 60px; }
+  .section-title { font-family: var(--font-head); font-weight: 800; font-size: clamp(2.2rem, 4vw, 3.2rem); color: var(--navy); line-height: 1.1; margin-bottom: 50px; text-transform: uppercase; letter-spacing: -1px;}
 
-.lottie-wrap {
-  margin-bottom: 0px;
-  filter: drop-shadow(0 15px 25px rgba(0,0,0,0.05));
-}
+  /* ─── SECTION 1: HERO ─── */
+  #hero { padding: 120px 0 80px; border-bottom: none; }
+  .hero-grid { display: grid; grid-template-columns: 340px 1fr; gap: 60px; align-items: center; }
+  
+  .hero-img-wrap {
+    position: relative; margin-bottom: 20px;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease;
+  }
+  body.scrolled .hero-img-wrap {
+    opacity: 0.15;
+    transform: translateY(40px) scale(0.9);
+  }
 
-.tag {
-  font-size: 11px; letter-spacing: 5px; color: var(--gold);
-  text-transform: uppercase; margin-bottom: 12px; font-weight: 600;
-}
-.title {
-  font-family: var(--fh); font-size: clamp(38px, 6vw, 72px);
-  font-weight: 800; letter-spacing: -2px; margin-bottom: 10px; line-height: 1;
-}
-.sub {
-  font-size: 15px; color: var(--text-dim); max-width: 480px;
-  line-height: 1.7; margin-bottom: 40px; font-weight: 500;
-}
+  .hero-img-frame { position: relative; width: 310px; height: 375px; margin: 0 auto; }
+  .hero-img-frame::before {
+    content: ''; position: absolute; inset: -8px; border: 1.5px solid var(--gold);
+    border-radius: 2px; z-index: 0; transform: rotate(2deg);
+  }
+  .hero-img-frame::after {
+    content: ''; position: absolute; inset: -16px; border: 1px solid rgba(26,31,43,0.1);
+    border-radius: 2px; z-index: 0; transform: rotate(-1deg);
+  }
+  .hero-img-frame img {
+    position: relative; z-index: 1; width: 100%; height: 100%; object-fit: cover; border-radius: 2px;
+  }
 
-.back-btn {
-  font-family: var(--fm); font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
-  color: var(--text-main); padding: 16px 36px; border: 1px solid var(--text-main);
-  background: rgba(255,255,255,0.8); backdrop-filter: blur(10px);
-  cursor: pointer; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
-  font-weight: 600; border-radius: 4px;
-}
-.back-btn:hover {
-  background: var(--text-main); color: #fff;
-  box-shadow: 0 15px 30px rgba(26, 31, 43, 0.2); transform: translateY(-3px);
-}
+  /* ─── RESUME PILL BUTTON ─── */
+  .resume-pill-wrap { text-align: center; margin-top: 35px; }
+  .resume-pill {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: rgba(15, 18, 25, 0.85);
+    border: 1px solid var(--gold); color: var(--gold);
+    padding: 12px 28px; border-radius: 40px;
+    font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.16em;
+    text-transform: uppercase; text-decoration: none; font-weight: 600;
+    box-shadow: 0 0 12px rgba(212, 175, 55, 0.15);
+    transition: all 0.3s ease; backdrop-filter: blur(5px);
+  }
+  .resume-pill:hover {
+    background: var(--gold); color: var(--navy);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+    transform: translateY(-2px);
+  }
+  .resume-pill svg { width: 14px; height: 14px; fill: currentColor; }
+  
+  .hero-badge { display: inline-block; font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.22em; color: var(--gold); border: 1px solid rgba(212,175,55,0.35); background: rgba(212,175,55,0.05); padding: 6px 16px; margin-bottom: 24px; text-transform: uppercase; font-weight: 600;}
+  .hero-name { font-family: var(--font-head); font-weight: 800; font-size: clamp(2.8rem, 5vw, 4.5rem); color: var(--navy); line-height: 0.95; letter-spacing: -0.02em; margin-bottom: 30px; text-transform: uppercase;}
+  
+  .hero-intro { font-family: var(--font-body); font-size: 1.25rem; line-height: 1.8; color: var(--slate); margin-bottom: 35px; max-width: 650px; font-weight: 400;}
+  .tags-row { display: flex; flex-wrap: wrap; gap: 10px; }
+  .tag { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.14em; color: var(--navy); border: 1px solid var(--border); background: var(--bg2); padding: 8px 16px; font-weight: 500; text-transform: uppercase; box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
+
+  /* ─── SECTION 2: EDUCATION ─── */
+  .edu-list { display: flex; flex-direction: column; gap: 30px; position: relative; padding-left: 20px;}
+  .edu-list::before { content: ''; position: absolute; left: 0; top: 10px; bottom: 0; width: 2px; background: linear-gradient(180deg, var(--gold) 0%, transparent 100%); }
+  .edu-item { position: relative; padding-left: 30px; }
+  .edu-dot { position: absolute; left: -25px; top: 6px; width: 12px; height: 12px; border-radius: 50%; background: var(--bg2); border: 2px solid var(--gold); }
+  
+  .edu-degree { font-family: var(--font-head); font-weight: 700; font-size: 1.15rem; color: var(--navy); margin-bottom: 4px; }
+  .edu-inst { font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.1em; color: var(--gold); margin-bottom: 6px; font-weight: 600;}
+  .edu-year { font-family: var(--font-mono); font-size: 0.69rem; letter-spacing: 0.12em; color: var(--slate); margin-bottom: 10px;}
+  .edu-desc { font-family: var(--font-body); font-size: 1.15rem; color: var(--slate); line-height: 1.6; }
+
+  /* ─── SECTION 3: ROLES ─── */
+  .role-tree-container { position: relative; padding-left: 30px; border-left: 2px solid var(--border); }
+  .tree-org { margin-bottom: 45px; position: relative; }
+  .tree-org::before { content: ''; position: absolute; left: -36px; top: 12px; width: 12px; height: 12px; background: var(--gold); border-radius: 50%; }
+  .org-name { font-family: var(--font-head); font-size: 1.6rem; font-weight: 800; margin-bottom: 20px; color: var(--navy); }
+  
+  .tree-role { padding: 22px 28px; background: var(--bg2); border: 1px solid var(--border); border-radius: 2px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: flex-start; box-shadow: var(--shadow); transition: 0.3s; flex-direction: column; gap: 12px;}
+  .tree-role:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); border-color: rgba(212,175,55,0.3); }
+  .role-header { display: flex; justify-content: space-between; width: 100%; align-items: center; flex-wrap: wrap; gap: 10px;}
+  .role-title { font-family: var(--font-mono); font-size: 0.9rem; font-weight: 600; color: var(--navy); text-transform: uppercase;}
+  .role-year { font-family: var(--font-mono); font-size: 0.75rem; color: var(--gold); letter-spacing: 1px; font-weight: 600;}
+  .role-brief { font-family: var(--font-body); font-size: 1.15rem; color: var(--slate); line-height: 1.6; }
+  .btn-view { font-family: var(--font-mono); font-size: 0.65rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--navy); background: transparent; border: 1px solid var(--border); padding: 8px 18px; cursor: pointer; transition: 0.3s; align-self: flex-start; margin-top: 5px;}
+  .btn-view:hover { background: var(--navy); color: var(--bg2); border-color: var(--navy); }
+
+  /* ─── SECTION 4: VENTURES ─── */
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 35px; }
+  .venture-card { background: var(--bg2); border: 1px solid var(--border); padding: 40px 35px; border-radius: 2px; box-shadow: var(--shadow); transition: 0.3s; display: flex; flex-direction: column; align-items: flex-start; position: relative;}
+  .venture-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--gold), transparent); }
+  .venture-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-5px); }
+  
+  .v-title { font-family: var(--font-head); font-size: 1.6rem; font-weight: 800; margin-bottom: 12px; line-height: 1.1; color: var(--navy);}
+  .v-role { font-family: var(--font-mono); font-size: 0.75rem; color: var(--gold); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px; font-weight: 600; }
+  .v-desc { font-family: var(--font-body); font-size: 1.15rem; color: var(--slate); line-height: 1.6; margin-bottom: 30px; flex-grow: 1;}
+
+  /* ─── SECTION 5: VOLUNTEER ─── */
+  .vol-card { background: var(--bg2); border: 1px solid var(--border); padding: 35px; border-radius: 2px; box-shadow: var(--shadow); display: flex; flex-direction: column; transition: 0.3s; }
+  .vol-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); border-color: rgba(212,175,55,0.3); }
+  .vol-title { font-family: var(--font-head); font-weight: 800; font-size: 1.4rem; color: var(--navy); margin-bottom: 8px; line-height: 1.2; }
+  .vol-role { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.15em; color: var(--gold); margin-bottom: 18px; text-transform: uppercase; font-weight: 600;}
+  .vol-desc { font-family: var(--font-body); font-size: 1.15rem; color: var(--slate); line-height: 1.6; margin-bottom: 25px; flex-grow: 1;}
+
+  /* ─── SLIDE-OUT PANEL ─── */
+  #panel-overlay { position: fixed; inset: 0; z-index: 990; background: rgba(26,31,43,0.5); opacity: 0; pointer-events: none; transition: 0.4s; backdrop-filter: blur(4px); }
+  #panel-overlay.open { opacity: 1; pointer-events: all; }
+  #side-panel { position: fixed; top: 0; right: 0; bottom: 0; width: min(550px, 90vw); background: var(--bg2); z-index: 995; border-left: 1px solid var(--border); box-shadow: -20px 0 60px rgba(26,31,43,0.15); transform: translateX(100%); transition: transform 0.5s cubic-bezier(0.77,0,0.175,1); display: flex; flex-direction: column; overflow: hidden; }
+  #side-panel.open { transform: translateX(0); }
+  .panel-header { padding: 40px 40px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: start; }
+  .panel-close { background: none; border: 1px solid var(--border); cursor: pointer; width: 40px; height: 40px; border-radius: 2px; display: flex; align-items: center; justify-content: center; color: var(--navy); font-size: 1.2rem; transition: 0.2s; }
+  .panel-close:hover { border-color: var(--gold); color: var(--gold); }
+  .panel-tag { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.2em; color: var(--gold); text-transform: uppercase; margin-bottom: 10px; display: block; font-weight: 600;}
+  .panel-title { font-family: var(--font-head); font-weight: 800; font-size: 1.8rem; color: var(--navy); line-height: 1.1; }
+  .panel-body { padding: 30px 40px; overflow-y: auto; flex: 1; }
+  .panel-section { margin-bottom: 30px; }
+  .panel-section h4 { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 15px; border-bottom: 1px solid var(--border); padding-bottom: 8px;}
+  .panel-section p { font-family: var(--font-body); font-size: 1.15rem; color: var(--slate); line-height: 1.7; }
+  
+  /* Panel Image Grid Styling */
+  .panel-img-grid { display: flex; gap: 15px; margin-top: 25px; flex-wrap: wrap; }
+  .panel-img {
+    flex: 1; min-width: 140px; height: 180px; object-fit: cover;
+    background-color: #e2e6eb;
+    border: 1px solid var(--border); border-radius: 2px;
+  }
+
+  /* ─── CONTACT & FOOTER ─── */
+  #contact {
+    background: var(--navy); color: rgba(255,255,255,0.75); padding: 80px 0 50px;
+    position: relative; overflow: hidden; text-align: left; border-top: 1px solid var(--border);
+  }
+  #contact::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 40px 40px; opacity: 0.5; z-index: 0;
+  }
+  .contact-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 0 40px;}
+  .contact-label { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.26em; color: var(--gold); text-transform: uppercase; margin-bottom: 15px; }
+  .contact-title { font-family: var(--font-head); font-weight: 800; font-size: clamp(2rem,4vw,3.2rem); color: #fff; margin-bottom: 35px; line-height: 1.1; }
+  .contact-links { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 50px; }
+  .contact-link {
+    font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.14em;
+    color: rgba(255,255,255,0.8); text-decoration: none; border: 1px solid rgba(255,255,255,0.2);
+    padding: 10px 22px; border-radius: 2px; text-transform: uppercase; transition: all 0.3s;
+    display: flex; align-items: center; gap: 8px; font-weight: 500;
+  }
+  .contact-link:hover { border-color: var(--gold); color: var(--gold); background: rgba(212,175,55,0.05);}
+  
+  .footer-toggle-wrap { display: flex; align-items: center; gap: 14px; font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.16em; color: rgba(255,255,255,0.4); text-transform: uppercase; margin-bottom: 40px; }
+  .toggle-sw2 { position: relative; width: 56px; height: 28px; cursor: pointer; }
+  .toggle-sw2 input { opacity: 0; width: 0; height: 0; }
+  .toggle-track2 { position: absolute; inset: 0; background: rgba(255,255,255,0.08); border-radius: 28px; border: 1px solid rgba(255,255,255,0.15); transition: 0.3s; }
+  .toggle-track2::after { content: ''; position: absolute; left: 4px; top: 4px; width: 18px; height: 18px; border-radius: 50%; background: var(--gold); transition: transform 0.3s; }
+  .toggle-sw2 input:checked + .toggle-track2 { background: rgba(212,175,55,0.15); }
+  .toggle-sw2 input:checked + .toggle-track2::after { transform: translateX(28px); }
+  
+  .footer-copy {
+    font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.14em;
+    color: rgba(255,255,255,0.3); border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 25px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .hero-grid { grid-template-columns: 1fr; text-align: center; }
+    .tags-row { justify-content: center; }
+  }
 </style>
 </head>
 <body>
 
-<!-- BACKGROUND ELEMENTS -->
 <div class="grid-bg"></div>
 <div class="gloss"></div>
 
-<!-- 1. PREMIUM PRELOADER -->
+<!-- PRELOADER -->
 <div id="preloader">
   <div class="premium-loader">
     <div class="ring ring-navy"></div>
     <div class="ring ring-gold"></div>
     <div class="core"></div>
   </div>
-  <div class="loader-text">Loading Dimension...</div>
+  <div class="preloader-label">Transitioning...</div>
 </div>
 
-<!-- 2. MAIN CONTENT -->
-<div class="content-wrapper" id="main-content">
-  
-  <div class="lottie-wrap">
-    <!-- Boy Coding on PC Lottie Animation -->
-    <lottie-player 
-      src="https://assets2.lottiefiles.com/packages/lf20_w51pcehl.json" 
-      background="transparent" 
-      speed="1" 
-      style="width: 320px; height: 320px;" 
-      loop 
-      autoplay>
-    </lottie-player>
+<!-- NAV -->
+<nav>
+  <div class="nav-dp-wrap">
+    <div class="nav-dp">
+      <img src="images/profile-image.jpeg" alt="SRK" onerror="this.onerror=null; this.src='https://placehold.co/100x100/1a1f2b/d4af37?text=SRK'">
+    </div>
+    <a href="#" class="nav-logo">SRK — Non-Core</a>
   </div>
 
-  <div class="tag">Work In Progress</div>
-  <div class="title">COMING SOON</div>
-  <div class="sub">This non-core dimension is currently under construction. Check back soon.</div>
-  
-  <a href="index.html" class="back-btn">
-    ← Return to Mission Control
-  </a>
+  <div style="display:flex;align-items:center;gap:20px;">
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
 
+<!-- FULL MENU -->
+<div id="fullmenu">
+  <div class="menu-links">
+    <a href="#hero">About me</a>
+    <a href="#education">Education</a>
+    <a href="#roles">Roles of Responsibility</a>
+    <a href="#ventures">Entrepreneurial Initiatives</a>
+    <a href="#volunteer">Volunteer</a>
+    <a href="#contact">Contact</a>
+  </div>
+  
+  <div class="menu-sub">
+    <a href="blog.html">Blog</a>
+    <a href="archive.html">Archive</a>
+  </div>
+  
+  <!-- NEON GOLD TOGGLE -->
+  <div class="neon-toggle-wrap">
+    <span>Core</span>
+    <label class="toggle-sw">
+      <input type="checkbox" checked onchange="if(!this.checked) window.location='index.html'">
+      <span class="toggle-track"></span>
+    </label>
+    <span class="active">Non-Core</span>
+  </div>
+
+  <div class="menu-socials">
+    <a href="mailto:samarthkulkarni162@gmail.com">Email</a>
+    <a href="https://www.linkedin.com/in/samarthk162" target="_blank">LinkedIn</a>
+    <a href="https://www.youtube.com/@SamarthKulkarni162" target="_blank">YouTube</a>
+    <a href="https://instagram.com" target="_blank">Instagram</a>
+  </div>
+</div>
+
+<main>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <!-- Image Layout (+10% Size) with Smart Fallback -->
+        <div class="hero-img-wrap">
+          <div class="hero-img-frame">
+            <img src="images/profile-image.jpeg" alt="Samarth Rajendra Kulkarni" 
+                 onerror="this.onerror=null; this.src='https://placehold.co/310x375/e2e6eb/64748b?text=Profile+Image'" 
+                 style="position: relative; z-index: 1; width: 100%; height: 100%; object-fit: cover; border-radius: 2px;">
+          </div>
+          
+          <!-- RESUME PILL BUTTON -->
+          <div class="resume-pill-wrap">
+            <a href="resume-noncore.pdf" target="_blank" class="resume-pill">
+              <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2h12c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+              View Resume
+            </a>
+          </div>
+
+        </div>
+
+        <div class="hero-right">
+          <h1 class="hero-name">Samarth<br>Rajendra Kulkarni</h1>
+          <p class="hero-intro">
+            I am an Aerospace Engineer by education, but my ambitions extend far beyond the drafting table.
+            My professional interests lie at the intersection of technology, finance, and economics. I am drawn
+            to technical consulting, investment banking, and tech leadership — specifically with an ethos rooted
+            in smart, optimized, and advanced manufacturing. I believe in creating scalable physical realities
+            and robust operational systems. My focus is on driving sustainable, real-world impact through
+            enduring business mechanics, intelligent supply chains, and cross-functional leadership.
+          </p>
+          <div class="tags-row">
+            <span class="tag">Finance & Economics</span>
+            <span class="tag">Investment Banking</span>
+            <span class="tag">Technical Consulting</span>
+            <span class="tag">Tech Leadership</span>
+            <span class="tag">Business Management</span>
+            <span class="tag">Smart Manufacturing</span>
+            <span class="tag">SDG Initiatives</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="container">
+      <div class="section-label">Academic Foundation</div>
+      <h2 class="section-title">Education</h2>
+      
+      <div class="edu-list">
+        <div class="edu-item">
+          <div class="edu-dot" style="background: var(--gold);"></div>
+          <div class="edu-degree">M.Tech — Aerospace Engineering (Structures)</div>
+          <div class="edu-inst">Indian Institute of Technology Bombay</div>
+          <div class="edu-year">2026 – 2028</div>
+          <div class="edu-desc">Focusing on advanced aerospace structures, shape-adaptive materials, and composite manufacturing techniques.</div>
+        </div>
+
+        <div class="edu-item">
+          <div class="edu-dot"></div>
+          <div class="edu-degree">B.Tech — Aerospace Engineering</div>
+          <div class="edu-inst">Amity University Mumbai</div>
+          <div class="edu-year">2022 – 2026</div>
+          <div class="edu-desc">Comprehensive foundational studies in aerodynamics, propulsion, computational fluid dynamics, and aerospace systems.</div>
+        </div>
+
+        <div class="edu-item">
+          <div class="edu-dot"></div>
+          <div class="edu-degree">Summer Immersion Program</div>
+          <div class="edu-inst">Columbia University</div>
+          <div class="edu-year">2021</div>
+          <div class="edu-desc">Intensive summer curriculum focused on global perspectives in Entrepreneurship and Innovation.</div>
+        </div>
+
+        <div class="edu-item">
+          <div class="edu-dot"></div>
+          <div class="edu-degree">Maharashtra Board (HSC) Class 12th</div>
+          <div class="edu-inst">Walchand College of Arts and Science</div>
+          <div class="edu-year">2020 – 2022</div>
+          <div class="edu-desc">Rigorous curriculum anchored in core sciences and mathematics, preparing for advanced engineering studies.</div>
+        </div>
+
+        <div class="edu-item">
+          <div class="edu-dot"></div>
+          <div class="edu-degree">CBSE Class 10th</div>
+          <div class="edu-inst">KLE English Medium School</div>
+          <div class="edu-year">2008 – 2020</div>
+          <div class="edu-desc">Early academic foundation established with a strong emphasis on analytical thinking and holistic development.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROLES OF RESPONSIBILITY -->
+  <section id="roles">
+    <div class="container">
+      <div class="section-label">Experience</div>
+      <h2 class="section-title">Roles & Responsibilities</h2>
+
+      <div class="role-tree-container">
+        
+        <div class="tree-org">
+          <div class="org-name">Aminova (Annual Cultural Fest of AUM)</div>
+          
+          <div class="tree-role">
+            <div class="role-header">
+              <span class="role-title">General Management Committee Head</span>
+              <span class="role-year">2023 – 2024</span>
+            </div>
+            <div class="role-brief">Elevated to lead the General Management Committee. Handled intricate inter-departmental coordination across more than 8 verticals, managing a massive footfall of over 12,000 visitors.</div>
+            <button class="btn-view" onclick="openPanel('aminova-24')">View More Details</button>
+          </div>
+
+          <div class="tree-role">
+            <div class="role-header">
+              <span class="role-title">Sponsorship & PR Coordinator</span>
+              <span class="role-year">2022 – 2023</span>
+            </div>
+            <div class="role-brief">Led all sponsorship outreach and PR activities. Secured over 15 sponsors and generated a total sponsorship value exceeding ₹10 Lakhs.</div>
+            <button class="btn-view" onclick="openPanel('aminova-23')">View More Details</button>
+          </div>
+        </div>
+
+        <div class="tree-org">
+          <div class="org-name">Technicia (Annual Technical Fest of AUM, Organized by ASET)</div>
+          
+          <div class="tree-role">
+            <div class="role-header">
+              <span class="role-title">Organizing Committee Digital Head</span>
+              <span class="role-year">2023 – 2024</span>
+            </div>
+            <div class="role-brief">Developed an SEO-optimized festival website and managed a team of 10+ student volunteers. Directed comprehensive digital marketing campaigns that increased the festival's digital footprint to over 50k impressions.</div>
+            <button class="btn-view" onclick="openPanel('tech-24')">View More Details</button>
+          </div>
+
+          <div class="tree-role">
+            <div class="role-header">
+              <span class="role-title">Digital Head</span>
+              <span class="role-year">2022 – 2023</span>
+            </div>
+            <div class="role-brief">Focused on innovative and creative storytelling. Boosted online presence, improving participation by 30% and achieving a digital footfall of over 60,000.</div>
+            <button class="btn-view" onclick="openPanel('tech-23')">View More Details</button>
+          </div>
+        </div>
+
+        <div class="tree-org">
+          <div class="org-name">GDSC Core Team 2023-24 for AUM</div>
+          
+          <div class="tree-role">
+            <div class="role-header">
+              <span class="role-title">PR Head</span>
+              <span class="role-year">2023 – 2024</span>
+            </div>
+            <div class="role-brief">Directed public relations and educational awareness through peer-to-peer marketing, ensuring inclusivity for all students to benefit from the community and organizing over 30 workshops.</div>
+            <button class="btn-view" onclick="openPanel('gdsc')">View More Details</button>
+          </div>
+        </div>
+
+        <div class="tree-org">
+          <div class="org-name">CEO Conclave 2024 by CRC and E-Cell of AUM</div>
+          
+          <div class="tree-role">
+            <div class="role-header">
+              <span class="role-title">IT Head</span>
+              <span class="role-year">2024</span>
+            </div>
+            <div class="role-brief">Oversaw the digital infrastructure and technical execution for a high-profile corporate leadership event, ensuring zero technical disruptions.</div>
+            <button class="btn-view" onclick="openPanel('ceo')">View More Details</button>
+          </div>
+        </div>
+
+        <div class="tree-org">
+          <div class="org-name">Team AeroSustain</div>
+          
+          <div class="tree-role">
+            <div class="role-header">
+              <span class="role-title">Team Lead</span>
+              <span class="role-year">2022 – 2025</span>
+            </div>
+            <div class="role-brief">Led cross-functional engineering teams in competitive aerospace initiatives. Managed budgets, project timelines, and technical design for UAV and sustainable aeromodelling competitions.</div>
+            <button class="btn-view" onclick="openPanel('aerosustain')">View More Details</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ENTREPRENEURIAL INITIATIVES -->
+  <section id="ventures">
+    <div class="container">
+      <div class="section-label">Ventures</div>
+      <h2 class="section-title">Entrepreneurial Initiatives</h2>
+      
+      <div class="card-grid">
+        <div class="venture-card">
+          <h3 class="v-title">Prisha Cake Gallery</h3>
+          <span class="v-role">Founder & Ops Lead · 2020–2022</span>
+          <p class="v-desc">Launched a commercial baking and gifting service from home at age 16. Bootstrapped with zero capital, scaled to fulfill over 3,500 orders with a 5-person delivery fleet, integrating with Zomato and Swiggy.</p>
+          <button class="btn-view" onclick="openPanel('pcg')">View More Details</button>
+        </div>
+
+        <div class="venture-card">
+          <h3 class="v-title">Festiverse</h3>
+          <span class="v-role">Co-Founder & Event Manager · 2023–2025</span>
+          <p class="v-desc">Co-founded a professional event management venture targeting the college demographic. Negotiated formal partnership agreements with 10+ local clubs and venues, hosting 15+ large-scale events.</p>
+          <button class="btn-view" onclick="openPanel('festiverse')">View More Details</button>
+        </div>
+
+        <div class="venture-card">
+          <h3 class="v-title">AeroSustain Tech Outreach</h3>
+          <span class="v-role">Organizer & Founding Member</span>
+          <p class="v-desc">Democratized access to aerospace education by launching affordable drone and RC plane-making workshops for tier-3 schools and colleges. Managed a 5-person instruction team, training over 80 participants.</p>
+          <button class="btn-view" onclick="openPanel('aerosustain-v')">View More Details</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VOLUNTEER WORKS -->
+  <section id="volunteer">
+    <div class="container">
+      <div class="section-label">Social Impact</div>
+      <h2 class="section-title">Volunteer Works</h2>
+      
+      <div class="card-grid">
+        <div class="vol-card">
+          <h3 class="vol-title">SSP Rural Education Drive</h3>
+          <span class="vol-role">Volunteer & Digital Lead</span>
+          <p class="vol-desc">Spearheaded the digital outreach and awareness marketing campaigns. Logistically supported the massive distribution of over 30,000 books and 50,000+ stationery items to underprivileged children across 20+ remote villages.</p>
+          <button class="btn-view" onclick="openPanel('ssp')">View More Details</button>
+        </div>
+
+        <div class="vol-card">
+          <h3 class="vol-title">Millennium Fellowship</h3>
+          <span class="vol-role">Project Lead — Team Sustenance</span>
+          <p class="vol-desc">Led Team Sustenance focusing on UN SDG 2: Zero Hunger. Orchestrated large-scale donation drives targeting local orphanages and elder shelter homes to supply essential food items.</p>
+          <button class="btn-view" onclick="openPanel('mf')">View More Details</button>
+        </div>
+
+        <div class="vol-card">
+          <h3 class="vol-title">EcoTrek Maharashtra</h3>
+          <span class="vol-role">Co-Founder & Member · 2023–Present</span>
+          <p class="vol-desc">Co-founded a trekking coalition merging adventure with environmental stewardship. Scaled over 12 major summits in Maharashtra alongside 12+ peers, conducting rigorous clean-up drives at each peak.</p>
+          <button class="btn-view" onclick="openPanel('ecotrek')">View More Details</button>
+        </div>
+
+        <div class="vol-card">
+          <h3 class="vol-title">Climate Cardinals</h3>
+          <span class="vol-role">Translator · 2021–2023</span>
+          <p class="vol-desc">Translated UN climate framework documents and policy papers into Kannada, Marathi, and Hindi, making critical climate science accessible to millions in the Deccan and Western India.</p>
+          <button class="btn-view" onclick="openPanel('cc')">View More Details</button>
+        </div>
+
+        <div class="vol-card">
+          <h3 class="vol-title">Animal Rescue & Habitation</h3>
+          <span class="vol-role">Active Volunteer & Member</span>
+          <p class="vol-desc">Dedicated volunteer work coordinating with RESQ Trust and local NGOs to provide medical assistance, habitation, and care to stray and injured animals in the regional area.</p>
+          <button class="btn-view" onclick="openPanel('animal-rescue')">View More Details</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLAUDE'S DARK FOOTER -->
+  <section id="contact">
+    <div class="container contact-inner">
+      <div class="contact-label">Get In Touch</div>
+      <h2 class="contact-title">Let's build something<br>that endures.</h2>
+      
+      <div class="contact-links">
+        <a href="mailto:samarthkulkarni162@gmail.com" class="contact-link">✉ &nbsp; Email Me</a>
+        <a href="https://www.linkedin.com/in/samarthk162" target="_blank" class="contact-link">⟶ &nbsp; LinkedIn</a>
+        <a href="https://www.youtube.com/@SamarthKulkarni162" target="_blank" class="contact-link">▶ &nbsp; YouTube</a>
+        <a href="https://instagram.com" target="_blank" class="contact-link">📷 &nbsp; Instagram</a>
+      </div>
+
+      <!-- NEON GOLD TOGGLE (FOOTER) -->
+      <div class="neon-toggle-wrap">
+        <span>Core</span>
+        <label class="toggle-sw">
+          <input type="checkbox" checked onchange="if(!this.checked) window.location='index.html'">
+          <span class="toggle-track"></span>
+        </label>
+        <span class="active">Non-Core</span>
+      </div>
+
+      <div class="footer-copy">
+        <span>© 2026 Samarth Rajendra Kulkarni. All rights reserved.</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:0.54rem;letter-spacing:0.1em;color:rgba(255,255,255,0.3);">Always learning and building!</span>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- SLIDE-OUT PANEL -->
+<div id="panel-overlay" onclick="closePanel()"></div>
+<div id="side-panel">
+  <div class="panel-header">
+    <div>
+      <span class="panel-tag" id="panel-tag">Detail</span>
+      <h2 class="panel-title" id="panel-title">Details</h2>
+    </div>
+    <button class="panel-close" onclick="closePanel()">✕</button>
+  </div>
+  <div class="panel-body" id="panel-body">
+    <!-- Content injected via JS -->
+  </div>
 </div>
 
 <script>
-window.addEventListener('load', () => {
-  const preloader = document.getElementById('preloader');
-  const mainContent = document.getElementById('main-content');
-  
-  // Wait 3.5 seconds to show the preloader, then fade it out
-  setTimeout(() => {
-    preloader.classList.add('done');
-    
-    // Trigger the slide-up animation for the main content
-    setTimeout(() => {
-      mainContent.classList.add('vis');
-    }, 300);
+  // ─── SCROLL ANIMATION (HERO IMAGE -> NAV DP) ───
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 380) {
+      document.body.classList.add('scrolled');
+    } else {
+      document.body.classList.remove('scrolled');
+    }
+  });
 
-  }, 3500); 
-});
+  // Preloader Logic
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.getElementById('preloader').classList.add('done');
+    }, 1200); 
+  });
+
+  // Hamburger Menu
+  const hamburger = document.getElementById('hamburger');
+  const fullmenu  = document.getElementById('fullmenu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    fullmenu.classList.toggle('open');
+    document.body.style.overflow = fullmenu.classList.contains('open') ? 'hidden' : '';
+  });
+  fullmenu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      fullmenu.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+
+  // Panel Data with Smart Image Placeholders
+  const panels = {
+    'aminova-24': {
+      tag: 'Aminova — 2023-24', title: 'General Management Committee Head',
+      body: `<div class="panel-section"><h4>Operational Overview</h4><p>Elevated to lead the General Management Committee for Aminova. Handled intricate inter-departmental coordination across more than 8 verticals, including Security, PR, Marketing, Digital, Organizing, Hospitality, Logistics, Decoration, IT, and Cultural.</p></div><div class="panel-section"><h4>Impact & Execution</h4><p>Successfully managed a massive footfall of over 12,000 visitors, coordinated 8 food stalls, and ensured the seamless flow of over 30 simultaneous cultural and non-cultural competitive events.</p></div><div class="panel-img-grid"><img src="images/aminova-24-1.jpeg" class="panel-img" alt="Aminova 24" onerror="this.onerror=null; this.src='https://placehold.co/400x300/e2e6eb/64748b?text=Aminova+24+Placeholder'"></div>`
+    },
+    'aminova-23': {
+      tag: 'Aminova — 2022-23', title: 'Sponsorship & PR Coordinator',
+      body: `<div class="panel-section"><h4>Sponsorship & Acquisition</h4><p>Led all sponsorship outreach and PR activities. Secured over 15 sponsors—including Title, Associate, Supporting, and Event-Specific partners—along with 10+ food stalls, concert sponsors, and hospitality/gift partners.</p></div><div class="panel-section"><h4>Financial Impact</h4><p>Generated significant total sponsorship value (monetary and non-monetary) to support scale execution, building brand partnerships and coordinating media coverage.</p></div><div class="panel-img-grid"><img src="images/aminova-23-1.jpeg" class="panel-img" alt="Aminova 23" onerror="this.onerror=null; this.src='https://placehold.co/400x300/e2e6eb/64748b?text=Aminova+23+Placeholder'"></div>`
+    },
+    'tech-24': {
+      tag: 'Technicia — 2023-24', title: 'OC Digital Head',
+      body: `<div class="panel-section"><h4>Digital Infrastructure</h4><p>Promoted to Organizing Committee Digital Head. Developed an SEO-optimized festival website and managed a team of 10+ student volunteers. Directed comprehensive digital marketing campaigns that increased the festival's digital footprint to over 50,000 impressions.</p></div><div class="panel-section"><h4>Innovative Execution</h4><p>Pioneered an innovative physical branding strategy by showcasing live banners via 3D spectrum aerial shots.</p></div><div class="panel-img-grid"><img src="images/tech-24-1.jpeg" class="panel-img" alt="Technicia 24" onerror="this.onerror=null; this.src='https://placehold.co/400x300/e2e6eb/64748b?text=Technicia+24+Placeholder'"></div>`
+    },
+    'tech-23': {
+      tag: 'Technicia — 2022-23', title: 'Digital Head',
+      body: `<div class="panel-section"><h4>Content Strategy</h4><p>Managed digital presence and communications. Focused on innovative and creative storytelling, primarily through Reels and short-form content. Boosted online presence, improving participation and engagement by 30%.</p></div><div class="panel-section"><h4>Metrics & Coordination</h4><p>Achieved a digital footfall of over 60,000. Coordinated directly with diverse departments to understand their needs and provide rapid solutions via the digital team.</p></div><div class="panel-img-grid"><img src="images/tech-23-1.jpeg" class="panel-img" alt="Technicia 23" onerror="this.onerror=null; this.src='https://placehold.co/400x300/e2e6eb/64748b?text=Technicia+23+Placeholder'"></div>`
+    },
+    'gdsc': {
+      tag: 'GDSC & Nirman 2023', title: 'PR Head',
+      body: `<div class="panel-section"><h4>GDSC Operations</h4><p>Directed public relations and educational awareness through peer-to-peer marketing, ensuring inclusivity for all students to benefit from the community. Orchestrated 30+ workshops and tech events throughout the academic year.</p></div><div class="panel-section"><h4>Nirman 2023 Leadership</h4><p>Served as Sponsorship and PR Head for Nirman 2023, an event with over 200 participants and 30+ teams, sponsored by Odoo with significant prize pools distributed.</p></div><div class="panel-img-grid"><img src="images/gdsc-1.jpeg" class="panel-img" alt="GDSC" onerror="this.onerror=null; this.src='https://placehold.co/400x300/e2e6eb/64748b?text=GDSC+Placeholder'"></div>`
+    },
+    'ceo': {
+      tag: 'CEO Conclave 2024', title: 'IT Head',
+      body: `<div class="panel-section"><h4>Technical Execution</h4><p>Appointed as IT Head for CEO Conclave 2024 — a prestigious institutional summit. Responsible for managing AV setup, live-streaming coordination, digital registration systems, and on-site technical support ensuring zero disruptions.</p></div><div class="panel-img-grid"><img src="images/ceo-1.jpeg" class="panel-img" alt="CEO Conclave" onerror="this.onerror=null; this.src='https://placehold.co/400x300/e2e6eb/64748b?text=CEO+Conclave+Placeholder'"></div>`
+    },
+    'aerosustain': {
+      tag: 'AeroSustain — 2022-2025', title: 'Team Lead',
+      body: `<div class="panel-section"><h4>Engineering Leadership</h4><p>Led cross-functional engineering teams in competitive aerospace initiatives. Managed budgets, project timelines, and technical design for UAV and sustainable aeromodelling competitions.</p></div><div class="panel-section"><h4>Mentorship</h4><p>Mentored junior members and coordinated technical operations to ensure high-performance execution in national-level challenges.</p></div><div class="panel-img-grid"><img src="images/aerosustain-1.jpeg" class="panel-img" alt="AeroSustain" onerror="this.onerror=null; this.src='https://placehold.co/400x300/e2e6eb/64748b?text=AeroSustain+Placeholder'"></div>`
+    },
+    'pcg': {
+      tag: 'Venture 01', title: 'Prisha Cake Gallery',
+      body: `<div class="panel-section"><h4>Genesis & Execution</h4><p>Launched a commercial baking and gifting service from home at age 16. Bootstrapped with zero external capital. Achieved horizontal integration by partnering with local florists.</p></div><div class="panel-section"><h4>Operations & Scale</h4><p>Scaled to fulfill over 3,500 orders with a 5-person delivery fleet, integrating with Zomato and Swiggy. Executed B2B cold-emailing to secure vendor partnerships with FNP, IGP, Winni, and FloraAura.</p></div><div class="panel-section"><h4>Financial Sustainability</h4><p>Maintained a strong 35% net profit margin across the venture's lifecycle, achieving robust unit economics entirely through bootstrapped organic growth.</p></div>`
+    },
+    'festiverse': {
+      tag: 'Venture 02', title: 'Festiverse',
+      body: `<div class="panel-section"><h4>Event Operations</h4><p>Co-founded a professional event management venture targeting the college demographic. Negotiated formal partnership agreements with 10+ local clubs and venues.</p></div><div class="panel-section"><h4>Scale & Impact</h4><p>Hosted 15+ large-scale seasonal and graduation events, managing end-to-end logistics and scaling audience reach to 400+ attendees while ensuring highly profitable event margins.</p></div><div class="panel-img-grid"><img src="images/festiverse-1.jpeg" class="panel-img" alt="Festiverse" onerror="this.onerror=null; this.src='https://placehold.co/400x300/e2e6eb/64748b?text=Festiverse+Placeholder'"></div>`
+    },
+    'aerosustain-v': {
+      tag: 'Venture 03', title: 'AeroSustain Tech Outreach',
+      body: `<div class="panel-section"><h4>Democratizing Education</h4><p>Launched affordable drone and RC plane-making workshops for tier-3 schools and colleges to close the gap in hands-on technical education.</p></div><div class="panel-section"><h4>Execution</h4><p>Managed a 5-person instruction team. Hosted 3+ comprehensive workshops (online and offline), training over 80 participants and establishing a financially self-sustaining outreach model.</p></div><div class="panel-img-grid"><img src="images/aero-outreach-1.jpeg" class="panel-img" alt="Aero Outreach 1" onerror="this.onerror=null; this.src='https://placehold.co/400x300/e2e6eb/64748b?text=Aero+Outreach+1'"><img src="images/aero-outreach-2.jpeg" class="panel-img" alt="Aero Outreach 2" onerror="this.onerror=null; this.src='https://placehold.co/400x300/e2e6eb/64748b?text=Aero+Outreach+2'"></div>`
+    },
+    'ssp': {
+      tag: 'Social Impact', title: 'SSP Rural Education Drive',
+      body: `<div class="panel-section"><h4>Awareness & Marketing</h4><p>Spearheaded the digital outreach and awareness marketing campaigns for the SSP Rural Education Drive, drastically improving digital visibility for the cause.</p></div><div class="panel-section"><h4>Logistical Impact</h4><p>Logistically supported the massive distribution of over 30,000 books and 50,000+ stationery items to underprivileged children across 20+ remote villages in South Solapur.</p></div><div class="panel-img-grid"><img src="images/ssp-1.jpeg" class="panel-img" alt="SSP Rural 1" onerror="this.onerror=null; this.src='https://placehold.co/400x300/e2e6eb/64748b?text=SSP+Rural+1'"><img src="images/ssp-2.jpeg" class="panel-img" alt="SSP Rural 2" onerror="this.onerror=null; this.src='https://placehold.co/400x300/e2e6eb/64748b?text=SSP+Rural+2'"><img src="images/ssp-3.jpeg" class="panel-img" alt="SSP Rural 3" onerror="this.onerror=null; this.src='https://placehold.co/400x300/e2e6eb/64748b?text=SSP+Rural+3'"></div>`
+    },
+    'mf': {
+      tag: 'UN SDG', title: 'Team Sustenance',
+      body: `<div class="panel-section"><h4>Project Leadership</h4><p>Led Team Sustenance focusing on UN SDG 2: Zero Hunger under the globally recognized Millennium Fellowship.</p></div><div class="panel-section"><h4>Community Impact</h4><p>Orchestrated large-scale donation drives targeting local orphanages and elder shelter homes. Coordinated volunteers to supply essential food and daily items to hundreds of underprivileged individuals.</p></div><div class="panel-img-grid"><img src="images/mf-1.jpeg" class="panel-img" alt="Millennium Fellowship 1" onerror="this.onerror=null; this.src='https://placehold.co/400x300/e2e6eb/64748b?text=Fellowship+1'"><img src="images/mf-2.jpeg" class="panel-img" alt="Millennium Fellowship 2" onerror="this.onerror=null; this.src='https://placehold.co/400x300/e2e6eb/64748b?text=Fellowship+2'"><img src="images/mf-3.jpeg" class="panel-img" alt="Millennium Fellowship 3" onerror="this.onerror=null; this.src='https://placehold.co/400x300/e2e6eb/64748b?text=Fellowship+3'"></div>`
+    },
+    'ecotrek': {
+      tag: 'Environment', title: 'EcoTrek Maharashtra',
+      body: `<div class="panel-section"><h4>Environmental Stewardship</h4><p>Co-founded a trekking coalition merging adventure with environmental consciousness. Organized expeditions with 12+ peers.</p></div><div class="panel-section"><h4>Direct Action</h4><p>Scaled over 12 major summits in Maharashtra, conducting rigorous clean-up drives at each peak and spreading ecological awareness among local communities.</p></div><div class="panel-img-grid"><img src="images/ecotrek-1.jpeg" class="panel-img" alt="EcoTrek" onerror="this.onerror=null; this.src='https://placehold.co/400x300/e2e6eb/64748b?text=EcoTrek+Placeholder'"></div>`
+    },
+    'cc': {
+      tag: 'Climate', title: 'Climate Cardinals',
+      body: `<div class="panel-section"><h4>Translation & Accessibility</h4><p>Translated UN climate framework documents, policy papers, and educational materials into Kannada, Marathi, and Hindi.</p></div><div class="panel-section"><h4>Impact</h4><p>Helped make critical climate science accessible to millions of speakers in the Deccan and Western India regions who previously lacked access to English-language climate literature.</p></div>`
+    },
+    'animal-rescue': {
+      tag: 'Animal Welfare', title: 'Animal Rescue & Habitation',
+      body: `<div class="panel-section"><h4>On-Ground Action</h4><p>Active volunteer work coordinating with RESQ Trust and local NGOs to provide emergency medical assistance, habitation, and care to stray and injured animals in the regional area.</p></div>`
+    }
+  };
+
+  function openPanel(key) {
+    const data = panels[key];
+    if (!data) return;
+    document.getElementById('panel-tag').textContent = data.tag;
+    document.getElementById('panel-title').textContent = data.title;
+    document.getElementById('panel-body').innerHTML = data.body;
+    document.getElementById('panel-overlay').classList.add('open');
+    document.getElementById('side-panel').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closePanel() {
+    document.getElementById('panel-overlay').classList.remove('open');
+    document.getElementById('side-panel').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
 </script>
 </body>
 </html>
